@@ -13,6 +13,11 @@ const resultsRouter = require("./routes/results");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Railway terminates HTTPS at its edge and forwards plain HTTP internally.
+// Without this, Express can't tell the original request was secure, and
+// express-session silently drops the Secure cookie instead of setting it.
+app.set("trust proxy", 1);
+
 app.use(express.json());
 app.use(
     session({
