@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 850" width="100%" height="100%">
+  <defs>
+    <!-- Fonts -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&amp;family=Playfair+Display:ital,wght@1,600&amp;display=swap');
+      .vertical-text-title {
+        font-family: 'Manrope', sans-serif;
+        font-weight: 800;
+        font-size: 38px;
+        fill: url(#crimsonGradient);
+        letter-spacing: 5px;
+      }
+      .vertical-text-sub {
+        font-family: 'Manrope', sans-serif;
+        font-weight: 700;
+        font-size: 26px;
+        fill: url(#crimsonGradient);
+        letter-spacing: 3px;
+      }
+      .slogan-text {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-weight: 600;
+        font-size: 26px;
+        fill: #333333;
+      }
+      .since-text {
+        font-family: 'Manrope', sans-serif;
+        font-weight: 800;
+        font-size: 34px;
+        fill: url(#crimsonGradient);
+        letter-spacing: 3px;
+      }
+    </style>
+    
+    <!-- Gradients -->
+    <!-- Crimson/Maroon Metallic Gradient -->
+    <linearGradient id="crimsonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#800000" />
+      <stop offset="30%" stop-color="#a00000" />
+      <stop offset="70%" stop-color="#b22222" />
+      <stop offset="100%" stop-color="#800000" />
+    </linearGradient>
+    
+    <!-- Blue 3D Metallic Gradient -->
+    <linearGradient id="blue3DGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d47a1" />
+      <stop offset="35%" stop-color="#1565c0" />
+      <stop offset="65%" stop-color="#1e88e5" />
+      <stop offset="85%" stop-color="#64b5f6" />
+      <stop offset="100%" stop-color="#0d47a1" />
+    </linearGradient>
+
+    <!-- Highlight Overlay Gradient for 3D Specular Effect -->
+    <linearGradient id="highlightGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.0" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.2" />
+    </linearGradient>
+    
+    <!-- Gold Metallic Gradient -->
+    <linearGradient id="gold3D" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8a6f27" />
+      <stop offset="25%" stop-color="#ffd700" />
+      <stop offset="50%" stop-color="#fff3a8" />
+      <stop offset="75%" stop-color="#d4af37" />
+      <stop offset="100%" stop-color="#8a6f27" />
+    </linearGradient>
+    
+    <!-- Flame Gradient -->
+    <linearGradient id="flameGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#ffeb3b" stop-opacity="1" />
+      <stop offset="30%" stop-color="#ff9800" stop-opacity="0.9" />
+      <stop offset="70%" stop-color="#f44336" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#d84315" stop-opacity="0" />
+    </linearGradient>
+    
+    <!-- Charcoal/Black 3D Gradient for Cap -->
+    <linearGradient id="charcoal3D" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#212121" />
+      <stop offset="50%" stop-color="#424242" />
+      <stop offset="100%" stop-color="#111111" />
+    </linearGradient>
+    
+    <!-- Drop Shadow Filter -->
+    <filter id="dropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="3" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Soft Glow Filter for Flame -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="100%" height="100%" fill="#ffffff" rx="30" ry="30" />
+  
+  <!-- Outer Rounded Border -->
+  <rect x="25" y="25" width="550" height="800" rx="30" ry="30" fill="none" stroke="url(#crimsonGradient)" stroke-width="10" filter="url(#dropShadow)" />
+  
+  <!-- Vertical Divider -->
+  <line x1="185" y1="25" x2="185" y2="825" stroke="url(#crimsonGradient)" stroke-width="6" />
+
+  <!-- LEFT COLUMN: Vertical School Name -->
+  <!-- Left text line: SAHJANAND -->
+  <text transform="translate(85, 425) rotate(-90)" text-anchor="middle" class="vertical-text-title">SAHJANAND</text>
+  
+  <!-- Right text line: SCHOOL OF ACHIEVER -->
+  <text transform="translate(140, 425) rotate(-90)" text-anchor="middle" class="vertical-text-sub">SCHOOL OF ACHIEVER</text>
+
+  <!-- RIGHT COLUMN: Slogan, Logo, Since -->
+  <!-- Curving Slogan text at the top -->
+  <path id="sloganPath" d="M 220,155 Q 392,60 565,155" fill="none" />
+  <text>
+    <textPath href="#sloganPath" startOffset="50%" text-anchor="middle" class="slogan-text">
+      Education For Freedom
+    </textPath>
+  </text>
+  
+  <!-- Central Emblem Group -->
+  <g transform="translate(0, 40)" filter="url(#dropShadow)">
+    
+    <!-- 1. The Torch Flame & Glow -->
+    <!-- Stars near flame -->
+    <path d="M 390,75 L 392,80 L 397,80 L 393,83 L 395,88 L 390,85 L 385,88 L 387,83 L 383,80 L 388,80 Z" fill="url(#gold3D)" />
+    <path d="M 405,95 L 406,98 L 410,98 L 407,100 L 408,104 L 405,102 L 402,104 L 403,100 L 400,98 L 404,98 Z" fill="url(#gold3D)" />
+    <path d="M 388,108 L 389,111 L 393,111 L 390,113 L 391,117 L 388,115 L 385,117 L 386,113 L 383,111 L 387,111 Z" fill="url(#gold3D)" />
+    
+    <!-- Torch Flame -->
+    <path d="M 353,130 
+             C 335,110 338,80 357,60 
+             C 362,70 360,82 355,92 
+             C 368,76 385,72 380,95 
+             C 378,110 365,120 373,130 Z" 
+          fill="url(#flameGradient)" filter="url(#glow)" />
+    
+    <!-- 2. The Torch Bowl & Handle -->
+    <path d="M 345,130 L 381,130 L 388,145 L 338,145 Z" fill="url(#gold3D)" />
+    <path d="M 350,145 L 376,145 L 372,210 L 354,210 Z" fill="url(#gold3D)" />
+    <circle cx="363" cy="210" r="10" fill="url(#gold3D)" />
+
+    <!-- 3. Stylized S-Body (Graduating Student) -->
+    <!-- Outer Main Blue Body -->
+    <path d="M 363,210 
+             C 360,260 348,310 348,355 
+             C 348,385 305,420 285,470 
+             C 265,520 260,580 310,635 
+             C 355,685 435,705 455,650 
+             C 475,595 440,540 385,540 
+             C 350,540 340,570 358,592 
+             C 375,615 415,605 425,588 
+             C 433,572 428,562 420,562 
+             C 402,562 388,578 375,570 
+             C 362,562 370,532 395,532 
+             C 445,532 485,592 460,655 
+             C 438,710 360,735 315,695 
+             C 278,650 288,570 315,510 
+             C 332,465 368,425 380,380 
+             C 385,360 390,310 385,210 Z" 
+          fill="url(#blue3DGradient)" />
+          
+    <!-- 3D Gloss Highlight Overlay -->
+    <path d="M 363,210 
+             C 360,260 348,310 348,355 
+             C 348,385 305,420 285,470 
+             C 265,520 260,580 310,635 
+             C 355,685 435,705 455,650 
+             C 475,595 440,540 385,540 
+             C 350,540 340,570 358,592 
+             C 375,615 415,605 425,588 
+             C 433,572 428,562 420,562 
+             C 402,562 388,578 375,570 
+             C 362,562 370,532 395,532 
+             C 445,532 485,592 460,655 
+             C 438,710 360,735 315,695 
+             C 278,650 288,570 315,510 
+             C 332,465 368,425 380,380 
+             C 385,360 390,310 385,210 Z" 
+          fill="url(#highlightGradient)" style="mix-blend-mode: overlay; pointer-events: none;" />
+
+    <!-- 4. Right Arm (Curving Outward) -->
+    <path d="M 385,370 
+             C 410,370 450,380 478,412 
+             C 505,445 515,480 497,498 
+             C 483,512 465,495 470,477 
+             C 474,459 491,450 478,427 
+             C 460,404 414,395 382,395 Z" 
+          fill="url(#blue3DGradient)" />
+    <!-- Highlight overlay on Arm -->
+    <path d="M 385,370 
+             C 410,370 450,380 478,412 
+             C 505,445 515,480 497,498 
+             C 483,512 465,495 470,477 
+             C 474,459 491,450 478,427 
+             C 460,404 414,395 382,395 Z" 
+          fill="url(#highlightGradient)" style="mix-blend-mode: overlay; pointer-events: none;" />
+
+    <!-- 5. Head (Circle with 3D Radial Gradient) -->
+    <circle cx="410" cy="350" r="28" fill="url(#blue3DGradient)" />
+    <circle cx="410" cy="350" r="28" fill="url(#highlightGradient)" style="mix-blend-mode: overlay; pointer-events: none;" />
+
+    <!-- 6. Graduation Cap (Mortarboard) -->
+    <!-- Cap Diamond (Top) -->
+    <polygon points="360,305 410,282 460,305 410,328" fill="url(#charcoal3D)" stroke="#ffffff" stroke-width="1.5" />
+    <!-- Cap Skull Band (Bottom) -->
+    <path d="M 385,315 
+             C 385,315 390,332 410,332 
+             C 430,332 435,315 435,315 
+             L 435,320 
+             C 435,320 430,336 410,336 
+             C 390,336 385,320 385,320 Z" 
+          fill="url(#charcoal3D)" />
+    <!-- Tassel -->
+    <path d="M 410,305 Q 450,310 455,325 L 458,348" stroke="#ffd700" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    <polygon points="455,348 461,348 458,358" fill="#ffd700" />
+    <!-- TM Label -->
+    <text x="472" y="312" font-family="sans-serif" font-weight="bold" font-size="10" fill="#444444">TM</text>
+    
+    <!-- 7. Base / Feet -->
+    <path d="M 325,710 
+             C 345,695 405,695 425,710 
+             C 442,725 415,735 375,735 
+             C 335,735 308,725 325,710 Z" 
+          fill="url(#blue3DGradient)" />
+          
+  </g>
+
+  <!-- BOTTOM CENTER: Since 2007 -->
+  <text x="395" y="785" text-anchor="middle" class="since-text">SINCE 2007</text>
+</svg>

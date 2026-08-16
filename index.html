@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahjanand School of Achievers | Sargasan & Chiloda</title>
+    <!-- Apply saved theme before first paint to avoid a flash of the wrong theme -->
+    <script>
+        (function () {
+            var t = localStorage.getItem("ssoa-theme") || "dark";
+            document.documentElement.setAttribute("data-theme", t);
+        })();
+    </script>
+    <!-- Google Fonts Preconnect & stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- CSS link -->
+    <link rel="stylesheet" href="index.css">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+</head>
+<body>
+
+    <!-- Welcome Splash Screen (Palace Entrance) -->
+    <div id="welcome-portal">
+        <!-- Theme Toggle (Splash) -->
+        <label class="theme-switch theme-switch-splash" for="themeToggleSplash" aria-label="Toggle dark and light theme">
+            <input type="checkbox" id="themeToggleSplash" class="theme-switch-input">
+            <span class="theme-switch-track">
+                <i class="fa-solid fa-sun"></i>
+                <i class="fa-solid fa-moon"></i>
+                <span class="theme-switch-thumb"></span>
+            </span>
+        </label>
+
+        <p class="gateway-subtitle">Welcome to the Portal</p>
+        <h1 class="gateway-title">SAHJANAND SCHOOL OF ACHIEVERS</h1>
+        
+        <!-- Welcome Interactive Row -->
+        <div class="welcome-interactive-row">
+            <!-- Chiloda Campus Card -->
+            <div class="gateway-card" id="gateway-chiloda">
+                <div class="arch-frame"></div>
+                <!-- Floating Left Mudra -->
+                <div class="left-mudra-floating">
+                    <img src="/assets/left_mudra.svg" alt="Guided Left Mudra">
+                </div>
+                <!-- Card Image Box -->
+                <div class="card-img-box">
+                    <img src="/assets/campus/chiloda-building.jpg" alt="Chiloda Campus">
+                </div>
+                <h3>CHILODA CAMPUS</h3>
+                <p class="card-subtitle">Secondary Level</p>
+                <p class="card-description">A nurturing environment for academic excellence</p>
+                <span class="explore-btn">Explore</span>
+            </div>
+
+            <!-- Central School Logo Badge -->
+            <div class="mudra-container">
+                <span class="mudra-ring"></span>
+                <img src="/assets/logo-3d-badge.jpg" alt="Sahjanand School of Achievers Logo">
+            </div>
+
+            <!-- Sargasan Campus Card -->
+            <div class="gateway-card" id="gateway-sargasan">
+                <div class="arch-frame"></div>
+                <!-- Floating Right Mudra -->
+                <div class="right-mudra-floating">
+                    <img src="/assets/right_mudra.svg" alt="Guided Right Mudra">
+                </div>
+                <!-- Card Image Box -->
+                <div class="card-img-box">
+                    <img src="/assets/campus/sargasan-building.jpg" alt="Sargasan Campus">
+                </div>
+                <h3>SARGASAN CAMPUS</h3>
+                <p class="card-subtitle">Pre-School & Primary</p>
+                <p class="card-description">Fostering growth through exploration and creativity</p>
+                <span class="explore-btn">Explore</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main School Portal -->
+    <div id="main-portal">
+        <!-- Floating Navigation Header -->
+        <header id="main-nav" class="sticky-nav">
+            <div class="navbar-container">
+                <a href="index.html" class="brand-logo">
+                    <img src="/assets/logo.png" alt="Sahjanand School of Achievers Logo" class="brand-logo-img">
+                    <span>SSOA Achievers</span>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="academics.html">Academics</a></li>
+                    <li><a href="#trustees">Trustees</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <label class="theme-switch" for="themeToggleMain" aria-label="Toggle dark and light theme">
+                        <input type="checkbox" id="themeToggleMain" class="theme-switch-input">
+                        <span class="theme-switch-track">
+                            <i class="fa-solid fa-sun"></i>
+                            <i class="fa-solid fa-moon"></i>
+                            <span class="theme-switch-thumb"></span>
+                        </span>
+                    </label>
+                    <a href="admission.html" class="cta-btn">Enquire Now</a>
+                    <button class="mobile-toggle" id="mobile-menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu Drawer -->
+            <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="academics.html">Academics</a></li>
+                    <li><a href="#trustees">Trustees</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="admission.html" class="cta-btn">Enquire Now</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <!-- Hero Section (Dynamic based on selected branch) -->
+        <section class="hero-slider">
+            <div class="hero-container">
+                <div>
+                    <div class="hero-badge" id="campus-title-badge">
+                        <span></span> Campus of Excellence
+                    </div>
+                    <h1 class="hero-title">
+                        Educating with Purpose,<br>
+                        <span>Achieving with Pride.</span>
+                    </h1>
+                    <p class="hero-desc">
+                        Established in 2007 and affiliated to G.S.E.B, we believe education is much more than mere learning. It is a soul-searching exercise committed to nurturing wisdom, morals, and discipline.
+                    </p>
+                    <div class="hero-btns">
+                        <a href="#about" class="cta-btn">Learn More</a>
+                        <a href="admission.html" class="btn-secondary">
+                            <i class="fa-regular fa-envelope"></i> Admissions Enquiry
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Bento Visual Gallery -->
+                <div class="hero-visual">
+                    <!-- Dynamic Campus Image (Chiloda) -->
+                    <div class="visual-box visual-long" id="campus-hero-chiloda">
+                        <img src="/assets/campus/chiloda-building-alt.jpg" alt="Chiloda Campus View">
+                        <div class="visual-overlay">
+                            <div>
+                                <h4>Chiloda Campus</h4>
+                                <p>Comprehensive Learning Foundation (KG to 10th)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dynamic Campus Image (Sargasan) -->
+                    <div class="visual-box visual-long" id="campus-hero-sargasan" style="display: none;">
+                        <img src="/assets/campus/sargasan-building-students.jpg" alt="Sargasan Science Campus">
+                        <div class="visual-overlay">
+                            <div>
+                                <h4>Sargasan Campus</h4>
+                                <p>11th & 12th Science Stream Portal</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Small Bento Card: Est 2007 -->
+                    <div class="visual-box visual-legacy">
+                        <i class="fa-solid fa-award"></i>
+                        <h4>Est. 2007</h4>
+                        <p>Legacy of Achievers</p>
+                    </div>
+
+                    <!-- Small Bento Card: Science Labs -->
+                    <div class="visual-box">
+                        <img src="/assets/campus/computer-lab.jpg" alt="Computer Laboratory">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Stats Counter Banner -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-book-open"></i></div>
+                    <span class="stat-number" data-target="25" data-suffix="+">0</span>
+                    <span class="stat-label">Subjects Offered</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-flask-vial"></i></div>
+                    <span class="stat-number" data-target="11" data-suffix="+">0</span>
+                    <span class="stat-label">Modern Labs</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                    <span class="stat-number" data-target="140" data-suffix="+">0</span>
+                    <span class="stat-label">Expert Faculty</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                    <span class="stat-number" data-target="2100" data-suffix="+">0</span>
+                    <span class="stat-label">Active Students</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Welcome to SSOA</span>
+                    <h2 class="section-title">Palace of Learning & Achievers</h2>
+                    <div class="section-line"></div>
+                    <p class="section-desc">
+                        In a short span of time, we have achieved great victories in the educational field, driven by a teaching philosophy shared directly by our leaders.
+                    </p>
+                </div>
+
+                <div class="campuses-grid">
+                    <!-- Chiloda Campus Card -->
+                    <div class="campus-showcase">
+                        <div class="campus-img">
+                            <img src="/assets/campus/chiloda-building.jpg" alt="Chiloda Campus">
+                            <div class="campus-img-overlay"></div>
+                        </div>
+                        <div class="campus-content">
+                            <div class="campus-meta">
+                                <h3>Chiloda Campus</h3>
+                                <span class="campus-tag">Primary / Secondary</span>
+                            </div>
+                            <p class="campus-desc">
+                                Laying a solid core foundation from Kindergarten up to Class 10. Equipped with beautiful playgrounds, dedicated reading wings, and supportive educators.
+                            </p>
+                            <ul class="campus-features">
+                                <li><i class="fa-solid fa-square-check"></i> Standard GSEB Curriculum</li>
+                                <li><i class="fa-solid fa-square-check"></i> Holistic Co-curricular Activities</li>
+                                <li><i class="fa-solid fa-square-check"></i> Moral & Value-based Guidance</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Sargasan Campus Card -->
+                    <div class="campus-showcase">
+                        <div class="campus-img">
+                            <img src="/assets/campus/sargasan-building.jpg" alt="Sargasan Campus">
+                            <div class="campus-img-overlay"></div>
+                        </div>
+                        <div class="campus-content">
+                            <div class="campus-meta">
+                                <h3>Sargasan Campus</h3>
+                                <span class="campus-tag">Higher Secondary</span>
+                            </div>
+                            <p class="campus-desc">
+                                Exclusively dedicated to Std 11 & 12 Science stream. Offering specialized labs, expert preparation programs, and intensive career support.
+                            </p>
+                            <ul class="campus-features">
+                                <li><i class="fa-solid fa-square-check"></i> Specialized Science Stream (English/Gujarati)</li>
+                                <li><i class="fa-solid fa-square-check"></i> Integrated Competitive Exam Mentoring</li>
+                                <li><i class="fa-solid fa-square-check"></i> Modern High-Tech Laboratories</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trustees Section -->
+        <section id="trustees" class="section trustees-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Our Pillars</span>
+                    <h2 class="section-title">Honorable Trustees & Leaders</h2>
+                    <div class="section-line"></div>
+                    <p class="section-desc">
+                        Our trustees are teachers first. They directly teach in classes, personally guiding students with phosphorus knowledge.
+                    </p>
+                </div>
+
+                <div class="trustees-grid">
+                    <!-- Mr. N.G. Chaniyara -->
+                    <div class="trustee-card">
+                        <div class="trustee-avatar">
+                            <img src="/assets/trustees/ng-chaniyara.png" alt="Mr. N.G. Chaniyara">
+                        </div>
+                        <h3 class="trustee-name">Mr. N.G. Chaniyara</h3>
+                        <p class="trustee-role">Trustee</p>
+                    </div>
+
+                    <!-- Mr. Rohit Raval -->
+                    <div class="trustee-card">
+                        <div class="trustee-avatar">
+                            <img src="/assets/trustees/rohit-raval.png" alt="Mr. Rohit Raval">
+                        </div>
+                        <h3 class="trustee-name">Mr. Rohit Raval</h3>
+                        <p class="trustee-role">Trustee</p>
+                    </div>
+
+                    <!-- Mr. B.J. Patel -->
+                    <div class="trustee-card">
+                        <div class="trustee-avatar">
+                            <img src="/assets/trustees/bj-patel.png" alt="Mr. B.J. Patel">
+                        </div>
+                        <h3 class="trustee-name">Mr. B.J. Patel</h3>
+                        <p class="trustee-role">Trustee</p>
+                    </div>
+
+                    <!-- Mr. Jayesh Mevada -->
+                    <div class="trustee-card">
+                        <div class="trustee-avatar">
+                            <img src="/assets/trustees/jayesh-mevada.png" alt="Mr. Jayesh Mevada">
+                        </div>
+                        <h3 class="trustee-name">Mr. Jayesh Mevada</h3>
+                        <p class="trustee-role">Trustee</p>
+                    </div>
+
+                    <!-- Mr. Prabhudas Patel -->
+                    <div class="trustee-card">
+                        <div class="trustee-avatar">
+                            <img src="/assets/trustees/prabhudas-patel.png" alt="Mr. Prabhudas Patel">
+                        </div>
+                        <h3 class="trustee-name">Mr. Prabhudas Patel</h3>
+                        <p class="trustee-role">Managing Director</p>
+                    </div>
+
+                    <!-- Mr. Jayesh Patel -->
+                    <div class="trustee-card">
+                        <div class="trustee-avatar">
+                            <img src="/assets/trustees/jayesh-patel.png" alt="Mr. Jayesh Patel">
+                        </div>
+                        <h3 class="trustee-name">Mr. Jayesh Patel</h3>
+                        <p class="trustee-role">Managing Trustee</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Academics Section -->
+        <section id="academics" class="section">
+            <div class="container">
+                <div class="curriculum-container">
+                    <div class="curriculum-content">
+                        <span class="section-badge">Academics</span>
+                        <h2 class="section-title">Course of Study & Programs</h2>
+                        <p style="color: var(--text-muted); font-size: 1rem; margin-top: 1rem; margin-bottom: 2rem;">
+                            Affiliated to G.S.E.B. offering programs in both mediums to accommodate all students.
+                        </p>
+
+                        <div class="medium-card">
+                            <div class="medium-icon"><i class="fa-solid fa-language"></i></div>
+                            <div class="medium-info">
+                                <h4>English Medium</h4>
+                                <p>Comprehensive standard-based curriculum from early childhood up to Higher Secondary standard.</p>
+                            </div>
+                        </div>
+
+                        <div class="medium-card">
+                            <div class="medium-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                            <div class="medium-info">
+                                <h4>Gujarati Medium</h4>
+                                <p>Preserving regional linguistics standards while providing rigorous preparation for board exams.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Palace Styled Frame Image -->
+                    <div class="curriculum-visual">
+                        <img src="/assets/campus/students-together.jpg" alt="Chiloda Campus Grounds and School Transport">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="section gallery-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Gallery</span>
+                    <h2 class="section-title">Campus Life in Frames</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <!-- Gallery Filters -->
+                <ul class="gallery-filters">
+                    <li><button class="gallery-filter-btn active" data-filter="all">All</button></li>
+                    <li><button class="gallery-filter-btn" data-filter="campus">Campus</button></li>
+                    <li><button class="gallery-filter-btn" data-filter="classes">Classrooms</button></li>
+                    <li><button class="gallery-filter-btn" data-filter="activities">Activities</button></li>
+                </ul>
+
+                <!-- Gallery Grid -->
+                <div class="gallery-grid">
+                    <!-- Item 1 -->
+                    <div class="gallery-item" data-category="campus">
+                        <img src="/assets/campus/chiloda-building-alt.jpg" alt="Chiloda Campus Building">
+                        <div class="gallery-item-overlay">
+                            <h4>Chiloda Campus Building</h4>
+                            <span>Campus</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="gallery-item" data-category="campus">
+                        <img src="/assets/campus/sargasan-building-alt.jpg" alt="Sargasan Campus Building">
+                        <div class="gallery-item-overlay">
+                            <h4>Sargasan Campus Building</h4>
+                            <span>Campus</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="gallery-item" data-category="campus">
+                        <img src="/assets/campus/school-buses.jpg" alt="School Transport Fleet">
+                        <div class="gallery-item-overlay">
+                            <h4>School Transport Fleet</h4>
+                            <span>Campus</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="gallery-item" data-category="classes">
+                        <img src="/assets/campus/classroom-teaching.jpg" alt="Interactive Classroom Learning">
+                        <div class="gallery-item-overlay">
+                            <h4>Interactive Classroom Learning</h4>
+                            <span>Classrooms</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="gallery-item" data-category="classes">
+                        <img src="/assets/campus/computer-lab.jpg" alt="Computer Lab Session">
+                        <div class="gallery-item-overlay">
+                            <h4>Computer Lab Session</h4>
+                            <span>Classrooms</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="gallery-item" data-category="activities">
+                        <img src="/assets/campus/yoga-assembly.jpg" alt="Yoga and Wellness Assembly">
+                        <div class="gallery-item-overlay">
+                            <h4>Yoga & Wellness Assembly</h4>
+                            <span>Activities</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 7 -->
+                    <div class="gallery-item" data-category="activities">
+                        <img src="/assets/campus/table-tennis.jpg" alt="Sports and Table Tennis">
+                        <div class="gallery-item-overlay">
+                            <h4>Sports & Table Tennis</h4>
+                            <span>Activities</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admissions Enquiry form + Footer Blend -->
+        <footer class="footer-contact" id="contact">
+            <div class="contact-layout">
+                <!-- Admissions Form -->
+                <div class="contact-form-container">
+                    <h3>Begin Your Journey</h3>
+                    <p>Enter your details below to schedule a visit or seek admission details.</p>
+                    
+                    <form id="admissions-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Parent Full Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email Address" required>
+                            </div>
+                        </div>
+
+                        <div class="form-grid" style="margin-top: 1.5rem;">
+                            <div class="form-group">
+                                <input type="tel" class="form-control" placeholder="Contact Mobile Number" required>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" required>
+                                    <option value="" disabled selected>Select Campus of Interest</option>
+                                    <option value="chiloda">Chiloda Campus (KG - Std 10)</option>
+                                    <option value="sargasan">Sargasan Campus (Std 11 & 12 Science)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+                            <textarea class="form-control" placeholder="Additional details or questions regarding the student..."></textarea>
+                        </div>
+
+                        <button type="submit" class="cta-btn">Submit Enquiry</button>
+                    </form>
+                </div>
+
+                <!-- Footer Information -->
+                <div class="contact-info-container">
+                    <div>
+                        <div class="contact-info-logo">
+                            <img src="/assets/logo.png" alt="Sahjanand School of Achievers Logo" class="footer-logo-img">
+                            <span>Sahjanand School</span>
+                        </div>
+                        <ul class="info-list">
+                            <li class="info-item">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div>
+                                    <strong>Sargasan Branch (11-12 Sci)</strong>
+                                    Plot No. 472, Nr. Kh-0, Sargasan, Gandhinagar, Gujarat.
+                                </div>
+                            </li>
+                            <li class="info-item">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div>
+                                    <strong>Chiloda Branch (KG to 10th)</strong>
+                                    B/h Essar Petrol Pump, Chiloda Himmatnagar Highway, Shiholi Moti, Chiloda, Gujarat.
+                                </div>
+                            </li>
+                            <li class="info-item">
+                                <i class="fa-solid fa-phone"></i>
+                                <div>
+                                    <strong>Admission Helpline</strong>
+                                    +91 92 2800 8880 / +91 84 6040 8880
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <ul class="footer-links">
+                            <li><a href="https://play.google.com/store/apps/details?id=com.imaker.ssoa" target="_blank"><i class="fa-brands fa-android"></i> Download Android App</a></li>
+                            <li><a href="#about"><i class="fa-solid fa-arrow-right"></i> Our Vision & Mission</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright Bar -->
+            <div class="copyright-bar">
+                <p>&copy; 2026 Sahjanand School of Achievers. All Rights Reserved. Powered by JK Data Lab</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript Link -->
+    <script type="module" src="index.js"></script>
+</body>
+</html>

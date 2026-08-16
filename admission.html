@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admissions | Sahjanand School of Achievers</title>
+    <!-- Google Fonts Preconnect & stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- CSS link -->
+    <link rel="stylesheet" href="index.css">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <style>
+        .admissions-container {
+            max-width: var(--max-width);
+            margin: 120px auto 5rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+        @media (min-width: 992px) {
+            .admissions-container {
+                grid-template-columns: 1.2fr 0.8fr;
+            }
+        }
+        .form-card {
+            background-color: var(--white);
+            border: 1px solid rgba(12, 91, 112, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .form-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        .form-steps::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-light);
+            z-index: 1;
+        }
+        .step-indicator {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            z-index: 2;
+            position: relative;
+            transition: var(--transition);
+        }
+        .step-indicator.active {
+            background-color: var(--primary);
+            color: var(--white);
+            box-shadow: 0 0 0 4px rgba(12, 91, 112, 0.15);
+        }
+        .step-indicator.completed {
+            background-color: var(--accent);
+            color: var(--white);
+        }
+        .form-step-content {
+            display: none;
+        }
+        .form-step-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .btn-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(12, 91, 112, 0.1);
+            padding-top: 2rem;
+        }
+        .info-panel {
+            background-color: var(--primary-light);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            border: 1px solid rgba(12, 91, 112, 0.1);
+            height: fit-content;
+        }
+        .info-panel h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .info-panel ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .info-panel li {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+        .info-panel i {
+            color: var(--accent-dark);
+            font-size: 1.25rem;
+            margin-top: 0.15rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="sticky-nav scrolled">
+        <div class="navbar-container">
+            <a href="index.html" class="brand-logo">
+                <img src="/assets/logo.png" alt="Sahjanand School of Achievers Logo" class="brand-logo-img">
+                <span>SSOA Achievers</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li><a href="academics.html">Academics</a></li>
+                <li><a href="index.html#trustees">Trustees</a></li>
+                <li><a href="index.html#gallery">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div>
+                <a href="index.html" class="btn-secondary"><i class="fa-solid fa-arrow-left"></i> Welcome Page</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Admissions Page -->
+    <main class="admissions-container">
+        <!-- Admission Form Card -->
+        <div class="form-card">
+            <span style="color: var(--accent-dark); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; display: block; margin-bottom: 0.5rem;">SSOA Registration Portal</span>
+            <h2 style="font-size: 2.25rem; color: var(--primary); margin-bottom: 2rem;">Application for Admission</h2>
+
+            <!-- Form Progress Steps -->
+            <div class="form-steps">
+                <div class="step-indicator active" id="step-indicator-1">1</div>
+                <div class="step-indicator" id="step-indicator-2">2</div>
+                <div class="step-indicator" id="step-indicator-3">3</div>
+            </div>
+
+            <form id="multi-step-form">
+                <!-- Step 1: Student Details -->
+                <div class="form-step-content active" id="step-content-1">
+                    <h3 style="color: var(--primary); margin-bottom: 1.5rem;"><i class="fa-solid fa-user-check" style="margin-right: 0.5rem; color: var(--accent);"></i> Student Information</h3>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <input type="text" class="form-control" placeholder="Student Full Name" id="student-name" required>
+                    </div>
+                    
+                    <div class="form-grid" style="margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="form-group">
+                            <label style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">Date of Birth</label>
+                            <input type="date" class="form-control" id="student-dob" required>
+                        </div>
+                        <div class="form-group">
+                            <label style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">Gender</label>
+                            <select class="form-control" id="student-gender" required>
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="form-group">
+                            <select class="form-control" id="student-standard" required>
+                                <option value="" disabled selected>Grade Seeking</option>
+                                <option value="kg">Kindergarten</option>
+                                <option value="1-5">Class 1 to 5</option>
+                                <option value="6-8">Class 6 to 8</option>
+                                <option value="9-10">Class 9 & 10</option>
+                                <option value="11-sci">Class 11 Science</option>
+                                <option value="12-sci">Class 12 Science</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="student-medium" required>
+                                <option value="" disabled selected>Medium of Study</option>
+                                <option value="english">English Medium</option>
+                                <option value="gujarati">Gujarati Medium</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Parent details -->
+                <div class="form-step-content" id="step-content-2">
+                    <h3 style="color: var(--primary); margin-bottom: 1.5rem;"><i class="fa-solid fa-people-roof" style="margin-right: 0.5rem; color: var(--accent);"></i> Parent Details</h3>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <input type="text" class="form-control" placeholder="Father's Full Name" id="parent-father" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <input type="text" class="form-control" placeholder="Mother's Full Name" id="parent-mother" required>
+                    </div>
+                    <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="form-group">
+                            <input type="tel" class="form-control" placeholder="Mobile Number" id="parent-tel" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email Address" id="parent-email" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Branch Selection & Address -->
+                <div class="form-step-content" id="step-content-3">
+                    <h3 style="color: var(--primary); margin-bottom: 1.5rem;"><i class="fa-solid fa-map-location-dot" style="margin-right: 0.5rem; color: var(--accent);"></i> Address & Campus Preference</h3>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <select class="form-control" id="pref-branch" required>
+                            <option value="" disabled selected>Select Preferred Campus</option>
+                            <option value="chiloda">Chiloda Campus (KG - Class 10)</option>
+                            <option value="sargasan">Sargasan Campus (Class 11 - 12 Science)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <textarea class="form-control" placeholder="Residential Address" id="parent-address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--text-muted); cursor: pointer;">
+                            <input type="checkbox" required style="width: 16px; height: 16px; accent-color: var(--primary);">
+                            I verify that all information provided is accurate.
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="btn-row">
+                    <button type="button" class="btn-secondary" id="prev-btn" style="visibility: hidden;">Back</button>
+                    <button type="button" class="cta-btn" id="next-btn">Next Step</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Admissions FAQ / Guidelines Panel -->
+        <div class="info-panel">
+            <h3>Admissions Guidelines</h3>
+            <ul>
+                <li>
+                    <i class="fa-solid fa-circle-info"></i>
+                    <div>
+                        <strong>Campus Allocation</strong>
+                        KG to Class 10 programs are held exclusively at our Chiloda campus. Standard 11 & 12 Science stream studies are based in Sargasan.
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-paste"></i>
+                    <div>
+                        <strong>Document Requirements</strong>
+                        During face-to-face registration verification, please provide: birth certificate, school leaving certificate (L.C.), and standard progress card.
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-bus"></i>
+                    <div>
+                        <strong>Transport Facilities</strong>
+                        School transport with safety parameters is available for both branches spanning across Gandhinagar and surrounding zones.
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- Footer Copyright -->
+    <footer class="copyright-bar">
+        <p>&copy; 2026 Sahjanand School of Achievers. All Rights Reserved. Powered by JK Data Lab</p>
+    </footer>
+
+    <!-- Admissions Multi-step JS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let currentStep = 1;
+            const totalSteps = 3;
+
+            const prevBtn = document.getElementById("prev-btn");
+            const nextBtn = document.getElementById("next-btn");
+            const form = document.getElementById("multi-step-form");
+
+            function updateFormSteps() {
+                // Toggle contents
+                for (let i = 1; i <= totalSteps; i++) {
+                    const content = document.getElementById(`step-content-${i}`);
+                    const indicator = document.getElementById(`step-indicator-${i}`);
+                    
+                    if (i === currentStep) {
+                        content.classList.add("active");
+                        indicator.classList.add("active");
+                    } else {
+                        content.classList.remove("active");
+                        indicator.classList.remove("active");
+                    }
+                    
+                    if (i < currentStep) {
+                        indicator.classList.add("completed");
+                    } else {
+                        indicator.classList.remove("completed");
+                    }
+                }
+
+                // Toggle Back button visibility
+                if (currentStep === 1) {
+                    prevBtn.style.visibility = "hidden";
+                } else {
+                    prevBtn.style.visibility = "visible";
+                }
+
+                // Adjust Next Button Text
+                if (currentStep === totalSteps) {
+                    nextBtn.textContent = "Submit Application";
+                } else {
+                    nextBtn.textContent = "Next Step";
+                }
+            }
+
+            nextBtn.addEventListener("click", () => {
+                // Custom simple input check for active fields before moving forward
+                const activeStepContent = document.getElementById(`step-content-${currentStep}`);
+                const inputs = activeStepContent.querySelectorAll("input[required], select[required], textarea[required]");
+                
+                let allValid = true;
+                inputs.forEach(input => {
+                    if (!input.value || (input.type === 'checkbox' && !input.checked)) {
+                        input.style.borderBottomColor = "var(--error)";
+                        allValid = false;
+                    } else {
+                        input.style.borderBottomColor = "rgba(12, 91, 112, 0.3)";
+                    }
+                });
+
+                if (!allValid) {
+                    alert("Please fill out all required fields.");
+                    return;
+                }
+
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateFormSteps();
+                } else {
+                    // Final Submit
+                    nextBtn.textContent = "Submitting...";
+                    nextBtn.disabled = true;
+                    setTimeout(() => {
+                        alert("Admissions enquiry submitted successfully! Our counselors will contact you within 24 hours.");
+                        form.reset();
+                        currentStep = 1;
+                        updateFormSteps();
+                        nextBtn.disabled = false;
+                    }, 1500);
+                }
+            });
+
+            prevBtn.addEventListener("click", () => {
+                if (currentStep > 1) {
+                    currentStep--;
+                    updateFormSteps();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

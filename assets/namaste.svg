@@ -1,0 +1,90 @@
+<svg viewBox="0 0 120 120" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft gold glowing background halo -->
+  <circle cx="60" cy="55" r="45" fill="none" stroke="#E5A93B" stroke-width="0.5" stroke-dasharray="2 3" opacity="0.3" />
+  <circle cx="60" cy="55" r="35" fill="none" stroke="#E5A93B" stroke-width="0.3" stroke-dasharray="1 2" opacity="0.2" />
+
+  <!-- Solid background mask so lines behind hands don't show through -->
+  <path d="M 60 15 
+           C 56 22, 51 32, 50 37
+           C 49 42, 44 48, 43 55
+           C 42 62, 43 70, 43 78
+           C 43 85, 52 87, 56 87
+           L 64 87
+           C 68 87, 77 85, 77 78
+           C 77 70, 78 62, 77 55
+           C 76 48, 71 42, 70 37
+           C 69 32, 64 22, 60 15 Z" fill="#06141D" />
+
+  <!-- Lotus Platform base in gold -->
+  <path d="M 30 84
+           C 40 91, 50 89, 60 88
+           C 70 89, 80 91, 90 84
+           C 80 86, 70 84, 60 85
+           C 50 84, 40 86, 30 84 Z" fill="#E5A93B" opacity="0.9" />
+  <path d="M 35 85 C 45 93, 75 93, 85 85" fill="none" stroke="#E5A93B" stroke-width="1" />
+
+  <!-- Hands vector paths -->
+  <g fill="none" stroke="#E5A93B" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left Hand Core Outline -->
+    <path d="M 60 16 
+             C 56 22, 51 32, 50 37
+             C 49 42, 44 48, 43 55
+             C 42 62, 43 70, 43 78
+             C 43 84, 49 86, 55 86" stroke-width="2" />
+
+    <!-- Right Hand Core Outline -->
+    <path d="M 60 16 
+             C 64 22, 69 32, 70 37
+             C 71 42, 76 48, 77 55
+             C 78 62, 77 70, 77 78
+             C 77 84, 71 86, 65 86" stroke-width="2" />
+
+    <!-- Center Contact line -->
+    <path d="M 60 16 L 60 78" stroke-width="1" stroke-dasharray="1 1.5" opacity="0.6" />
+
+    <!-- Left Fingers detailed line art -->
+    <!-- Pinky Finger -->
+    <path d="M 43 55 C 45 51, 51 51, 52 51" stroke-width="1.3" />
+    <!-- Ring Finger -->
+    <path d="M 45 47 C 47 43, 53 43, 54 43" stroke-width="1.3" />
+    <!-- Middle Finger -->
+    <path d="M 48 38 C 50 34, 55 34, 56 34" stroke-width="1.3" />
+    <!-- Index Finger -->
+    <path d="M 52 29 C 54 25, 57 25, 58 29" stroke-width="1.3" />
+
+    <!-- Right Fingers detailed line art -->
+    <!-- Pinky Finger -->
+    <path d="M 77 55 C 75 51, 69 51, 68 51" stroke-width="1.3" />
+    <!-- Ring Finger -->
+    <path d="M 75 47 C 73 43, 67 43, 66 43" stroke-width="1.3" />
+    <!-- Middle Finger -->
+    <path d="M 72 38 C 70 34, 65 34, 64 34" stroke-width="1.3" />
+    <!-- Index Finger -->
+    <path d="M 68 29 C 66 25, 63 25, 62 29" stroke-width="1.3" />
+
+    <!-- Left Palm Wrist Mandala (concentric archways with dots) -->
+    <path d="M 44 65 A 12 12 0 0 1 54 77" stroke-width="1" opacity="0.8" />
+    <path d="M 44 61 A 16 16 0 0 1 56 78" stroke-width="1" opacity="0.8" stroke-dasharray="1 2" />
+    <path d="M 44 57 A 20 20 0 0 1 58 79" stroke-width="0.8" opacity="0.6" />
+    
+    <!-- Right Palm Wrist Mandala -->
+    <path d="M 76 65 A 12 12 0 0 0 66 77" stroke-width="1" opacity="0.8" />
+    <path d="M 76 61 A 16 16 0 0 0 64 78" stroke-width="1" opacity="0.8" stroke-dasharray="1 2" />
+    <path d="M 76 57 A 20 20 0 0 0 62 79" stroke-width="0.8" opacity="0.6" />
+
+    <!-- Wrist Jewelry / Bangles -->
+    <!-- Left bangles -->
+    <path d="M 42 80 C 44 83, 50 83, 54 81" stroke-width="2.5" />
+    <path d="M 41 82 C 43 85, 49 85, 53 83" stroke-width="1.5" />
+    
+    <!-- Right bangles -->
+    <path d="M 78 80 C 76 83, 70 83, 66 81" stroke-width="2.5" />
+    <path d="M 79 82 C 77 85, 71 85, 67 83" stroke-width="1.5" />
+
+    <!-- Henna flower decoration on backs of hands -->
+    <circle cx="50" cy="65" r="2.5" stroke-width="1" />
+    <circle cx="70" cy="65" r="2.5" stroke-width="1" />
+    <circle cx="50" cy="65" r="0.8" fill="#E5A93B" />
+    <circle cx="70" cy="65" r="0.8" fill="#E5A93B" />
+  </g>
+</svg>

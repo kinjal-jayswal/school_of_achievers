@@ -1,0 +1,21 @@
+{
+  "name": "school-achievers-redesign",
+  "version": "1.0.0",
+  "description": "Redesigned portal for Sahjanand School of Achievers spanning Sargasan and Chiloda campuses.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "school",
+    "achievers",
+    "morpankh"
+  ],
+  "author": "SSOA Redesign Team",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^4.5.0"
+  }
+}

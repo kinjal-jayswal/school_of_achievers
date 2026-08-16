@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academics | Sahjanand School of Achievers</title>
+    <!-- Google Fonts Preconnect & stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- CSS link -->
+    <link rel="stylesheet" href="index.css">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <style>
+        .academics-container {
+            max-width: var(--max-width);
+            margin: 120px auto 5rem auto;
+            padding: 0 2rem;
+        }
+        .labs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        @media (min-width: 768px) {
+            .labs-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .lab-card {
+            background-color: var(--white);
+            border: 1px solid rgba(12, 91, 112, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        .lab-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+        .lab-icon {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+        }
+        .lab-card:nth-child(even) .lab-icon {
+            color: var(--accent);
+        }
+        .results-section {
+            background-color: var(--primary-light);
+            border-radius: var(--radius-lg);
+            padding: 4rem 3rem;
+            margin-top: 5rem;
+            border: 1px solid rgba(12, 91, 112, 0.1);
+        }
+        .toppers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        @media (min-width: 992px) {
+            .toppers-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        .topper-card {
+            background-color: var(--white);
+            border-radius: var(--radius-md);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        .topper-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 2px solid var(--accent);
+        }
+        .topper-percent {
+            font-size: 1.75rem;
+            color: var(--primary);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="sticky-nav scrolled">
+        <div class="navbar-container">
+            <a href="index.html" class="brand-logo">
+                <img src="/assets/logo.png" alt="Sahjanand School of Achievers Logo" class="brand-logo-img">
+                <span>SSOA Achievers</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li><a href="academics.html" class="active">Academics</a></li>
+                <li><a href="index.html#trustees">Trustees</a></li>
+                <li><a href="index.html#gallery">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div>
+                <a href="admission.html" class="cta-btn">Enquire Now</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Academics Page -->
+    <main class="academics-container">
+        <!-- Introduction -->
+        <section style="text-align: center; margin-bottom: 5rem;">
+            <span style="color: var(--accent-dark); font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem; display: block; margin-bottom: 0.75rem;">Courses of Study</span>
+            <h1 style="font-size: 3rem; color: var(--primary); margin-bottom: 1.5rem;">Academic Excellence</h1>
+            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 1.125rem;">
+                Affiliated to G.S.E.B. offering comprehensive learning curriculums for standard foundational classes (KG to 10th) and specialized Higher Secondary education (11th & 12th Science).
+            </p>
+        </section>
+
+        <!-- Labs Infrastructure Section -->
+        <section>
+            <h2 style="font-size: 2.25rem; color: var(--primary); text-align: center;">11+ Modern Laboratories</h2>
+            <p style="color: var(--text-muted); text-align: center; max-width: 600px; margin: 0.5rem auto 3rem auto;">
+                Providing practical experimentation modules equipped with cutting-edge apparatus.
+            </p>
+
+            <div class="labs-grid">
+                <!-- Lab 1: Physics -->
+                <div class="lab-card">
+                    <div class="lab-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Physics Laboratory</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        Equipped with prisms, lenses, electrical circuit panels, and wave mechanics modules for advanced experimentation.
+                    </p>
+                </div>
+
+                <!-- Lab 2: Chemistry -->
+                <div class="lab-card">
+                    <div class="lab-icon"><i class="fa-solid fa-flask"></i></div>
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Chemistry Laboratory</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        Featuring state-of-the-art ventilation, safe reagent panels, and analytical balances for molecular exploration.
+                    </p>
+                </div>
+
+                <!-- Lab 3: Biology -->
+                <div class="lab-card">
+                    <div class="lab-icon"><i class="fa-solid fa-dna"></i></div>
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Biology Laboratory</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        Equipped with compound microscopes, anatomical structures, plant models, and bio-specimens for life sciences.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Board Results Section -->
+        <section class="results-section">
+            <div style="text-align: center;">
+                <span style="color: var(--accent-dark); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; display: block; margin-bottom: 0.5rem;">SSOA Achievements</span>
+                <h2 style="font-size: 2.25rem; color: var(--primary);">Board Examination Achievers</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0.5rem auto 0 auto;">
+                    We are proud of our students who secured top ranks in NEET and JEE examinations.
+                </p>
+            </div>
+
+            <div style="max-width: 900px; margin: 3rem auto 0 auto; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid rgba(12, 91, 112, 0.1);">
+                <img src="/assets/board-achievers-2019.jpg" alt="NEET and JEE 2019 Achievers - Sahjanand School of Achievers" style="width: 100%; display: block;">
+            </div>
+
+            <div class="toppers-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 700px; margin-left: auto; margin-right: auto;">
+                <div class="topper-card">
+                    <span class="topper-percent">70 / 235</span>
+                    <strong style="color: var(--primary); display: block; margin-bottom: 0.25rem;">MBBS Admissions</strong>
+                    <span style="color: var(--text-muted); font-size: 0.8rem;">NEET Qualifiers</span>
+                </div>
+                <div class="topper-card">
+                    <span class="topper-percent">143 / 210</span>
+                    <strong style="color: var(--primary); display: block; margin-bottom: 0.25rem;">JEE Advanced</strong>
+                    <span style="color: var(--text-muted); font-size: 0.8rem;">Qualified Students</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Copyright -->
+    <footer class="copyright-bar">
+        <p>&copy; 2026 Sahjanand School of Achievers. All Rights Reserved. Powered by JK Data Lab</p>
+    </footer>
+
+</body>
+</html>

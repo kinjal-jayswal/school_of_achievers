@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Sahjanand School of Achievers</title>
+    <!-- Google Fonts Preconnect & stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- CSS link -->
+    <link rel="stylesheet" href="index.css">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <style>
+        .contact-container {
+            max-width: var(--max-width);
+            margin: 120px auto 5rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+        @media (min-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1.1fr 0.9fr;
+            }
+        }
+        .contact-card {
+            background-color: var(--white);
+            border: 1px solid rgba(12, 91, 112, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .campus-contact-info {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        @media (min-width: 576px) {
+            .campus-contact-info {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .info-block {
+            background-color: var(--primary-light);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            border: 1px solid rgba(12, 91, 112, 0.05);
+        }
+        .info-block h4 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .info-block p {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+        .faq-section {
+            margin-top: 5rem;
+            border-top: 1px solid rgba(12, 91, 112, 0.1);
+            padding-top: 4rem;
+        }
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(12, 91, 112, 0.08);
+            padding-bottom: 1.5rem;
+        }
+        .faq-question {
+            font-size: 1.15rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="sticky-nav scrolled">
+        <div class="navbar-container">
+            <a href="index.html" class="brand-logo">
+                <img src="/assets/logo.png" alt="Sahjanand School of Achievers Logo" class="brand-logo-img">
+                <span>SSOA Achievers</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li><a href="academics.html">Academics</a></li>
+                <li><a href="index.html#trustees">Trustees</a></li>
+                <li><a href="index.html#gallery">Gallery</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+
+            <div>
+                <a href="admission.html" class="cta-btn">Enquire Now</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Contact Page -->
+    <main class="contact-container">
+        <!-- Message Contact Form -->
+        <div class="contact-card">
+            <span style="color: var(--accent-dark); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; display: block; margin-bottom: 0.5rem;">Get in Touch</span>
+            <h2 style="font-size: 2.25rem; color: var(--primary); margin-bottom: 2rem;">Send a Message</h2>
+
+            <form id="contact-message-form">
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <input type="text" class="form-control" placeholder="Your Full Name" required id="msg-name">
+                </div>
+                <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Email Address" required id="msg-email">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-control" placeholder="Phone Number" required id="msg-phone">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <input type="text" class="form-control" placeholder="Subject" required id="msg-subject">
+                </div>
+                <div class="form-group" style="margin-bottom: 2rem;">
+                    <textarea class="form-control" placeholder="Your Message / Query" required id="msg-content" style="height: 120px;"></textarea>
+                </div>
+                
+                <button type="submit" class="cta-btn" style="width: 100%;">Submit Message</button>
+            </form>
+        </div>
+
+        <!-- Campus Contact Directories -->
+        <div>
+            <h2 style="font-size: 2.25rem; color: var(--primary); margin-bottom: 2rem;">Campus Directories</h2>
+            <div class="campus-contact-info">
+                <!-- Chiloda Campus -->
+                <div class="info-block">
+                    <h4><i class="fa-solid fa-graduation-cap"></i> Chiloda Campus</h4>
+                    <p><strong>Address:</strong> B/h Essar Petrol Pump, Chiloda Himmatnagar Highway, Shiholi Moti, Chiloda, Gujarat</p>
+                    <p><strong>Phone:</strong> +91 70 4360 6060 / +91 79 2326 3232</p>
+                    <p><strong>Email:</strong> chiloda@schoolofachiever.in</p>
+                    <p><strong>Hours:</strong> 7:00 AM - 5:00 PM (Mon-Sat)</p>
+                </div>
+
+                <!-- Sargasan Campus -->
+                <div class="info-block">
+                    <h4><i class="fa-solid fa-flask"></i> Sargasan Campus</h4>
+                    <p><strong>Address:</strong> Plot No. 472, Nr. Kh-0, At - Sargasan, Gandhinagar</p>
+                    <p><strong>Phone:</strong> +91 92 2800 8880 / +91 84 6040 8880</p>
+                    <p><strong>Email:</strong> sargasan@schoolofachiever.in</p>
+                    <p><strong>Hours:</strong> 7:00 AM - 5:00 PM (Mon-Sat)</p>
+                </div>
+            </div>
+
+            <div class="info-block" style="background-color: var(--white); border-color: rgba(12, 91, 112, 0.1);">
+                <h4 style="color: var(--accent-dark);"><i class="fa-solid fa-circle-question"></i> Need Immediate Help?</h4>
+                <p style="font-size: 0.95rem;">Our central office is available at <strong>079 232 22120 / 21</strong> or <strong>info@schoolofachiever.in</strong> to answer any urgent questions regarding documentation, fee structures, or campus tours.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- General FAQ Section -->
+    <section class="academics-container" style="margin-top: 0;">
+        <div class="faq-section">
+            <h2 style="font-size: 2.25rem; color: var(--primary); text-align: center; margin-bottom: 3rem;">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">What are the school timings for both campuses? <i class="fa-solid fa-chevron-down"></i></div>
+                <div class="faq-answer">Both the Chiloda Campus (KG - Standard 10) and Sargasan Campus (Class 11 - 12 Science stream) are open from 7:00 AM to 5:00 PM, Monday to Saturday.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Is school transport available for students? <i class="fa-solid fa-chevron-down"></i></div>
+                <div class="faq-answer">Yes, we operate a fleet of safe, supervisor-monitored school buses covering most major sectors of Gandhinagar, Chiloda, and surrounding rural routes. Detailed routes can be requested at the reception desk.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">What board is the school affiliated with? <i class="fa-solid fa-chevron-down"></i></div>
+                <div class="faq-answer">Sahjanand School of Achievers is fully affiliated with the Gujarat Secondary and Higher Secondary Education Board (G.S.E.B.) for both Secondary and Higher Secondary streams.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Copyright -->
+    <footer class="copyright-bar">
+        <p>&copy; 2026 Sahjanand School of Achievers. All Rights Reserved. Powered by JK Data Lab</p>
+    </footer>
+
+    <!-- Form Submit Handler -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("contact-message-form");
+            
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const name = document.getElementById("msg-name").value;
+                
+                alert(`Thank you, ${name}! Your message has been sent successfully. Our support desk will reply to your email shortly.`);
+                form.reset();
+            });
+        });
+    </script>
+</body>
+</html>
