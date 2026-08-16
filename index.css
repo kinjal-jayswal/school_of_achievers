@@ -324,6 +324,41 @@ html[data-theme="dark"] .gateway-title {
     50% { transform: scale(1.04); opacity: 1; }
 }
 
+/* Welcome Portal - Responsive Stack (row layout needs ~1070px to fit uncompressed) */
+@media (max-width: 1099px) {
+    #welcome-portal {
+        overflow-y: auto;
+        justify-content: flex-start;
+        padding: 90px 0 40px 0;
+    }
+
+    .welcome-interactive-row {
+        flex-direction: column;
+        gap: 1.75rem;
+        padding: 0 1.25rem;
+    }
+
+    .mudra-container {
+        width: 110px;
+        flex-shrink: 0;
+    }
+
+    .gateway-card {
+        width: 100%;
+        max-width: 320px;
+        padding: 1.5rem 1.5rem;
+    }
+
+    .card-img-box {
+        height: 120px;
+    }
+
+    .left-mudra-floating,
+    .right-mudra-floating {
+        display: none;
+    }
+}
+
 /* Gateway Card Glass style */
 .gateway-card {
     background: rgba(255, 255, 255, 0.6);

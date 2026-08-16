@@ -203,6 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (trusteesCarousel && trusteesPrev && trusteesNext && trusteesDots) {
         const trusteeCards = Array.from(trusteesCarousel.querySelectorAll(".trustee-card"));
+        const carouselWrapper = trusteesCarousel.closest(".trustees-carousel-wrapper");
 
         trusteeCards.forEach((_, index) => {
             const dot = document.createElement("button");
@@ -210,6 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
             dot.setAttribute("aria-label", `Go to trustee ${index + 1}`);
             dot.addEventListener("click", () => {
                 trusteeCards[index].scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+                restartAutoplay();
             });
             trusteesDots.appendChild(dot);
         });
@@ -223,10 +225,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
         trusteesPrev.addEventListener("click", () => {
             trusteesCarousel.scrollBy({ left: -scrollByCard(), behavior: "smooth" });
+            restartAutoplay();
         });
         trusteesNext.addEventListener("click", () => {
             trusteesCarousel.scrollBy({ left: scrollByCard(), behavior: "smooth" });
+            restartAutoplay();
         });
+
+        // Auto-advance every 6s, looping back to the start at the end
+        const goToNextSlide = () => {
+            const maxScroll = trusteesCarousel.scrollWidth - trusteesCarousel.clientWidth - 2;
+            if (trusteesCarousel.scrollLeft >= maxScroll) {
+                trusteesCarousel.scrollTo({ left: 0, behavior: "smooth" });
+            } else {
+                trusteesCarousel.scrollBy({ left: scrollByCard(), behavior: "smooth" });
+            }
+        };
+
+        let autoplayTimer;
+        const stopAutoplay = () => clearInterval(autoplayTimer);
+        const startAutoplay = () => {
+            stopAutoplay();
+            autoplayTimer = setInterval(goToNextSlide, 6000);
+        };
+        const restartAutoplay = () => startAutoplay();
+
+        if (carouselWrapper) {
+            carouselWrapper.addEventListener("mouseenter", stopAutoplay);
+            carouselWrapper.addEventListener("mouseleave", startAutoplay);
+            carouselWrapper.addEventListener("touchstart", stopAutoplay, { passive: true });
+        }
+        startAutoplay();
 
         const updateCarouselState = () => {
             const maxScroll = trusteesCarousel.scrollWidth - trusteesCarousel.clientWidth - 2;
