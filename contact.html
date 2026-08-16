@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | Sahjanand School of Achievers</title>
+    <!-- Apply saved theme before first paint to avoid a flash of the wrong theme -->
+    <script>
+        (function () {
+            var t = localStorage.getItem("ssoa-theme") || "dark";
+            document.documentElement.setAttribute("data-theme", t);
+        })();
+    </script>
     <!-- Google Fonts Preconnect & stylesheet -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,7 +119,15 @@
                 <li><a href="contact.html" class="active">Contact</a></li>
             </ul>
 
-            <div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <label class="theme-switch" for="themeToggleMain" aria-label="Toggle dark and light theme">
+                    <input type="checkbox" id="themeToggleMain" class="theme-switch-input">
+                    <span class="theme-switch-track">
+                        <i class="fa-solid fa-sun"></i>
+                        <i class="fa-solid fa-moon"></i>
+                        <span class="theme-switch-thumb"></span>
+                    </span>
+                </label>
                 <a href="admission.html" class="cta-btn">Enquire Now</a>
             </div>
         </div>
@@ -204,6 +219,21 @@
     <footer class="copyright-bar">
         <p>&copy; 2026 Sahjanand School of Achievers. All Rights Reserved. Powered by JK Data Lab</p>
     </footer>
+
+    <script>
+        (function () {
+            var THEME_KEY = "ssoa-theme";
+            var toggle = document.getElementById("themeToggleMain");
+            if (!toggle) return;
+            var current = localStorage.getItem(THEME_KEY) || "dark";
+            toggle.checked = current === "dark";
+            toggle.addEventListener("change", function () {
+                var next = toggle.checked ? "dark" : "light";
+                localStorage.setItem(THEME_KEY, next);
+                document.documentElement.setAttribute("data-theme", next);
+            });
+        })();
+    </script>
 
     <!-- Form Submit Handler -->
     <script>
