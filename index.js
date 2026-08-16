@@ -195,6 +195,65 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Trustees Carousel
+    const trusteesCarousel = document.getElementById("trusteesCarousel");
+    const trusteesPrev = document.getElementById("trusteesPrev");
+    const trusteesNext = document.getElementById("trusteesNext");
+    const trusteesDots = document.getElementById("trusteesDots");
+
+    if (trusteesCarousel && trusteesPrev && trusteesNext && trusteesDots) {
+        const trusteeCards = Array.from(trusteesCarousel.querySelectorAll(".trustee-card"));
+
+        trusteeCards.forEach((_, index) => {
+            const dot = document.createElement("button");
+            dot.className = "trustees-dot";
+            dot.setAttribute("aria-label", `Go to trustee ${index + 1}`);
+            dot.addEventListener("click", () => {
+                trusteeCards[index].scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+            });
+            trusteesDots.appendChild(dot);
+        });
+        const dotEls = Array.from(trusteesDots.children);
+
+        const scrollByCard = () => {
+            const card = trusteesCarousel.querySelector(".trustee-card");
+            const gap = 24; // 1.5rem
+            return card ? card.offsetWidth + gap : 300;
+        };
+
+        trusteesPrev.addEventListener("click", () => {
+            trusteesCarousel.scrollBy({ left: -scrollByCard(), behavior: "smooth" });
+        });
+        trusteesNext.addEventListener("click", () => {
+            trusteesCarousel.scrollBy({ left: scrollByCard(), behavior: "smooth" });
+        });
+
+        const updateCarouselState = () => {
+            const maxScroll = trusteesCarousel.scrollWidth - trusteesCarousel.clientWidth - 2;
+            trusteesPrev.disabled = trusteesCarousel.scrollLeft <= 0;
+            trusteesNext.disabled = trusteesCarousel.scrollLeft >= maxScroll;
+
+            let closestIndex = 0;
+            let closestDistance = Infinity;
+            trusteeCards.forEach((card, index) => {
+                const distance = Math.abs(card.offsetLeft - trusteesCarousel.scrollLeft);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestIndex = index;
+                }
+            });
+            dotEls.forEach((dot, index) => dot.classList.toggle("active", index === closestIndex));
+        };
+
+        let scrollDebounce;
+        trusteesCarousel.addEventListener("scroll", () => {
+            clearTimeout(scrollDebounce);
+            scrollDebounce = setTimeout(updateCarouselState, 100);
+        });
+        window.addEventListener("resize", updateCarouselState);
+        updateCarouselState();
+    }
+
     // Gallery Filter Logic
     const filterButtons = document.querySelectorAll(".gallery-filter-btn");
     const galleryItems = document.querySelectorAll(".gallery-item");
