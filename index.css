@@ -647,10 +647,10 @@ header.sticky-nav.scrolled .brand-logo-img {
     display: none;
     list-style: none;
     align-items: center;
-    gap: 2.25rem;
+    gap: 1.25rem;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1280px) {
     .nav-links {
         display: flex;
     }
@@ -718,7 +718,7 @@ header.sticky-nav.scrolled .brand-logo-img {
     padding: 0.5rem;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1280px) {
     .mobile-toggle {
         display: none;
     }

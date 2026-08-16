@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | SSOA</title>
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <header class="admin-header">
+        <h1>SSOA Admin Panel</h1>
+        <button id="logoutBtn">Log Out</button>
+    </header>
+
+    <div class="admin-container">
+        <div class="admin-tabs">
+            <button class="admin-tab-btn active" data-panel="events-panel">Manage Events</button>
+            <button class="admin-tab-btn" data-panel="results-panel">Manage Results</button>
+        </div>
+
+        <!-- Events Panel -->
+        <div class="admin-panel active" id="events-panel">
+            <div class="admin-card">
+                <h2 id="eventsFormTitle">Add New Event</h2>
+                <p class="admin-error" id="eventsFormError"></p>
+                <form class="admin-form" id="eventsForm">
+                    <input type="hidden" id="eventsEditId" value="">
+                    <div class="admin-form-group">
+                        <label for="eventsTitle">Title</label>
+                        <input type="text" id="eventsTitle" required>
+                    </div>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label for="eventsDate">Date</label>
+                            <input type="date" id="eventsDate">
+                        </div>
+                        <div class="admin-form-group">
+                            <label for="eventsPhoto">Photo (JPEG/PNG/WEBP, leave blank to keep existing)</label>
+                            <input type="file" id="eventsPhoto" accept="image/jpeg,image/png,image/webp">
+                        </div>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="eventsDescription">Content</label>
+                        <textarea id="eventsDescription"></textarea>
+                    </div>
+                    <button type="submit" class="admin-btn" id="eventsSubmitBtn">Add Event</button>
+                    <button type="button" class="admin-btn secondary" id="eventsCancelBtn" style="display: none;">Cancel Edit</button>
+                </form>
+            </div>
+
+            <div class="admin-card">
+                <h2>Existing Events</h2>
+                <div class="admin-entry-list" id="eventsList"></div>
+            </div>
+        </div>
+
+        <!-- Results Panel -->
+        <div class="admin-panel" id="results-panel">
+            <div class="admin-card">
+                <h2 id="resultsFormTitle">Add New Result</h2>
+                <p class="admin-error" id="resultsFormError"></p>
+                <form class="admin-form" id="resultsForm">
+                    <input type="hidden" id="resultsEditId" value="">
+                    <div class="admin-form-group">
+                        <label for="resultsTitle">Title</label>
+                        <input type="text" id="resultsTitle" required>
+                    </div>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label for="resultsDate">Date</label>
+                            <input type="date" id="resultsDate">
+                        </div>
+                        <div class="admin-form-group">
+                            <label for="resultsPhoto">Photo (JPEG/PNG/WEBP, leave blank to keep existing)</label>
+                            <input type="file" id="resultsPhoto" accept="image/jpeg,image/png,image/webp">
+                        </div>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="resultsDescription">Content</label>
+                        <textarea id="resultsDescription"></textarea>
+                    </div>
+                    <button type="submit" class="admin-btn" id="resultsSubmitBtn">Add Result</button>
+                    <button type="button" class="admin-btn secondary" id="resultsCancelBtn" style="display: none;">Cancel Edit</button>
+                </form>
+            </div>
+
+            <div class="admin-card">
+                <h2>Existing Results</h2>
+                <div class="admin-entry-list" id="resultsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auth guard
+        fetch("/api/admin/me", { credentials: "include" })
+            .then((res) => res.json())
+            .then((data) => {
+                if (!data.authenticated) {
+                    window.location.href = "login.html";
+                }
+            });
+
+        document.getElementById("logoutBtn").addEventListener("click", async () => {
+            await fetch("/api/admin/logout", { method: "POST", credentials: "include" });
+            window.location.href = "login.html";
+        });
+
+        // Tab switching
+        document.querySelectorAll(".admin-tab-btn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".admin-tab-btn").forEach((b) => b.classList.remove("active"));
+                document.querySelectorAll(".admin-panel").forEach((p) => p.classList.remove("active"));
+                btn.classList.add("active");
+                document.getElementById(btn.dataset.panel).classList.add("active");
+            });
+        });
+
+        const formatDate = (value) => {
+            if (!value) return "No date set";
+            const d = new Date(value);
+            return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+        };
+
+        // Generic manager, instantiated once for events and once for results.
+        function initManager({ apiPath, prefix, dateField, singularLabel }) {
+            const els = {
+                form: document.getElementById(`${prefix}Form`),
+                formTitle: document.getElementById(`${prefix}FormTitle`),
+                formError: document.getElementById(`${prefix}FormError`),
+                editId: document.getElementById(`${prefix}EditId`),
+                title: document.getElementById(`${prefix}Title`),
+                date: document.getElementById(`${prefix}Date`),
+                photo: document.getElementById(`${prefix}Photo`),
+                description: document.getElementById(`${prefix}Description`),
+                submitBtn: document.getElementById(`${prefix}SubmitBtn`),
+                cancelBtn: document.getElementById(`${prefix}CancelBtn`),
+                list: document.getElementById(`${prefix}List`),
+            };
+
+            function resetForm() {
+                els.form.reset();
+                els.editId.value = "";
+                els.formTitle.textContent = `Add New ${singularLabel}`;
+                els.submitBtn.textContent = `Add ${singularLabel}`;
+                els.cancelBtn.style.display = "none";
+                els.formError.style.display = "none";
+            }
+
+            function startEdit(entry) {
+                els.editId.value = entry.id;
+                els.title.value = entry.title;
+                els.date.value = entry[dateField] ? entry[dateField].slice(0, 10) : "";
+                els.description.value = entry.description || "";
+                els.formTitle.textContent = `Edit ${singularLabel}`;
+                els.submitBtn.textContent = `Update ${singularLabel}`;
+                els.cancelBtn.style.display = "inline-block";
+                els.formError.style.display = "none";
+                window.scrollTo({ top: els.form.offsetTop - 100, behavior: "smooth" });
+            }
+
+            async function loadList() {
+                const res = await fetch(apiPath, { credentials: "include" });
+                const entries = await res.json();
+                if (!Array.isArray(entries) || entries.length === 0) {
+                    els.list.innerHTML = `<p class="admin-empty">No ${singularLabel.toLowerCase()}s yet.</p>`;
+                    return;
+                }
+                els.list.innerHTML = entries.map((entry) => `
+                    <div class="admin-entry" data-id="${entry.id}">
+                        ${entry.photo_url
+                            ? `<img class="admin-entry-thumb" src="${entry.photo_url}" alt="">`
+                            : `<div class="admin-entry-thumb"></div>`}
+                        <div class="admin-entry-info">
+                            <strong>${entry.title}</strong>
+                            <span>${formatDate(entry[dateField])}</span>
+                        </div>
+                        <div class="admin-entry-actions">
+                            <button type="button" class="admin-btn secondary" data-action="edit">Edit</button>
+                            <button type="button" class="admin-btn danger" data-action="delete">Delete</button>
+                        </div>
+                    </div>
+                `).join("");
+
+                els.list.querySelectorAll(".admin-entry").forEach((row) => {
+                    const id = row.dataset.id;
+                    const entry = entries.find((e) => String(e.id) === id);
+                    row.querySelector('[data-action="edit"]').addEventListener("click", () => startEdit(entry));
+                    row.querySelector('[data-action="delete"]').addEventListener("click", async () => {
+                        if (!confirm(`Delete "${entry.title}"? This cannot be undone.`)) return;
+                        await fetch(`${apiPath}/${id}`, { method: "DELETE", credentials: "include" });
+                        loadList();
+                    });
+                });
+            }
+
+            els.cancelBtn.addEventListener("click", resetForm);
+
+            els.form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                els.formError.style.display = "none";
+
+                const formData = new FormData();
+                formData.append("title", els.title.value);
+                formData.append("description", els.description.value);
+                formData.append(dateField, els.date.value);
+                if (els.photo.files[0]) {
+                    formData.append("photo", els.photo.files[0]);
+                }
+
+                const editId = els.editId.value;
+                const url = editId ? `${apiPath}/${editId}` : apiPath;
+                const method = editId ? "PUT" : "POST";
+
+                try {
+                    const res = await fetch(url, { method, credentials: "include", body: formData });
+                    const data = await res.json();
+                    if (!res.ok) {
+                        throw new Error(data.error || "Something went wrong");
+                    }
+                    resetForm();
+                    loadList();
+                } catch (err) {
+                    els.formError.textContent = err.message;
+                    els.formError.style.display = "block";
+                }
+            });
+
+            loadList();
+        }
+
+        initManager({ apiPath: "/api/events", prefix: "events", dateField: "event_date", singularLabel: "Event" });
+        initManager({ apiPath: "/api/results", prefix: "results", dateField: "result_date", singularLabel: "Result" });
+    </script>
+</body>
+</html>

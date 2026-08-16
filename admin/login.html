@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | SSOA</title>
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="admin-login-container">
+        <h1>SSOA Admin Panel</h1>
+        <p class="admin-error" id="loginError"></p>
+        <form id="loginForm" class="admin-form">
+            <div class="admin-form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autocomplete="username">
+            </div>
+            <div class="admin-form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="admin-btn" style="width: 100%;">Log In</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("loginForm");
+        const errorEl = document.getElementById("loginError");
+
+        // If already logged in, skip straight to the dashboard.
+        fetch("/api/admin/me", { credentials: "include" })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.authenticated) {
+                    window.location.href = "dashboard.html";
+                }
+            });
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            errorEl.style.display = "none";
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                const res = await fetch("/api/admin/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify({ username, password }),
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    throw new Error(data.error || "Login failed");
+                }
+                window.location.href = "dashboard.html";
+            } catch (err) {
+                errorEl.textContent = err.message;
+                errorEl.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | Sahjanand School of Achievers</title>
+    <!-- Apply saved theme before first paint to avoid a flash of the wrong theme -->
+    <script>
+        (function () {
+            var t = localStorage.getItem("ssoa-theme") || "dark";
+            document.documentElement.setAttribute("data-theme", t);
+        })();
+    </script>
+    <!-- Google Fonts Preconnect & stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- CSS link -->
+    <link rel="stylesheet" href="index.css">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <style>
+        .content-page-container {
+            max-width: var(--max-width);
+            margin: 120px auto 5rem auto;
+            padding: 0 2rem;
+        }
+        .content-page-hero {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        @media (min-width: 640px) {
+            .content-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 992px) {
+            .content-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .content-card {
+            background-color: var(--surface);
+            border: 1px solid rgba(12, 91, 112, 0.1);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        .content-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+        .content-card-photo {
+            width: 100%;
+            height: 190px;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .content-card-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .content-card-photo i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            opacity: 0.4;
+        }
+        .content-card-body {
+            padding: 1.5rem;
+        }
+        .content-card-date {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .content-card-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .content-card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .content-empty-state {
+            text-align: center;
+            padding: 4rem 1rem;
+            color: var(--text-muted);
+        }
+        .content-empty-state i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="sticky-nav scrolled">
+        <div class="navbar-container">
+            <a href="index.html" class="brand-logo">
+                <img src="/assets/logo.png" alt="Sahjanand School of Achievers Logo" class="brand-logo-img">
+                <span>SSOA Achievers</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li><a href="academics.html">Academics</a></li>
+                <li><a href="index.html#trustees">Trustees</a></li>
+                <li><a href="index.html#gallery">Gallery</a></li>
+                <li><a href="events.html" class="active">Events</a></li>
+                <li><a href="results.html">Results</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <label class="theme-switch" for="themeToggleMain" aria-label="Toggle dark and light theme">
+                    <input type="checkbox" id="themeToggleMain" class="theme-switch-input">
+                    <span class="theme-switch-track">
+                        <i class="fa-solid fa-sun"></i>
+                        <i class="fa-solid fa-moon"></i>
+                        <span class="theme-switch-thumb"></span>
+                    </span>
+                </label>
+                <a href="admission.html" class="cta-btn">Enquire Now</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Events Page -->
+    <main class="content-page-container">
+        <div class="content-page-hero">
+            <span style="color: var(--accent-dark); font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem; display: block; margin-bottom: 0.75rem;">What's Happening</span>
+            <h1 style="font-size: clamp(2rem, 4vw, 2.75rem); color: var(--primary); margin-bottom: 1rem;">School Events</h1>
+            <p style="color: var(--text-muted); max-width: 640px; margin: 0 auto;">Celebrations, competitions, and campus activities from across both Chiloda and Sargasan campuses.</p>
+        </div>
+
+        <div class="content-grid" id="eventsGrid"></div>
+        <div class="content-empty-state" id="eventsEmptyState" style="display: none;">
+            <i class="fa-solid fa-calendar-days"></i>
+            <p>No events have been posted yet. Please check back soon.</p>
+        </div>
+    </main>
+
+    <!-- Footer Copyright -->
+    <footer class="copyright-bar">
+        <p>&copy; 2026 Sahjanand School of Achievers. All Rights Reserved. Powered by JK Data Lab</p>
+    </footer>
+
+    <script>
+        (function () {
+            var THEME_KEY = "ssoa-theme";
+            var toggle = document.getElementById("themeToggleMain");
+            if (!toggle) return;
+            var current = localStorage.getItem(THEME_KEY) || "dark";
+            toggle.checked = current === "dark";
+            toggle.addEventListener("change", function () {
+                var next = toggle.checked ? "dark" : "light";
+                localStorage.setItem(THEME_KEY, next);
+                document.documentElement.setAttribute("data-theme", next);
+            });
+        })();
+    </script>
+
+    <!-- Fetch and Render Events -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const grid = document.getElementById("eventsGrid");
+            const emptyState = document.getElementById("eventsEmptyState");
+
+            const formatDate = (value) => {
+                if (!value) return "";
+                const d = new Date(value);
+                return d.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+            };
+
+            const escapeHtml = (str) =>
+                String(str || "").replace(/[&<>"']/g, (c) => ({
+                    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+                }[c]));
+
+            fetch("/api/events")
+                .then((res) => res.json())
+                .then((events) => {
+                    if (!Array.isArray(events) || events.length === 0) {
+                        emptyState.style.display = "block";
+                        return;
+                    }
+                    grid.innerHTML = events.map((ev) => `
+                        <div class="content-card">
+                            <div class="content-card-photo">
+                                ${ev.photo_url
+                                    ? `<img src="${ev.photo_url}" alt="${escapeHtml(ev.title)}">`
+                                    : `<i class="fa-solid fa-calendar-days"></i>`}
+                            </div>
+                            <div class="content-card-body">
+                                ${ev.event_date ? `<span class="content-card-date">${formatDate(ev.event_date)}</span>` : ""}
+                                <h3 class="content-card-title">${escapeHtml(ev.title)}</h3>
+                                <p class="content-card-desc">${escapeHtml(ev.description)}</p>
+                            </div>
+                        </div>
+                    `).join("");
+                })
+                .catch(() => {
+                    emptyState.style.display = "block";
+                });
+        });
+    </script>
+</body>
+</html>
