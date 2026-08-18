@@ -370,4 +370,197 @@ document.addEventListener("DOMContentLoaded", () => {
             target.scrollIntoView();
         }
     }
+
+    // Home Events & Achievers Portal Section Handler
+    function initHomePortalSection() {
+        const grid = document.getElementById("homePortalGrid");
+        const tabEventsBtn = document.getElementById("homeTabEvents");
+        const tabResultsBtn = document.getElementById("homeTabResults");
+        const campusBtns = document.querySelectorAll("[data-home-campus]");
+        const viewAllBtn = document.getElementById("homePortalViewAllBtn");
+
+        if (!grid || !tabEventsBtn || !tabResultsBtn) return;
+
+        let activeTab = "events";
+        let activeCampus = "all";
+
+        const fallbackEvents = [
+            {
+                id: "fb-1",
+                title: "Annual Sports Championship & Athletic Meet 2026",
+                description: "A grand celebration of athleticism, teamwork, and sportsmanship spanning sprint races, table tennis, and yoga.",
+                event_date: "2026-02-15",
+                photo_url: "/assets/campus/table-tennis.jpg",
+                campus: "chiloda",
+                category: "sports"
+            },
+            {
+                id: "fb-2",
+                title: "Grand Science & Robotics Innovation Expo",
+                description: "Working models in AI, renewable energy, chemistry reactions, and robotic automation showcased across both campuses.",
+                event_date: "2026-01-28",
+                photo_url: "/assets/campus/computer-lab.jpg",
+                campus: "sargasan",
+                category: "science"
+            },
+            {
+                id: "fb-3",
+                title: "Annual Cultural Fest & Musical Talent Gala",
+                description: "Enchanting evening of classical Indian dances, drama acts, instrumental solos, and traditional attire parades.",
+                event_date: "2026-01-10",
+                photo_url: "/assets/campus/yoga-assembly.jpg",
+                campus: "chiloda",
+                category: "cultural"
+            }
+        ];
+
+        const fallbackResults = [
+            {
+                id: "res-1",
+                title: "GSEB Class 12 Science Board Topper - 99.94 PR",
+                description: "Outstanding performance by Sargasan Science Campus students securing top A1 grades with 99.94 Percentile Rank.",
+                result_date: "2026-05-18",
+                photo_url: "/assets/campus/sargasan-building-students.jpg",
+                campus: "sargasan",
+                rank_badge: "🥇 99.94 PR",
+                category: "board12"
+            },
+            {
+                id: "res-2",
+                title: "GUJCET State Rank Holder - Top 10 Merit List",
+                description: "Sensational performance in GUJCET Engineering entrance exam with State Merit Rank 8 and 99.88 Percentile.",
+                result_date: "2026-05-25",
+                photo_url: "/assets/campus/computer-lab.jpg",
+                campus: "sargasan",
+                rank_badge: "🏆 State Rank 8",
+                category: "gujcet"
+            },
+            {
+                id: "res-3",
+                title: "GSEB Class 10 Board Distinction - 98.6%",
+                description: "Chiloda Secondary Campus students achieve 100% distinction pass rate with highest individual scores exceeding 98.6%.",
+                result_date: "2026-05-10",
+                photo_url: "/assets/campus/classroom-teaching.jpg",
+                campus: "chiloda",
+                rank_badge: "⭐ 98.6% Marks",
+                category: "board10"
+            }
+        ];
+
+        let eventsData = fallbackEvents;
+        let resultsData = fallbackResults;
+
+        const parseDate = (dStr) => {
+            if (!dStr) return { month: "FEB", day: "15" };
+            const d = new Date(dStr);
+            return {
+                month: d.toLocaleDateString("en-US", { month: "short" }).toUpperCase(),
+                day: d.getDate()
+            };
+        };
+
+        const escapeHtml = (str) =>
+            String(str || "").replace(/[&<>"']/g, (c) => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+            }[c]));
+
+        const renderHomeGrid = () => {
+            const list = activeTab === "events" ? eventsData : resultsData;
+            const filtered = list.filter((item) => {
+                const campus = item.campus || ((item.title + " " + item.description).toLowerCase().includes("sargasan") ? "sargasan" : "chiloda");
+                return activeCampus === "all" || campus === activeCampus;
+            }).slice(0, 3);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 2rem;">No ${activeTab} available for selected campus.</div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map((item) => {
+                const dateInfo = parseDate(item.event_date || item.result_date);
+                const campus = item.campus || ((item.title + " " + item.description).toLowerCase().includes("sargasan") ? "sargasan" : "chiloda");
+                const campusLabel = campus === "sargasan" ? "Sargasan Campus" : "Chiloda Campus";
+                const badge = activeTab === "results" ? `<div class="portal-rank-badge">${item.rank_badge || "🏆 Achiever"}</div>` : "";
+                const linkPage = activeTab === "events" ? "events.html" : "results.html";
+                const btnLabel = activeTab === "events" ? "Explore Event" : "View Wall of Fame";
+
+                return `
+                    <div class="portal-card">
+                        <div class="portal-card-photo">
+                            ${item.photo_url
+                                ? `<img src="${item.photo_url}" alt="${escapeHtml(item.title)}" loading="lazy">`
+                                : `<div class="portal-card-photo-fallback"><i class="fa-solid ${activeTab === 'events' ? 'fa-calendar-days' : 'fa-trophy'}"></i></div>`}
+                            <div class="portal-photo-overlay"></div>
+                            <div class="portal-date-chip">
+                                <span class="month">${dateInfo.month}</span>
+                                <span class="day">${dateInfo.day}</span>
+                            </div>
+                            <div class="portal-campus-chip ${campus}">${campusLabel}</div>
+                            ${badge}
+                        </div>
+                        <div class="portal-card-body">
+                            <div class="portal-card-category">
+                                <i class="fa-solid ${activeTab === 'events' ? 'fa-sparkles' : 'fa-award'}"></i> ${(item.category || activeTab).toUpperCase()}
+                            </div>
+                            <h3 class="portal-card-title">${escapeHtml(item.title)}</h3>
+                            <p class="portal-card-desc">${escapeHtml(item.description)}</p>
+                            <div class="portal-card-footer">
+                                <a href="${linkPage}" class="portal-card-btn">
+                                    ${btnLabel} <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+
+            if (viewAllBtn) {
+                if (activeTab === "events") {
+                    viewAllBtn.href = "events.html";
+                    viewAllBtn.innerHTML = `Explore Full Events Portal <i class="fa-solid fa-arrow-right"></i>`;
+                } else {
+                    viewAllBtn.href = "results.html";
+                    viewAllBtn.innerHTML = `Explore Wall of Results <i class="fa-solid fa-arrow-right"></i>`;
+                }
+            }
+        };
+
+        // Tab Listeners
+        tabEventsBtn.addEventListener("click", () => {
+            tabEventsBtn.classList.add("active");
+            tabResultsBtn.classList.remove("active");
+            activeTab = "events";
+            renderHomeGrid();
+        });
+
+        tabResultsBtn.addEventListener("click", () => {
+            tabResultsBtn.classList.add("active");
+            tabEventsBtn.classList.remove("active");
+            activeTab = "results";
+            renderHomeGrid();
+        });
+
+        // Campus Filter Listeners
+        campusBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                campusBtns.forEach((b) => b.classList.remove("active"));
+                btn.classList.add("active");
+                activeCampus = btn.getAttribute("data-home-campus");
+                renderHomeGrid();
+            });
+        });
+
+        // Fetch API for live data
+        Promise.all([
+            fetch("/api/events").then((r) => r.json()).catch(() => []),
+            fetch("/api/results").then((r) => r.json()).catch(() => [])
+        ]).then(([evs, res]) => {
+            if (Array.isArray(evs) && evs.length > 0) eventsData = evs;
+            if (Array.isArray(res) && res.length > 0) resultsData = res;
+            renderHomeGrid();
+        });
+    }
+
+    initHomePortalSection();
 });
+

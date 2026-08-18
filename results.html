@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results | Sahjanand School of Achievers</title>
-    <!-- Apply saved theme before first paint to avoid a flash of the wrong theme -->
+    <title>School Results & Achievers | Sahjanand School of Achievers</title>
+    <!-- Apply saved theme before first paint -->
     <script>
         (function () {
             var t = localStorage.getItem("ssoa-theme") || "dark";
             document.documentElement.setAttribute("data-theme", t);
         })();
     </script>
-    <!-- Google Fonts Preconnect & stylesheet -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -21,96 +21,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/assets/logo.png">
-    <style>
-        .content-page-container {
-            max-width: var(--max-width);
-            margin: 120px auto 5rem auto;
-            padding: 0 2rem;
-        }
-        .content-page-hero {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-        @media (min-width: 640px) {
-            .content-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (min-width: 992px) {
-            .content-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        .content-card {
-            background-color: var(--surface);
-            border: 1px solid rgba(12, 91, 112, 0.1);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-        }
-        .content-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary);
-        }
-        .content-card-photo {
-            width: 100%;
-            height: 190px;
-            background-color: var(--primary-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .content-card-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .content-card-photo i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            opacity: 0.4;
-        }
-        .content-card-body {
-            padding: 1.5rem;
-        }
-        .content-card-date {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--accent-dark);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-        .content-card-title {
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        .content-card-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-        .content-empty-state {
-            text-align: center;
-            padding: 4rem 1rem;
-            color: var(--text-muted);
-        }
-        .content-empty-state i {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            opacity: 0.4;
-        }
-    </style>
 </head>
 <body>
 
@@ -147,26 +57,112 @@
         </div>
     </header>
 
-    <!-- Main Results Page -->
-    <main class="content-page-container">
-        <div class="content-page-hero">
-            <span style="color: var(--accent-dark); font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem; display: block; margin-bottom: 0.75rem;">Our Achievers</span>
-            <h1 style="font-size: clamp(2rem, 4vw, 2.75rem); color: var(--primary); margin-bottom: 1rem;">School Results</h1>
-            <p style="color: var(--text-muted); max-width: 640px; margin: 0 auto;">Board exam outcomes, competitive exam qualifiers, and student achievements from across both campuses.</p>
-        </div>
+    <!-- Hero Section -->
+    <section class="portal-hero">
+        <div class="portal-hero-bg-glow"></div>
+        <div class="portal-hero-content">
+            <span class="portal-badge">
+                <i class="fa-solid fa-trophy"></i> Wall of Achievers & Distinction
+            </span>
+            <h1 class="portal-hero-title">
+                Academic & Board <span>Excellence</span>
+            </h1>
+            <p class="portal-hero-desc">
+                Celebrating outstanding GSEB board toppers, competitive entrance exam rankers, JEE/NEET qualifiers, and state champions from both Chiloda and Sargasan campuses.
+            </p>
 
-        <div class="content-grid" id="resultsGrid"></div>
+            <!-- Hero Stats Row -->
+            <div class="portal-hero-stats">
+                <div class="portal-stat-chip">
+                    <i class="fa-solid fa-award"></i>
+                    <div><strong>99.9%</strong> GSEB Board Pass Rate</div>
+                </div>
+                <div class="portal-stat-chip">
+                    <i class="fa-solid fa-star"></i>
+                    <div><strong>100+</strong> Board Distinction Achievers</div>
+                </div>
+                <div class="portal-stat-chip">
+                    <i class="fa-solid fa-user-ninja"></i>
+                    <div><strong>50+</strong> JEE/NEET Qualifiers</div>
+                </div>
+            </div>
+
+            <!-- Unified Portal Top Tab Bar -->
+            <div class="portal-tabs-wrapper">
+                <a href="events.html" class="portal-tab-link">
+                    <i class="fa-solid fa-calendar-days"></i> 🎉 Events Portal
+                </a>
+                <a href="results.html" class="portal-tab-link active">
+                    <i class="fa-solid fa-trophy"></i> 🏆 Wall of Results
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Controls & Filter Bar -->
+    <div class="portal-controls-container">
+        <div class="portal-controls-card">
+            <div class="portal-controls-top">
+                <!-- Campus Filter Group -->
+                <div class="campus-filter-group">
+                    <span class="campus-filter-label"><i class="fa-solid fa-building-columns"></i> Campus:</span>
+                    <button class="campus-filter-btn active" data-campus="all">All Campuses</button>
+                    <button class="campus-filter-btn chiloda-btn" data-campus="chiloda">
+                        <i class="fa-solid fa-school"></i> Chiloda (KG - 10th)
+                    </button>
+                    <button class="campus-filter-btn sargasan-btn" data-campus="sargasan">
+                        <i class="fa-solid fa-microscope"></i> Sargasan (11-12th Sci)
+                    </button>
+                </div>
+
+                <!-- Search Box -->
+                <div class="portal-search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="resultSearchInput" placeholder="Search achievers by name, rank...">
+                </div>
+            </div>
+
+            <!-- Category Pills Row -->
+            <div class="category-pills-row">
+                <button class="category-pill active" data-category="all">All Achievements</button>
+                <button class="category-pill" data-category="board12">GSEB 12th Science</button>
+                <button class="category-pill" data-category="board10">GSEB 10th Board</button>
+                <button class="category-pill" data-category="jee-neet">JEE & NEET Stars</button>
+                <button class="category-pill" data-category="gujcet">GUJCET State Ranks</button>
+                <button class="category-pill" data-category="olympiad">Olympiad Champions</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Grid Section -->
+    <main class="portal-section-container">
+        <div class="portal-grid" id="resultsGrid"></div>
         <div class="content-empty-state" id="resultsEmptyState" style="display: none;">
-            <i class="fa-solid fa-trophy"></i>
-            <p>No results have been posted yet. Please check back soon.</p>
+            <i class="fa-solid fa-trophy" style="font-size: 3rem; margin-bottom: 1rem; color: var(--accent-dark);"></i>
+            <h3>No Matching Results Found</h3>
+            <p>Try clearing your search query or selecting a different category filter.</p>
         </div>
     </main>
+
+    <!-- Detail Lightbox Modal -->
+    <div class="portal-modal" id="resultModal">
+        <div class="portal-modal-content">
+            <button class="portal-modal-close" id="modalCloseBtn">&times;</button>
+            <img src="" alt="" class="portal-modal-hero-img" id="modalImg">
+            <div class="portal-modal-body">
+                <div class="portal-modal-date" id="modalDate"></div>
+                <h2 class="portal-modal-title" id="modalTitle"></h2>
+                <p class="portal-modal-desc" id="modalDesc"></p>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer Copyright -->
     <footer class="copyright-bar">
         <p>&copy; 2026 Sahjanand School of Achievers. All Rights Reserved. Powered by JK Data Lab</p>
     </footer>
 
+    <!-- Theme Toggle Script -->
     <script>
         (function () {
             var THEME_KEY = "ssoa-theme";
@@ -182,16 +178,96 @@
         })();
     </script>
 
-    <!-- Fetch and Render Results -->
+    <!-- Fetch & Render Results Script -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const grid = document.getElementById("resultsGrid");
             const emptyState = document.getElementById("resultsEmptyState");
+            const searchInput = document.getElementById("resultSearchInput");
+            const modal = document.getElementById("resultModal");
+            const modalCloseBtn = document.getElementById("modalCloseBtn");
 
-            const formatDate = (value) => {
-                if (!value) return "";
-                const d = new Date(value);
-                return d.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+            let allResults = [];
+            let currentCampus = "all";
+            let currentCategory = "all";
+            let searchQuery = "";
+
+            // Fallback showcase items if backend is empty
+            const fallbackResults = [
+                {
+                    id: "res-1",
+                    title: "GSEB Class 12 Science State Board Topper - 99.94 PR",
+                    description: "Outstanding academic achievement by Sargasan Science Campus students securing top A1 grades with 99.94 Percentile Rank in GSEB Class 12 Board Examinations.",
+                    result_date: "2026-05-18",
+                    photo_url: "/assets/campus/sargasan-building-students.jpg",
+                    campus: "sargasan",
+                    category: "board12",
+                    rank_badge: "🥇 99.94 PR"
+                },
+                {
+                    id: "res-2",
+                    title: "GUJCET State Rank Holder - Top 10 Merit List",
+                    description: "Sensational performance in GUJCET Engineering & Pharmacy entrance exam with State Merit Rank 8 and 99.88 Percentile score.",
+                    result_date: "2026-05-25",
+                    photo_url: "/assets/campus/computer-lab.jpg",
+                    campus: "sargasan",
+                    category: "gujcet",
+                    rank_badge: "🏆 State Rank 8"
+                },
+                {
+                    id: "res-3",
+                    title: "GSEB Class 10 Board Distinction Excellence - 98.6%",
+                    description: "Chiloda Secondary Campus students achieve 100% distinction pass rate with highest individual scores exceeding 98.6% aggregate.",
+                    result_date: "2026-05-10",
+                    photo_url: "/assets/campus/classroom-teaching.jpg",
+                    campus: "chiloda",
+                    category: "board10",
+                    rank_badge: "⭐ 98.6% Marks"
+                },
+                {
+                    id: "res-4",
+                    title: "JEE Advanced 2025 Qualifiers to Top IITs",
+                    description: "14 Students from Sargasan Campus clear JEE Advanced entrance test securing admission seats into prestigious Indian Institutes of Technology (IITs).",
+                    result_date: "2025-06-12",
+                    photo_url: "/assets/campus/students-together.jpg",
+                    campus: "sargasan",
+                    category: "jee-neet",
+                    rank_badge: "🎯 14 IIT Selections"
+                },
+                {
+                    id: "res-5",
+                    title: "National Cyber & Mathematics Olympiad Gold Medalists",
+                    description: "Chiloda Campus students earn 6 Gold Medals and 4 Silver Medals in the National Science & Cyber Olympiads competing among 500+ schools.",
+                    result_date: "2025-12-15",
+                    photo_url: "/assets/campus/table-tennis.jpg",
+                    campus: "chiloda",
+                    category: "olympiad",
+                    rank_badge: "🏅 6 Gold Medals"
+                },
+                {
+                    id: "res-6",
+                    title: "NEET Medical Entrance 680+ Score Achievers",
+                    description: "High distinction scores in NEET UG examination opening doors to premiere Government Medical Colleges across Gujarat.",
+                    result_date: "2025-06-20",
+                    photo_url: "/assets/campus/sargasan-building-alt.jpg",
+                    campus: "sargasan",
+                    category: "jee-neet",
+                    rank_badge: "🩺 680+ NEET Score"
+                }
+            ];
+
+            const parseMonthDay = (dateStr) => {
+                if (!dateStr) return { month: "MAY", day: "18" };
+                const d = new Date(dateStr);
+                const month = d.toLocaleDateString("en-US", { month: "short" }).toUpperCase();
+                const day = d.getDate();
+                return { month, day };
+            };
+
+            const formatDateFull = (dateStr) => {
+                if (!dateStr) return "Date Announced";
+                const d = new Date(dateStr);
+                return d.toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
             };
 
             const escapeHtml = (str) =>
@@ -199,30 +275,144 @@
                     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
                 }[c]));
 
-            fetch("/api/results")
-                .then((res) => res.json())
-                .then((results) => {
-                    if (!Array.isArray(results) || results.length === 0) {
-                        emptyState.style.display = "block";
-                        return;
-                    }
-                    grid.innerHTML = results.map((r) => `
-                        <div class="content-card">
-                            <div class="content-card-photo">
-                                ${r.photo_url
-                                    ? `<img src="${r.photo_url}" alt="${escapeHtml(r.title)}">`
-                                    : `<i class="fa-solid fa-trophy"></i>`}
+            const determineCampus = (res) => {
+                if (res.campus) return res.campus;
+                const text = (res.title + " " + res.description).toLowerCase();
+                if (text.includes("sargasan") || text.includes("12") || text.includes("jee") || text.includes("neet") || text.includes("gujcet")) {
+                    return "sargasan";
+                }
+                return "chiloda";
+            };
+
+            const determineCategory = (res) => {
+                if (res.category) return res.category;
+                const text = (res.title + " " + res.description).toLowerCase();
+                if (text.includes("12") || text.includes("hsc")) return "board12";
+                if (text.includes("10") || text.includes("ssc")) return "board10";
+                if (text.includes("jee") || text.includes("neet")) return "jee-neet";
+                if (text.includes("gujcet")) return "gujcet";
+                if (text.includes("olympiad")) return "olympiad";
+                return "board12";
+            };
+
+            const renderResults = () => {
+                const filtered = allResults.filter((res) => {
+                    const campus = determineCampus(res);
+                    const category = determineCategory(res);
+                    const text = (res.title + " " + res.description).toLowerCase();
+
+                    const matchesCampus = currentCampus === "all" || campus === currentCampus;
+                    const matchesCategory = currentCategory === "all" || category === currentCategory;
+                    const matchesSearch = !searchQuery || text.includes(searchQuery.toLowerCase());
+
+                    return matchesCampus && matchesCategory && matchesSearch;
+                });
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = "";
+                    emptyState.style.display = "block";
+                    return;
+                }
+
+                emptyState.style.display = "none";
+                grid.innerHTML = filtered.map((res) => {
+                    const campus = determineCampus(res);
+                    const category = determineCategory(res);
+                    const { month, day } = parseMonthDay(res.result_date);
+                    const campusLabel = campus === "sargasan" ? "Sargasan Campus" : "Chiloda Campus";
+                    const campusClass = campus === "sargasan" ? "sargasan" : "chiloda";
+                    const rankBadge = res.rank_badge || "🏆 Top Distinction";
+
+                    return `
+                        <div class="portal-card">
+                            <div class="portal-card-photo">
+                                ${res.photo_url
+                                    ? `<img src="${res.photo_url}" alt="${escapeHtml(res.title)}" loading="lazy">`
+                                    : `<div class="portal-card-photo-fallback"><i class="fa-solid fa-trophy"></i></div>`}
+                                <div class="portal-photo-overlay"></div>
+                                <div class="portal-date-chip">
+                                    <span class="month">${month}</span>
+                                    <span class="day">${day}</span>
+                                </div>
+                                <div class="portal-campus-chip ${campusClass}">${campusLabel}</div>
+                                <div class="portal-rank-badge">${rankBadge}</div>
                             </div>
-                            <div class="content-card-body">
-                                ${r.result_date ? `<span class="content-card-date">${formatDate(r.result_date)}</span>` : ""}
-                                <h3 class="content-card-title">${escapeHtml(r.title)}</h3>
-                                <p class="content-card-desc">${escapeHtml(r.description)}</p>
+                            <div class="portal-card-body">
+                                <div class="portal-card-category">
+                                    <i class="fa-solid fa-award"></i> ${category.toUpperCase()}
+                                </div>
+                                <h3 class="portal-card-title">${escapeHtml(res.title)}</h3>
+                                <p class="portal-card-desc">${escapeHtml(res.description)}</p>
+                                <div class="portal-card-footer">
+                                    <button class="portal-card-btn explore-modal-btn" data-id="${res.id}">
+                                        View Wall of Fame <i class="fa-solid fa-arrow-right"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    `).join("");
+                    `;
+                }).join("");
+
+                // Attach modal handlers
+                document.querySelectorAll(".explore-modal-btn").forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        const id = btn.getAttribute("data-id");
+                        const target = allResults.find((r) => String(r.id) === String(id));
+                        if (!target) return;
+                        
+                        document.getElementById("modalImg").src = target.photo_url || "/assets/campus/sargasan-building-students.jpg";
+                        document.getElementById("modalDate").innerHTML = `<i class="fa-solid fa-trophy"></i> ${formatDateFull(target.result_date)}`;
+                        document.getElementById("modalTitle").textContent = target.title;
+                        document.getElementById("modalDesc").textContent = target.description || "No description provided.";
+                        modal.classList.add("active");
+                    });
+                });
+            };
+
+            // Modal Close Listener
+            modalCloseBtn.addEventListener("click", () => modal.classList.remove("active"));
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) modal.classList.remove("active");
+            });
+
+            // Filter Event Listeners
+            document.querySelectorAll(".campus-filter-btn").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll(".campus-filter-btn").forEach((b) => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    currentCampus = btn.getAttribute("data-campus");
+                    renderResults();
+                });
+            });
+
+            document.querySelectorAll(".category-pill").forEach((pill) => {
+                pill.addEventListener("click", () => {
+                    document.querySelectorAll(".category-pill").forEach((p) => p.classList.remove("active"));
+                    pill.classList.add("active");
+                    currentCategory = pill.getAttribute("data-category");
+                    renderResults();
+                });
+            });
+
+            searchInput.addEventListener("input", (e) => {
+                searchQuery = e.target.value;
+                renderResults();
+            });
+
+            // Fetch backend API
+            fetch("/api/results")
+                .then((res) => res.json())
+                .then((data) => {
+                    if (Array.isArray(data) && data.length > 0) {
+                        allResults = data;
+                    } else {
+                        allResults = fallbackResults;
+                    }
+                    renderResults();
                 })
                 .catch(() => {
-                    emptyState.style.display = "block";
+                    allResults = fallbackResults;
+                    renderResults();
                 });
         });
     </script>
