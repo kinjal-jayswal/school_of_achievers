@@ -2272,6 +2272,26 @@ html[data-theme="dark"] .category-pill.active {
     }
 }
 
+.content-empty-state {
+    text-align: center;
+    padding: 5rem 1rem;
+    color: var(--text-muted);
+}
+
+.content-empty-state i {
+    display: block;
+}
+
+.content-empty-state h3 {
+    color: var(--primary);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.content-empty-state p {
+    font-size: 0.95rem;
+}
+
 /* Extraordinary Card Design */
 .portal-card {
     position: relative;
