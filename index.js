@@ -205,6 +205,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const trusteeCards = Array.from(trusteesCarousel.querySelectorAll(".trustee-card"));
         const carouselWrapper = trusteesCarousel.closest(".trustees-carousel-wrapper");
 
+        // Staggered reveal animation when the trustees section scrolls into view
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    trusteeCards.forEach((card) => card.classList.add("revealed"));
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.2 });
+        revealObserver.observe(trusteesCarousel);
+
         trusteeCards.forEach((_, index) => {
             const dot = document.createElement("button");
             dot.className = "trustees-dot";
