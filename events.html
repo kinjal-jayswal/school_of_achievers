@@ -375,15 +375,17 @@
 
             const renderEvents = () => {
                 const filtered = allEvents.filter((ev) => {
+                    const isPublished = ev.is_published !== false;
                     const campus = determineCampus(ev);
                     const category = determineCategory(ev);
-                    const text = (ev.title + " " + ev.description).toLowerCase();
+                    const text = (ev.title + " " + (ev.description || "")).toLowerCase();
 
+                    const matchesPublish = isPublished;
                     const matchesCampus = currentCampus === "all" || campus === currentCampus;
                     const matchesCategory = currentCategory === "all" || category === currentCategory;
                     const matchesSearch = !searchQuery || text.includes(searchQuery.toLowerCase());
 
-                    return matchesCampus && matchesCategory && matchesSearch;
+                    return matchesPublish && matchesCampus && matchesCategory && matchesSearch;
                 });
 
                 if (filtered.length === 0) {

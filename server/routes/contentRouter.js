@@ -27,10 +27,21 @@ function makeContentRouter({ table, dateColumn, extraFields = [] }) {
     const baseCols = ["id", "title", "description", dateColumn, ...extraNames, "created_at"];
     const selectCols = baseCols.join(", ");
 
+    const parseExtraValue = (val, f) => {
+        if (val === "true" || val === true) return true;
+        if (val === "false" || val === false) return false;
+        if (val !== undefined && val !== null && val !== "") return val;
+        return f.default !== undefined ? f.default : null;
+    };
+
     router.get("/", async (req, res) => {
+        const fetchAll = req.query.all === "true" || Boolean(req.session && req.session.adminId);
+        const hasPublishCol = extraNames.includes("is_published");
+        const whereClause = !fetchAll && hasPublishCol ? "WHERE COALESCE(is_published, true) = true" : "";
+
         const result = await pool.query(
             `SELECT ${selectCols}, (photo IS NOT NULL) AS has_photo
-             FROM ${table} ORDER BY ${dateColumn} DESC NULLS LAST, created_at DESC`
+             FROM ${table} ${whereClause} ORDER BY ${dateColumn} DESC NULLS LAST, created_at DESC`
         );
         const rows = result.rows.map((row) => ({
             ...row,
@@ -61,7 +72,7 @@ function makeContentRouter({ table, dateColumn, extraFields = [] }) {
         }
         const photo = req.file ? req.file.buffer : null;
         const photoMimetype = req.file ? req.file.mimetype : null;
-        const extraValues = extraFields.map((f) => req.body[f.name] || f.default || null);
+        const extraValues = extraFields.map((f) => parseExtraValue(req.body[f.name], f));
 
         const columns = ["title", "description", dateColumn, ...extraNames, "photo", "photo_mimetype"];
         const placeholders = columns.map((_, i) => `$${i + 1}`).join(", ");
@@ -82,7 +93,7 @@ function makeContentRouter({ table, dateColumn, extraFields = [] }) {
         if (!title) {
             return res.status(400).json({ error: "Title is required" });
         }
-        const extraValues = extraFields.map((f) => req.body[f.name] || f.default || null);
+        const extraValues = extraFields.map((f) => parseExtraValue(req.body[f.name], f));
         const extraSet = extraNames.map((name, i) => `${name} = $${4 + i}`);
 
         if (req.file) {
@@ -104,6 +115,27 @@ function makeContentRouter({ table, dateColumn, extraFields = [] }) {
             );
         }
 
+        const result = await pool.query(
+            `SELECT ${selectCols}, (photo IS NOT NULL) AS has_photo FROM ${table} WHERE id = $1`,
+            [req.params.id]
+        );
+        if (!result.rows[0]) {
+            return res.status(404).json({ error: "Not found" });
+        }
+        const row = result.rows[0];
+        res.json({ ...row, photo_url: row.has_photo ? `/api/${table}/${row.id}/photo` : null });
+    });
+
+    router.patch("/:id/toggle-published", requireAdmin, async (req, res) => {
+        if (!extraNames.includes("is_published")) {
+            return res.status(400).json({ error: "Table does not support publication toggle" });
+        }
+        await pool.query(
+            `UPDATE ${table}
+             SET is_published = NOT COALESCE(is_published, true)
+             WHERE id = $1`,
+            [req.params.id]
+        );
         const result = await pool.query(
             `SELECT ${selectCols}, (photo IS NOT NULL) AS has_photo FROM ${table} WHERE id = $1`,
             [req.params.id]

@@ -43,6 +43,7 @@ async function initSchema() {
     await pool.query(`ALTER TABLE events ADD COLUMN IF NOT EXISTS event_type TEXT DEFAULT 'celebration';`);
     await pool.query(`ALTER TABLE events ADD COLUMN IF NOT EXISTS end_date DATE;`);
     await pool.query(`ALTER TABLE events ADD COLUMN IF NOT EXISTS campus TEXT DEFAULT 'both';`);
+    await pool.query(`ALTER TABLE events ADD COLUMN IF NOT EXISTS is_published BOOLEAN DEFAULT true;`);
 }
 
 module.exports = { pool, initSchema };

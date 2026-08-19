@@ -7,5 +7,6 @@ module.exports = makeContentRouter({
         { name: "event_type", default: "celebration" },
         { name: "end_date" },
         { name: "campus", default: "both" },
+        { name: "is_published", default: true },
     ],
 });
