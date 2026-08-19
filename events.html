@@ -128,8 +128,11 @@
     <!-- Diary Modal -->
     <div class="diary-modal" id="diaryModal">
         <div class="diary-modal-content">
-            <button class="diary-modal-close" id="diaryModalCloseBtn">&times;</button>
             <div class="diary-modal-header">
+                <button class="diary-modal-back" id="diaryModalBackBtn">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Diary
+                </button>
+                <button class="diary-modal-close" id="diaryModalCloseBtn">&times;</button>
                 <span class="diary-modal-ribbon" id="diaryModalCampusLabel"></span>
                 <h2 class="diary-modal-month" id="diaryModalMonth"></h2>
             </div>
@@ -434,6 +437,7 @@
             const diaryMonthsGrid = document.getElementById("diaryMonthsGrid");
             const diaryModal = document.getElementById("diaryModal");
             const diaryModalCloseBtn = document.getElementById("diaryModalCloseBtn");
+            const diaryModalBackBtn = document.getElementById("diaryModalBackBtn");
             const diaryModalEntries = document.getElementById("diaryModalEntries");
 
             const eventAppliesToDiaryCampus = (ev, campus) => {
@@ -489,6 +493,7 @@
                 }
 
                 diaryModal.classList.add("active");
+                document.body.style.overflow = "hidden";
                 requestAnimationFrame(() => {
                     diaryModalEntries.querySelectorAll(".diary-entry").forEach((entry) => entry.classList.add("revealed"));
                 });
@@ -524,9 +529,17 @@
                 });
             };
 
-            diaryModalCloseBtn.addEventListener("click", () => diaryModal.classList.remove("active"));
+            const closeDiaryModal = () => {
+                diaryModal.classList.remove("active");
+                document.body.style.overflow = "";
+            };
+            diaryModalCloseBtn.addEventListener("click", closeDiaryModal);
+            diaryModalBackBtn.addEventListener("click", closeDiaryModal);
             diaryModal.addEventListener("click", (e) => {
-                if (e.target === diaryModal) diaryModal.classList.remove("active");
+                if (e.target === diaryModal) closeDiaryModal();
+            });
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && diaryModal.classList.contains("active")) closeDiaryModal();
             });
 
             document.querySelectorAll(".diary-campus-btn").forEach((btn) => {
