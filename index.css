@@ -2768,37 +2768,103 @@ html[data-theme="dark"] .portal-modal-title {
     flex: 1;
     min-width: 0;
     text-align: center;
-    padding: 3rem 2rem 3.25rem 2rem;
-    background: linear-gradient(155deg, #0B4A5C 0%, #063540 55%, #021418 100%);
+    padding: 3.5rem 2.5rem 3.75rem 2.5rem;
+    background: radial-gradient(circle at 50% 30%, #0E5C72 0%, #063540 60%, #021418 100%);
     overflow: hidden;
+    border: 1px solid rgba(229, 169, 59, 0.3);
 }
 
 .diary-book-cover .diary-book-floral {
     position: absolute;
     inset: 0;
-    opacity: 0.85;
+    opacity: 0.75;
     pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg%3E%3Cg transform='translate(30,28)'%3E%3Ccircle cx='-9' cy='0' r='8.5' fill='%23E5A93B'/%3E%3Ccircle cx='9' cy='0' r='8.5' fill='%23E5A93B'/%3E%3Ccircle cx='0' cy='-9' r='8.5' fill='%23E5A93B'/%3E%3Ccircle cx='0' cy='9' r='8.5' fill='%23E5A93B'/%3E%3Ccircle cx='0' cy='0' r='6' fill='%23F5E9C8'/%3E%3C/g%3E%3Cg transform='translate(100,85)'%3E%3Ccircle cx='-7' cy='0' r='6.5' fill='%236FD3E8'/%3E%3Ccircle cx='7' cy='0' r='6.5' fill='%236FD3E8'/%3E%3Ccircle cx='0' cy='-7' r='6.5' fill='%236FD3E8'/%3E%3Ccircle cx='0' cy='7' r='6.5' fill='%236FD3E8'/%3E%3Ccircle cx='0' cy='0' r='4.5' fill='%23F5E9C8'/%3E%3C/g%3E%3Cg transform='translate(20,105)'%3E%3Ccircle cx='-6' cy='0' r='5.5' fill='%23F5E9C8'/%3E%3Ccircle cx='6' cy='0' r='5.5' fill='%23F5E9C8'/%3E%3Ccircle cx='0' cy='-6' r='5.5' fill='%23F5E9C8'/%3E%3Ccircle cx='0' cy='6' r='5.5' fill='%23F5E9C8'/%3E%3Ccircle cx='0' cy='0' r='4' fill='%23E5A93B'/%3E%3C/g%3E%3Cg transform='translate(115,15)'%3E%3Ccircle cx='-5' cy='0' r='4.5' fill='%23E5A93B'/%3E%3Ccircle cx='5' cy='0' r='4.5' fill='%23E5A93B'/%3E%3Ccircle cx='0' cy='-5' r='4.5' fill='%23E5A93B'/%3E%3Ccircle cx='0' cy='5' r='4.5' fill='%23E5A93B'/%3E%3Ccircle cx='0' cy='0' r='3' fill='%23F5E9C8'/%3E%3C/g%3E%3Ccircle cx='60' cy='55' r='3' fill='%23F5E9C8'/%3E%3Ccircle cx='75' cy='110' r='2.5' fill='%236FD3E8'/%3E%3Ccircle cx='5' cy='60' r='2.5' fill='%23E5A93B'/%3E%3C/g%3E%3C/svg%3E");
     background-repeat: repeat;
     background-size: 140px 140px;
 }
 
+.diary-corner-flourish {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.75;
+}
+
+.diary-corner-flourish.top-left {
+    top: 14px;
+    left: 14px;
+}
+
+.diary-corner-flourish.top-right {
+    top: 14px;
+    right: 14px;
+    transform: scaleX(-1);
+}
+
+.diary-corner-flourish.bottom-left {
+    bottom: 14px;
+    left: 14px;
+    transform: scaleY(-1);
+}
+
+.diary-corner-flourish.bottom-right {
+    bottom: 14px;
+    right: 14px;
+    transform: scale(-1);
+}
+
 .diary-book-cover > * {
     position: relative;
-    z-index: 1;
+    z-index: 2;
+}
+
+/* Emblem Wrapper with SVG Floral Halo Wreath */
+.diary-emblem-wrapper {
+    position: relative;
+    display: inline-block;
+    margin: 1.25rem auto 1.75rem auto;
+    width: fit-content;
+}
+
+.diary-floral-wreath {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: clamp(230px, 32vw, 290px);
+    height: clamp(230px, 32vw, 290px);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+    animation: rotateFloralWreath 50s linear infinite;
+}
+
+@keyframes rotateFloralWreath {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .diary-hardcover-emblem {
     position: relative;
-    width: 100px;
+    z-index: 1;
+    width: 160px;
+    max-width: 75vw;
     aspect-ratio: 848 / 1264;
-    margin: 0 auto 1.5rem auto;
-    border-radius: 14px;
+    margin: 0 auto;
+    border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 0 0 3px rgba(229, 169, 59, 0.6),
-                0 15px 35px rgba(0, 0, 0, 0.5),
-                0 0 25px rgba(229, 169, 59, 0.3);
-    animation: float 4s ease-in-out infinite;
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px #E5A93B,
+                0 0 25px rgba(229, 169, 59, 0.45),
+                0 20px 45px rgba(0, 0, 0, 0.65);
+    animation: floatEmblem 4s ease-in-out infinite;
+}
+
+@keyframes floatEmblem {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-7px) scale(1.02); }
 }
 
 .diary-hardcover-emblem img {
@@ -2807,20 +2873,56 @@ html[data-theme="dark"] .portal-modal-title {
     object-fit: cover;
 }
 
-.diary-book-cover .diary-header-badge {
-    background: rgba(229, 169, 59, 0.15);
+.diary-writeup-container {
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+.diary-floral-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    margin: 0.6rem auto;
+    max-width: 280px;
     color: #F0C36B;
+    font-size: 1.1rem;
+}
+
+.diary-floral-divider .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(229, 169, 59, 0.75), transparent);
+}
+
+.diary-floral-divider .flower {
+    opacity: 0.9;
+    text-shadow: 0 0 10px rgba(229, 169, 59, 0.8);
+}
+
+.diary-book-cover .diary-header-badge {
+    background: rgba(229, 169, 59, 0.18);
+    color: #F0C36B;
+    border: 1px solid rgba(229, 169, 59, 0.35);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .diary-hardcover-title {
-    font-size: clamp(2.4rem, 5vw, 3.2rem) !important;
-    color: #FFFFFF !important;
-    text-shadow: 0 2px 16px rgba(229, 169, 59, 0.4);
-    letter-spacing: 0.02em;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 5.5vw, 3.5rem) !important;
+    background: linear-gradient(135deg, #FFFFFF 25%, #F5E9C8 60%, #E5A93B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.04em;
+    margin: 0.3rem 0 !important;
 }
 
 .diary-hardcover-subtitle {
-    color: rgba(255, 255, 255, 0.78) !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+    font-size: 1.02rem;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
 }
 
 .diary-header-badge {
