@@ -476,9 +476,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }[c]));
 
         const renderHomeGrid = () => {
-            const list = activeTab === "events" ? eventsData : resultsData;
+            const rawList = activeTab === "events" ? eventsData : resultsData;
+            const list = activeTab === "events"
+                ? rawList.filter((item) => item.is_published !== false && Boolean(item.photo_url))
+                : rawList;
+
             const filtered = list.filter((item) => {
-                const campus = item.campus || ((item.title + " " + item.description).toLowerCase().includes("sargasan") ? "sargasan" : "chiloda");
+                const campus = item.campus || ((item.title + " " + (item.description || "")).toLowerCase().includes("sargasan") ? "sargasan" : "chiloda");
                 return activeCampus === "all" || campus === activeCampus;
             }).slice(0, 3);
 
@@ -489,7 +493,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             grid.innerHTML = filtered.map((item) => {
                 const dateInfo = parseDate(item.event_date || item.result_date);
-                const campus = item.campus || ((item.title + " " + item.description).toLowerCase().includes("sargasan") ? "sargasan" : "chiloda");
+                const campus = item.campus || ((item.title + " " + (item.description || "")).toLowerCase().includes("sargasan") ? "sargasan" : "chiloda");
                 const campusLabel = campus === "sargasan" ? "Sargasan Campus" : "Chiloda Campus";
                 const badge = activeTab === "results" ? `<div class="portal-rank-badge">${item.rank_badge || "🏆 Achiever"}</div>` : "";
                 const linkPage = activeTab === "events" ? "events.html" : "results.html";
@@ -566,7 +570,10 @@ document.addEventListener("DOMContentLoaded", () => {
             fetch("/api/events").then((r) => r.json()).catch(() => []),
             fetch("/api/results").then((r) => r.json()).catch(() => [])
         ]).then(([evs, res]) => {
-            if (Array.isArray(evs) && evs.length > 0) eventsData = evs;
+            if (Array.isArray(evs)) {
+                const photoEvents = evs.filter((e) => e.is_published !== false && Boolean(e.photo_url));
+                if (photoEvents.length > 0) eventsData = photoEvents;
+            }
             if (Array.isArray(res) && res.length > 0) resultsData = res;
             renderHomeGrid();
         });
