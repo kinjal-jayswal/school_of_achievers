@@ -18,14 +18,18 @@ const upload = multer({
 
 /**
  * Builds an identical CRUD router for a content table (events/results),
- * which differ only in table name and their date column name.
+ * which differ only in table name, their date column name, and an optional
+ * set of extra columns (e.g. events' event_type/end_date).
  */
-function makeContentRouter({ table, dateColumn }) {
+function makeContentRouter({ table, dateColumn, extraFields = [] }) {
     const router = express.Router();
+    const extraNames = extraFields.map((f) => f.name);
+    const baseCols = ["id", "title", "description", dateColumn, ...extraNames, "created_at"];
+    const selectCols = baseCols.join(", ");
 
     router.get("/", async (req, res) => {
         const result = await pool.query(
-            `SELECT id, title, description, ${dateColumn}, created_at, (photo IS NOT NULL) AS has_photo
+            `SELECT ${selectCols}, (photo IS NOT NULL) AS has_photo
              FROM ${table} ORDER BY ${dateColumn} DESC NULLS LAST, created_at DESC`
         );
         const rows = result.rows.map((row) => ({
@@ -57,12 +61,17 @@ function makeContentRouter({ table, dateColumn }) {
         }
         const photo = req.file ? req.file.buffer : null;
         const photoMimetype = req.file ? req.file.mimetype : null;
+        const extraValues = extraFields.map((f) => req.body[f.name] || f.default || null);
+
+        const columns = ["title", "description", dateColumn, ...extraNames, "photo", "photo_mimetype"];
+        const placeholders = columns.map((_, i) => `$${i + 1}`).join(", ");
+        const values = [title, description || null, date, ...extraValues, photo, photoMimetype];
 
         const result = await pool.query(
-            `INSERT INTO ${table} (title, description, ${dateColumn}, photo, photo_mimetype)
-             VALUES ($1, $2, $3, $4, $5)
-             RETURNING id, title, description, ${dateColumn}, created_at`,
-            [title, description || null, date, photo, photoMimetype]
+            `INSERT INTO ${table} (${columns.join(", ")})
+             VALUES (${placeholders})
+             RETURNING ${selectCols}`,
+            values
         );
         res.status(201).json(result.rows[0]);
     });
@@ -73,32 +82,37 @@ function makeContentRouter({ table, dateColumn }) {
         if (!title) {
             return res.status(400).json({ error: "Title is required" });
         }
+        const extraValues = extraFields.map((f) => req.body[f.name] || f.default || null);
+        const extraSet = extraNames.map((name, i) => `${name} = $${4 + i}`);
 
         if (req.file) {
+            const photoParamIndex = 4 + extraNames.length;
             await pool.query(
                 `UPDATE ${table}
-                 SET title = $1, description = $2, ${dateColumn} = $3, photo = $4, photo_mimetype = $5
-                 WHERE id = $6`,
-                [title, description || null, date, req.file.buffer, req.file.mimetype, req.params.id]
+                 SET title = $1, description = $2, ${dateColumn} = $3${extraSet.length ? ", " + extraSet.join(", ") : ""},
+                     photo = $${photoParamIndex}, photo_mimetype = $${photoParamIndex + 1}
+                 WHERE id = $${photoParamIndex + 2}`,
+                [title, description || null, date, ...extraValues, req.file.buffer, req.file.mimetype, req.params.id]
             );
         } else {
+            const idParamIndex = 4 + extraNames.length;
             await pool.query(
                 `UPDATE ${table}
-                 SET title = $1, description = $2, ${dateColumn} = $3
-                 WHERE id = $4`,
-                [title, description || null, date, req.params.id]
+                 SET title = $1, description = $2, ${dateColumn} = $3${extraSet.length ? ", " + extraSet.join(", ") : ""}
+                 WHERE id = $${idParamIndex}`,
+                [title, description || null, date, ...extraValues, req.params.id]
             );
         }
 
         const result = await pool.query(
-            `SELECT id, title, description, ${dateColumn}, created_at, (photo IS NOT NULL) AS has_photo
-             FROM ${table} WHERE id = $1`,
+            `SELECT ${selectCols}, (photo IS NOT NULL) AS has_photo FROM ${table} WHERE id = $1`,
             [req.params.id]
         );
         if (!result.rows[0]) {
             return res.status(404).json({ error: "Not found" });
         }
-        res.json(result.rows[0]);
+        const row = result.rows[0];
+        res.json({ ...row, photo_url: row.has_photo ? `/api/${table}/${row.id}/photo` : null });
     });
 
     router.delete("/:id", requireAdmin, async (req, res) => {

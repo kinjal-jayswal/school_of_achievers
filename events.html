@@ -99,6 +99,44 @@
         </div>
     </section>
 
+    <!-- School Event Diary -->
+    <section class="diary-section" id="diarySection">
+        <div class="diary-hardcover">
+            <div class="diary-hardcover-stitching"></div>
+            <div class="diary-hardcover-emblem">
+                <img src="/assets/logo-3d-badge.jpg" alt="Sahjanand School of Achievers Logo">
+            </div>
+            <span class="diary-header-badge"><i class="fa-solid fa-book-open"></i> Academic Year 2026</span>
+            <h2 class="diary-title diary-hardcover-title">Celebrations</h2>
+            <p class="diary-subtitle diary-hardcover-subtitle">Every holiday, vacation, and celebration &mdash; open a month to step inside.</p>
+        </div>
+
+        <div class="diary-campus-toggle-wrapper">
+            <div class="diary-campus-toggle" id="diaryCampusToggle">
+                <button class="diary-campus-btn chiloda active" data-diary-campus="chiloda">
+                    <i class="fa-solid fa-school"></i> Chiloda Diary
+                </button>
+                <button class="diary-campus-btn sargasan" data-diary-campus="sargasan">
+                    <i class="fa-solid fa-microscope"></i> Sargasan Diary
+                </button>
+            </div>
+        </div>
+
+        <div class="diary-months-grid" id="diaryMonthsGrid"></div>
+    </section>
+
+    <!-- Diary Modal -->
+    <div class="diary-modal" id="diaryModal">
+        <div class="diary-modal-content">
+            <button class="diary-modal-close" id="diaryModalCloseBtn">&times;</button>
+            <div class="diary-modal-header">
+                <span class="diary-modal-ribbon" id="diaryModalCampusLabel"></span>
+                <h2 class="diary-modal-month" id="diaryModalMonth"></h2>
+            </div>
+            <div class="diary-modal-entries" id="diaryModalEntries"></div>
+        </div>
+    </div>
+
     <!-- Controls & Filter Bar -->
     <div class="portal-controls-container">
         <div class="portal-controls-card">
@@ -369,6 +407,137 @@
                 if (e.target === modal) modal.classList.remove("active");
             });
 
+            // ---- School Diary ----
+            const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+            const DIARY_TYPE_META = {
+                holiday: { icon: "🔴", label: "Public Holiday", cls: "holiday" },
+                vacation: { icon: "📅", label: "Board Vacation", cls: "vacation" },
+                celebration: { icon: "🎉", label: "Celebration", cls: "celebration" },
+            };
+
+            const getUTCParts = (dateStr) => {
+                const d = new Date(dateStr);
+                return { month: d.getUTCMonth(), day: d.getUTCDate(), year: d.getUTCFullYear() };
+            };
+
+            const formatDiaryDate = (ev) => {
+                const start = getUTCParts(ev.event_date);
+                const startStr = `${MONTH_NAMES[start.month].slice(0, 3)} ${start.day}`;
+                if (!ev.end_date) return startStr;
+                const end = getUTCParts(ev.end_date);
+                const endStr = end.month === start.month ? `${end.day}` : `${MONTH_NAMES[end.month].slice(0, 3)} ${end.day}`;
+                return `${startStr} – ${endStr}`;
+            };
+
+            let currentDiaryCampus = "chiloda";
+            const diaryMonthsGrid = document.getElementById("diaryMonthsGrid");
+            const diaryModal = document.getElementById("diaryModal");
+            const diaryModalCloseBtn = document.getElementById("diaryModalCloseBtn");
+            const diaryModalEntries = document.getElementById("diaryModalEntries");
+
+            const eventAppliesToDiaryCampus = (ev, campus) => {
+                const evCampus = ev.campus || determineCampus(ev);
+                return evCampus === campus || evCampus === "both";
+            };
+
+            const groupEventsByMonth = (campus) => {
+                const byMonth = Array.from({ length: 12 }, () => []);
+                allEvents
+                    .filter((ev) => ev.event_date && eventAppliesToDiaryCampus(ev, campus))
+                    .forEach((ev) => {
+                        const { month } = getUTCParts(ev.event_date);
+                        byMonth[month].push(ev);
+                    });
+                byMonth.forEach((monthEvents) => monthEvents.sort((a, b) => getUTCParts(a.event_date).day - getUTCParts(b.event_date).day));
+                return byMonth;
+            };
+
+            const openDiaryModal = (monthIdx, monthEvents) => {
+                document.getElementById("diaryModalMonth").textContent = `${MONTH_NAMES[monthIdx]} 2026`;
+                document.getElementById("diaryModalCampusLabel").textContent =
+                    currentDiaryCampus === "chiloda" ? "Chiloda Campus" : "Sargasan Campus";
+
+                if (monthEvents.length === 0) {
+                    diaryModalEntries.innerHTML = `
+                        <div class="diary-empty-state">
+                            <i class="fa-solid fa-feather"></i>
+                            <p>No entries recorded for this month yet.</p>
+                        </div>
+                    `;
+                } else {
+                    diaryModalEntries.innerHTML = monthEvents.map((ev, i) => {
+                        const meta = DIARY_TYPE_META[ev.event_type] || DIARY_TYPE_META.celebration;
+                        return `
+                            <div class="diary-entry ${meta.cls}" style="transition-delay: ${i * 0.08}s">
+                                <div class="diary-entry-photo">
+                                    ${ev.photo_url
+                                        ? `<img src="${ev.photo_url}" alt="${escapeHtml(ev.title)}" loading="lazy">`
+                                        : `<div class="diary-entry-photo-fallback">${meta.icon}</div>`}
+                                </div>
+                                <div class="diary-entry-body">
+                                    <div class="diary-entry-meta">
+                                        <span class="diary-type-badge ${meta.cls}">${meta.icon} ${meta.label}</span>
+                                        <span class="diary-entry-date"><i class="fa-solid fa-calendar-day"></i> ${formatDiaryDate(ev)}</span>
+                                    </div>
+                                    <h3 class="diary-entry-title">${escapeHtml(ev.title)}</h3>
+                                    <p class="diary-entry-desc">${escapeHtml(ev.description || "")}</p>
+                                </div>
+                            </div>
+                        `;
+                    }).join("");
+                }
+
+                diaryModal.classList.add("active");
+                requestAnimationFrame(() => {
+                    diaryModalEntries.querySelectorAll(".diary-entry").forEach((entry) => entry.classList.add("revealed"));
+                });
+            };
+
+            const renderDiaryMonths = () => {
+                if (!diaryMonthsGrid) return;
+                const byMonth = groupEventsByMonth(currentDiaryCampus);
+
+                diaryMonthsGrid.innerHTML = MONTH_NAMES.map((name, idx) => {
+                    const monthEvents = byMonth[idx];
+                    const hasEvents = monthEvents.length > 0;
+                    const typeIcons = [...new Set(monthEvents.map((ev) => (DIARY_TYPE_META[ev.event_type] || DIARY_TYPE_META.celebration).icon))].join(" ");
+                    return `
+                        <button type="button" class="diary-month-tile${hasEvents ? "" : " empty"}" data-month="${idx}" style="transition-delay: ${idx * 0.05}s">
+                            <span class="diary-month-ribbon"></span>
+                            <span class="diary-month-name">${name}</span>
+                            ${hasEvents
+                                ? `<span class="diary-month-count">${monthEvents.length} ${monthEvents.length === 1 ? "entry" : "entries"}</span>
+                                   <span class="diary-month-icons">${typeIcons}</span>`
+                                : `<span class="diary-month-empty-label">No entries yet</span>`}
+                        </button>
+                    `;
+                }).join("");
+
+                diaryMonthsGrid.querySelectorAll(".diary-month-tile").forEach((tile) => {
+                    const idx = Number(tile.dataset.month);
+                    tile.addEventListener("click", () => openDiaryModal(idx, byMonth[idx]));
+                });
+
+                requestAnimationFrame(() => {
+                    diaryMonthsGrid.querySelectorAll(".diary-month-tile").forEach((tile) => tile.classList.add("revealed"));
+                });
+            };
+
+            diaryModalCloseBtn.addEventListener("click", () => diaryModal.classList.remove("active"));
+            diaryModal.addEventListener("click", (e) => {
+                if (e.target === diaryModal) diaryModal.classList.remove("active");
+            });
+
+            document.querySelectorAll(".diary-campus-btn").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll(".diary-campus-btn").forEach((b) => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    currentDiaryCampus = btn.dataset.diaryCampus;
+                    renderDiaryMonths();
+                });
+            });
+
             // Filter Event Listeners
             document.querySelectorAll(".campus-filter-btn").forEach((btn) => {
                 btn.addEventListener("click", () => {
@@ -403,10 +572,12 @@
                         allEvents = fallbackEvents;
                     }
                     renderEvents();
+                    renderDiaryMonths();
                 })
                 .catch(() => {
                     allEvents = fallbackEvents;
                     renderEvents();
+                    renderDiaryMonths();
                 });
         });
     </script>

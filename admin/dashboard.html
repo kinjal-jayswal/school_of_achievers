@@ -32,9 +32,33 @@
                     </div>
                     <div class="admin-form-row">
                         <div class="admin-form-group">
-                            <label for="eventsDate">Date</label>
+                            <label for="eventsDate">Date (start date, for vacations)</label>
                             <input type="date" id="eventsDate">
                         </div>
+                        <div class="admin-form-group">
+                            <label for="eventsEndDate">End Date (only for multi-day vacations)</label>
+                            <input type="date" id="eventsEndDate">
+                        </div>
+                    </div>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label for="eventsType">Diary Type</label>
+                            <select id="eventsType">
+                                <option value="celebration">🎉 School Celebration / Observation</option>
+                                <option value="holiday">🔴 Public Holiday (School Closed)</option>
+                                <option value="vacation">📅 Board Vacation (Closed for a block)</option>
+                            </select>
+                        </div>
+                        <div class="admin-form-group">
+                            <label for="eventsCampus">Campus Diary</label>
+                            <select id="eventsCampus">
+                                <option value="both">Both Campuses</option>
+                                <option value="chiloda">Chiloda Only</option>
+                                <option value="sargasan">Sargasan Only</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="admin-form-row">
                         <div class="admin-form-group">
                             <label for="eventsPhoto">Photo (JPEG/PNG/WEBP, leave blank to keep existing)</label>
                             <input type="file" id="eventsPhoto" accept="image/jpeg,image/png,image/webp">
@@ -124,7 +148,7 @@
         };
 
         // Generic manager, instantiated once for events and once for results.
-        function initManager({ apiPath, prefix, dateField, singularLabel }) {
+        function initManager({ apiPath, prefix, dateField, singularLabel, extraFields = [] }) {
             const els = {
                 form: document.getElementById(`${prefix}Form`),
                 formTitle: document.getElementById(`${prefix}FormTitle`),
@@ -138,6 +162,10 @@
                 cancelBtn: document.getElementById(`${prefix}CancelBtn`),
                 list: document.getElementById(`${prefix}List`),
             };
+            const extraEls = extraFields.map((f) => ({
+                name: f.name,
+                el: document.getElementById(`${prefix}${f.idSuffix}`),
+            }));
 
             function resetForm() {
                 els.form.reset();
@@ -153,6 +181,15 @@
                 els.title.value = entry.title;
                 els.date.value = entry[dateField] ? entry[dateField].slice(0, 10) : "";
                 els.description.value = entry.description || "";
+                extraEls.forEach(({ name, el }) => {
+                    if (!el) return;
+                    const value = entry[name];
+                    if (el.type === "date") {
+                        el.value = value ? String(value).slice(0, 10) : "";
+                    } else {
+                        el.value = value || el.value;
+                    }
+                });
                 els.formTitle.textContent = `Edit ${singularLabel}`;
                 els.submitBtn.textContent = `Update ${singularLabel}`;
                 els.cancelBtn.style.display = "inline-block";
@@ -174,7 +211,7 @@
                             : `<div class="admin-entry-thumb"></div>`}
                         <div class="admin-entry-info">
                             <strong>${entry.title}</strong>
-                            <span>${formatDate(entry[dateField])}</span>
+                            <span>${formatDate(entry[dateField])}${entry.event_type ? " &middot; " + entry.event_type : ""}${entry.campus ? " &middot; " + entry.campus : ""}</span>
                         </div>
                         <div class="admin-entry-actions">
                             <button type="button" class="admin-btn secondary" data-action="edit">Edit</button>
@@ -205,6 +242,9 @@
                 formData.append("title", els.title.value);
                 formData.append("description", els.description.value);
                 formData.append(dateField, els.date.value);
+                extraEls.forEach(({ name, el }) => {
+                    if (el) formData.append(name, el.value);
+                });
                 if (els.photo.files[0]) {
                     formData.append("photo", els.photo.files[0]);
                 }
@@ -230,7 +270,17 @@
             loadList();
         }
 
-        initManager({ apiPath: "/api/events", prefix: "events", dateField: "event_date", singularLabel: "Event" });
+        initManager({
+            apiPath: "/api/events",
+            prefix: "events",
+            dateField: "event_date",
+            singularLabel: "Event",
+            extraFields: [
+                { name: "event_type", idSuffix: "Type" },
+                { name: "end_date", idSuffix: "EndDate" },
+                { name: "campus", idSuffix: "Campus" },
+            ],
+        });
         initManager({ apiPath: "/api/results", prefix: "results", dateField: "result_date", singularLabel: "Result" });
     </script>
 </body>
