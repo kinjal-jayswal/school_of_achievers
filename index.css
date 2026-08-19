@@ -2768,20 +2768,34 @@ html[data-theme="dark"] .portal-modal-title {
     flex: 1;
     min-width: 0;
     text-align: center;
-    padding: 3.5rem 2.5rem 3.75rem 2.5rem;
-    background: radial-gradient(circle at 50% 30%, #0E5C72 0%, #063540 60%, #021418 100%);
+    padding: 3.5rem 2rem 3.75rem 2rem;
+    background: linear-gradient(135deg, #EBF8FF 0%, #D4E6F1 35%, #A3CEF1 70%, #64B5F6 100%);
     overflow: hidden;
-    border: 1px solid rgba(229, 169, 59, 0.3);
+    border: 1px solid rgba(2, 132, 199, 0.25);
+    box-shadow: inset 0 0 60px rgba(255, 255, 255, 0.7);
 }
 
 .diary-book-cover .diary-book-floral {
     position: absolute;
     inset: 0;
-    opacity: 0.75;
+    opacity: 0.45;
     pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg%3E%3Cg transform='translate(30,28)'%3E%3Ccircle cx='-9' cy='0' r='8.5' fill='%23E5A93B'/%3E%3Ccircle cx='9' cy='0' r='8.5' fill='%23E5A93B'/%3E%3Ccircle cx='0' cy='-9' r='8.5' fill='%23E5A93B'/%3E%3Ccircle cx='0' cy='9' r='8.5' fill='%23E5A93B'/%3E%3Ccircle cx='0' cy='0' r='6' fill='%23F5E9C8'/%3E%3C/g%3E%3Cg transform='translate(100,85)'%3E%3Ccircle cx='-7' cy='0' r='6.5' fill='%236FD3E8'/%3E%3Ccircle cx='7' cy='0' r='6.5' fill='%236FD3E8'/%3E%3Ccircle cx='0' cy='-7' r='6.5' fill='%236FD3E8'/%3E%3Ccircle cx='0' cy='7' r='6.5' fill='%236FD3E8'/%3E%3Ccircle cx='0' cy='0' r='4.5' fill='%23F5E9C8'/%3E%3C/g%3E%3Cg transform='translate(20,105)'%3E%3Ccircle cx='-6' cy='0' r='5.5' fill='%23F5E9C8'/%3E%3Ccircle cx='6' cy='0' r='5.5' fill='%23F5E9C8'/%3E%3Ccircle cx='0' cy='-6' r='5.5' fill='%23F5E9C8'/%3E%3Ccircle cx='0' cy='6' r='5.5' fill='%23F5E9C8'/%3E%3Ccircle cx='0' cy='0' r='4' fill='%23E5A93B'/%3E%3C/g%3E%3Cg transform='translate(115,15)'%3E%3Ccircle cx='-5' cy='0' r='4.5' fill='%23E5A93B'/%3E%3Ccircle cx='5' cy='0' r='4.5' fill='%23E5A93B'/%3E%3Ccircle cx='0' cy='-5' r='4.5' fill='%23E5A93B'/%3E%3Ccircle cx='0' cy='5' r='4.5' fill='%23E5A93B'/%3E%3Ccircle cx='0' cy='0' r='3' fill='%23F5E9C8'/%3E%3C/g%3E%3Ccircle cx='60' cy='55' r='3' fill='%23F5E9C8'/%3E%3Ccircle cx='75' cy='110' r='2.5' fill='%236FD3E8'/%3E%3Ccircle cx='5' cy='60' r='2.5' fill='%23E5A93B'/%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg opacity='0.75'%3E%3Cg transform='translate(30,30)'%3E%3Cpath d='M0 -10 C-6 -3, -8 4, 0 10 C8 4, 6 -3, 0 -10 Z' fill='%230284C7'/%3E%3Cpath d='M-10 0 C-3 -6, 4 -8, 10 0 C4 8, -3 6, -10 0 Z' fill='%230284C7'/%3E%3Ccircle cx='0' cy='0' r='4' fill='%23D97706'/%3E%3C/g%3E%3Cg transform='translate(90,90)'%3E%3Cpath d='M0 -8 C-5 -2, -6 3, 0 8 C6 3, 5 -2, 0 -8 Z' fill='%2338BDF8'/%3E%3Cpath d='M-8 0 C-2 -5, 3 -6, 8 0 C3 6, -2 5, -8 0 Z' fill='%2338BDF8'/%3E%3Ccircle cx='0' cy='0' r='3' fill='%23F59E0B'/%3E%3C/g%3E%3Ccircle cx='60' cy='60' r='2.5' fill='%230284C7' opacity='0.6'/%3E%3C/g%3E%3C/svg%3E");
     background-repeat: repeat;
-    background-size: 140px 140px;
+    background-size: 120px 120px;
+}
+
+.diary-cover-glow {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(186, 230, 253, 0.45) 45%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
 }
 
 .diary-corner-flourish {
@@ -2789,52 +2803,62 @@ html[data-theme="dark"] .portal-modal-title {
     width: 90px;
     height: 90px;
     pointer-events: none;
-    z-index: 1;
-    opacity: 0.75;
+    z-index: 2;
+    opacity: 0.85;
 }
 
 .diary-corner-flourish.top-left {
-    top: 14px;
-    left: 14px;
+    top: 12px;
+    left: 12px;
 }
 
 .diary-corner-flourish.top-right {
-    top: 14px;
-    right: 14px;
+    top: 12px;
+    right: 12px;
     transform: scaleX(-1);
 }
 
 .diary-corner-flourish.bottom-left {
-    bottom: 14px;
-    left: 14px;
+    bottom: 12px;
+    left: 12px;
     transform: scaleY(-1);
 }
 
 .diary-corner-flourish.bottom-right {
-    bottom: 14px;
-    right: 14px;
+    bottom: 12px;
+    right: 12px;
     transform: scale(-1);
 }
 
-.diary-book-cover > * {
+.diary-cover-content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
 }
 
-/* Emblem Wrapper with SVG Floral Halo Wreath */
+/* Emblem Wrapper with Floral Halo Wreath */
 .diary-emblem-wrapper {
     position: relative;
-    display: inline-block;
-    margin: 1.25rem auto 1.75rem auto;
-    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.25rem auto 1.5rem auto;
+    width: 160px;
+    height: 238px;
 }
 
 .diary-floral-wreath {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: clamp(230px, 32vw, 290px);
-    height: clamp(230px, 32vw, 290px);
+    width: 270px;
+    height: 270px;
     transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 0;
@@ -2856,9 +2880,9 @@ html[data-theme="dark"] .portal-modal-title {
     border-radius: 18px;
     overflow: hidden;
     background: #FFFFFF;
-    box-shadow: 0 0 0 3px #E5A93B,
-                0 0 25px rgba(229, 169, 59, 0.45),
-                0 20px 45px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 0 0 3px #0284C7,
+                0 0 20px rgba(2, 132, 199, 0.35),
+                0 18px 40px rgba(15, 23, 42, 0.25);
     animation: floatEmblem 4s ease-in-out infinite;
 }
 
@@ -2885,42 +2909,43 @@ html[data-theme="dark"] .portal-modal-title {
     gap: 0.85rem;
     margin: 0.6rem auto;
     max-width: 280px;
-    color: #F0C36B;
+    color: #D97706;
     font-size: 1.1rem;
 }
 
 .diary-floral-divider .line {
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(229, 169, 59, 0.75), transparent);
+    background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.75), transparent);
 }
 
 .diary-floral-divider .flower {
     opacity: 0.9;
-    text-shadow: 0 0 10px rgba(229, 169, 59, 0.8);
+    text-shadow: 0 0 8px rgba(217, 119, 6, 0.4);
 }
 
 .diary-book-cover .diary-header-badge {
-    background: rgba(229, 169, 59, 0.18);
-    color: #F0C36B;
-    border: 1px solid rgba(229, 169, 59, 0.35);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background: rgba(2, 132, 199, 0.15);
+    color: #0369A1;
+    border: 1px solid rgba(2, 132, 199, 0.3);
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12);
 }
 
 .diary-hardcover-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2.6rem, 5.5vw, 3.5rem) !important;
-    background: linear-gradient(135deg, #FFFFFF 25%, #F5E9C8 60%, #E5A93B 100%);
+    background: linear-gradient(135deg, #0F172A 15%, #1E3A8A 55%, #D97706 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.7);
     letter-spacing: 0.04em;
     margin: 0.3rem 0 !important;
 }
 
 .diary-hardcover-subtitle {
-    color: rgba(255, 255, 255, 0.88) !important;
+    color: #334155 !important;
     font-size: 1.02rem;
+    font-weight: 500;
     line-height: 1.6;
     letter-spacing: 0.01em;
 }
