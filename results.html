@@ -192,70 +192,6 @@
             let currentCategory = "all";
             let searchQuery = "";
 
-            // Fallback showcase items if backend is empty
-            const fallbackResults = [
-                {
-                    id: "res-1",
-                    title: "GSEB Class 12 Science State Board Topper - 99.94 PR",
-                    description: "Outstanding academic achievement by Sargasan Science Campus students securing top A1 grades with 99.94 Percentile Rank in GSEB Class 12 Board Examinations.",
-                    result_date: "2026-05-18",
-                    photo_url: "/assets/campus/sargasan-building-students.jpg",
-                    campus: "sargasan",
-                    category: "board12",
-                    rank_badge: "🥇 99.94 PR"
-                },
-                {
-                    id: "res-2",
-                    title: "GUJCET State Rank Holder - Top 10 Merit List",
-                    description: "Sensational performance in GUJCET Engineering & Pharmacy entrance exam with State Merit Rank 8 and 99.88 Percentile score.",
-                    result_date: "2026-05-25",
-                    photo_url: "/assets/campus/computer-lab.jpg",
-                    campus: "sargasan",
-                    category: "gujcet",
-                    rank_badge: "🏆 State Rank 8"
-                },
-                {
-                    id: "res-3",
-                    title: "GSEB Class 10 Board Distinction Excellence - 98.6%",
-                    description: "Chiloda Secondary Campus students achieve 100% distinction pass rate with highest individual scores exceeding 98.6% aggregate.",
-                    result_date: "2026-05-10",
-                    photo_url: "/assets/campus/classroom-teaching.jpg",
-                    campus: "chiloda",
-                    category: "board10",
-                    rank_badge: "⭐ 98.6% Marks"
-                },
-                {
-                    id: "res-4",
-                    title: "JEE Advanced 2025 Qualifiers to Top IITs",
-                    description: "14 Students from Sargasan Campus clear JEE Advanced entrance test securing admission seats into prestigious Indian Institutes of Technology (IITs).",
-                    result_date: "2025-06-12",
-                    photo_url: "/assets/campus/students-together.jpg",
-                    campus: "sargasan",
-                    category: "jee-neet",
-                    rank_badge: "🎯 14 IIT Selections"
-                },
-                {
-                    id: "res-5",
-                    title: "National Cyber & Mathematics Olympiad Gold Medalists",
-                    description: "Chiloda Campus students earn 6 Gold Medals and 4 Silver Medals in the National Science & Cyber Olympiads competing among 500+ schools.",
-                    result_date: "2025-12-15",
-                    photo_url: "/assets/campus/table-tennis.jpg",
-                    campus: "chiloda",
-                    category: "olympiad",
-                    rank_badge: "🏅 6 Gold Medals"
-                },
-                {
-                    id: "res-6",
-                    title: "NEET Medical Entrance 680+ Score Achievers",
-                    description: "High distinction scores in NEET UG examination opening doors to premiere Government Medical Colleges across Gujarat.",
-                    result_date: "2025-06-20",
-                    photo_url: "/assets/campus/sargasan-building-alt.jpg",
-                    campus: "sargasan",
-                    category: "jee-neet",
-                    rank_badge: "🩺 680+ NEET Score"
-                }
-            ];
-
             const parseMonthDay = (dateStr) => {
                 if (!dateStr) return { month: "MAY", day: "18" };
                 const d = new Date(dateStr);
@@ -399,19 +335,15 @@
                 renderResults();
             });
 
-            // Fetch backend API
+            // Fetch backend API - only real admin-entered results are ever shown
             fetch("/api/results")
                 .then((res) => res.json())
                 .then((data) => {
-                    if (Array.isArray(data) && data.length > 0) {
-                        allResults = data;
-                    } else {
-                        allResults = fallbackResults;
-                    }
+                    allResults = Array.isArray(data) ? data : [];
                     renderResults();
                 })
                 .catch(() => {
-                    allResults = fallbackResults;
+                    allResults = [];
                     renderResults();
                 });
         });

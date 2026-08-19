@@ -101,16 +101,6 @@
 
     <!-- School Event Diary -->
     <section class="diary-section" id="diarySection">
-        <div class="diary-hardcover">
-            <div class="diary-hardcover-stitching"></div>
-            <div class="diary-hardcover-emblem">
-                <img src="/assets/logo-3d-badge.jpg" alt="Sahjanand School of Achievers Logo">
-            </div>
-            <span class="diary-header-badge"><i class="fa-solid fa-book-open"></i> Academic Year 2026</span>
-            <h2 class="diary-title diary-hardcover-title">Celebrations</h2>
-            <p class="diary-subtitle diary-hardcover-subtitle">Every holiday, vacation, and celebration &mdash; open a month to step inside.</p>
-        </div>
-
         <div class="diary-campus-toggle-wrapper">
             <div class="diary-campus-toggle" id="diaryCampusToggle">
                 <button class="diary-campus-btn chiloda active" data-diary-campus="chiloda">
@@ -122,7 +112,19 @@
             </div>
         </div>
 
-        <div class="diary-months-grid" id="diaryMonthsGrid"></div>
+        <div class="diary-book">
+            <div class="diary-book-spiral" aria-hidden="true"></div>
+            <div class="diary-book-cover">
+                <div class="diary-book-floral" aria-hidden="true"></div>
+                <span class="diary-header-badge"><i class="fa-solid fa-book-open"></i> Academic Year 2026</span>
+                <div class="diary-hardcover-emblem">
+                    <img src="/assets/logo-3d-badge.jpg" alt="Sahjanand School of Achievers Logo">
+                </div>
+                <h2 class="diary-title diary-hardcover-title">Celebrations</h2>
+                <p class="diary-subtitle diary-hardcover-subtitle">Every holiday, vacation, and celebration &mdash; open a month to step inside.</p>
+            </div>
+            <div class="diary-tabs-column" id="diaryMonthsGrid"></div>
+        </div>
     </section>
 
     <!-- Diary Modal -->
@@ -232,64 +234,6 @@
             let currentCampus = "all";
             let currentCategory = "all";
             let searchQuery = "";
-
-            // Fallback showcase items if backend is empty
-            const fallbackEvents = [
-                {
-                    id: "fb-1",
-                    title: "Annual Sports Championship & Athletic Meet 2026",
-                    description: "A grand celebration of athleticism, teamwork, and sportsmanship spanning sprint races, relay matches, table tennis, and yoga routines across both campuses.",
-                    event_date: "2026-02-15",
-                    photo_url: "/assets/campus/table-tennis.jpg",
-                    campus: "chiloda",
-                    category: "sports"
-                },
-                {
-                    id: "fb-2",
-                    title: "Grand Science & Robotics Innovation Expo",
-                    description: "Students from Sargasan and Chiloda campuses showcase working models in artificial intelligence, renewable energy, chemistry reactions, and robotic automation.",
-                    event_date: "2026-01-28",
-                    photo_url: "/assets/campus/computer-lab.jpg",
-                    campus: "sargasan",
-                    category: "science"
-                },
-                {
-                    id: "fb-3",
-                    title: "Annual Cultural Fest & Musical Talent Gala",
-                    description: "An enchanting evening of classical Indian dances, drama acts, instrumental solos, and traditional attire parades celebrating our rich heritage.",
-                    event_date: "2026-01-10",
-                    photo_url: "/assets/campus/yoga-assembly.jpg",
-                    campus: "chiloda",
-                    category: "cultural"
-                },
-                {
-                    id: "fb-4",
-                    title: "Interactive Workshop on Higher Secondary Career Pathways",
-                    description: "Distinguished guest lecturers and alumni interact with Class 10 and Class 12 students regarding medical, engineering, and research entrance strategies.",
-                    event_date: "2025-12-20",
-                    photo_url: "/assets/campus/classroom-teaching.jpg",
-                    campus: "sargasan",
-                    category: "workshops"
-                },
-                {
-                    id: "fb-5",
-                    title: "Inter-School Mathematics Olympiad & Quiz Championship",
-                    description: "A thrilling mental math and logical reasoning competition testing speed, precision, and problem-solving skills among participating schools.",
-                    event_date: "2025-11-14",
-                    photo_url: "/assets/campus/students-together.jpg",
-                    campus: "chiloda",
-                    category: "academic"
-                },
-                {
-                    id: "fb-6",
-                    title: "State-Level Physics & Chemistry Laboratory Symposium",
-                    description: "Advanced practical experiments and live demonstrations conducted by senior faculty and expert mentors at Sargasan Science Campus.",
-                    event_date: "2025-10-05",
-                    photo_url: "/assets/campus/sargasan-building-students.jpg",
-                    campus: "sargasan",
-                    category: "science"
-                }
-            ];
 
             const parseMonthDay = (dateStr) => {
                 if (!dateStr) return { month: "FEB", day: "18" };
@@ -506,15 +450,11 @@
                 diaryMonthsGrid.innerHTML = MONTH_NAMES.map((name, idx) => {
                     const monthEvents = byMonth[idx];
                     const hasEvents = monthEvents.length > 0;
-                    const typeIcons = [...new Set(monthEvents.map((ev) => (DIARY_TYPE_META[ev.event_type] || DIARY_TYPE_META.celebration).icon))].join(" ");
+                    const typeIcons = [...new Set(monthEvents.map((ev) => (DIARY_TYPE_META[ev.event_type] || DIARY_TYPE_META.celebration).icon))].join("");
                     return `
-                        <button type="button" class="diary-month-tile${hasEvents ? "" : " empty"}" data-month="${idx}" style="transition-delay: ${idx * 0.05}s">
-                            <span class="diary-month-ribbon"></span>
-                            <span class="diary-month-name">${name}</span>
-                            ${hasEvents
-                                ? `<span class="diary-month-count">${monthEvents.length} ${monthEvents.length === 1 ? "entry" : "entries"}</span>
-                                   <span class="diary-month-icons">${typeIcons}</span>`
-                                : `<span class="diary-month-empty-label">No entries yet</span>`}
+                        <button type="button" class="diary-month-tile${hasEvents ? "" : " empty"}" data-month="${idx}" style="transition-delay: ${idx * 0.04}s">
+                            <span class="diary-month-name">${name.slice(0, 3)}</span>
+                            ${hasEvents ? `<span class="diary-month-icons">${typeIcons}</span>` : ""}
                         </button>
                     `;
                 }).join("");
@@ -575,20 +515,16 @@
                 renderEvents();
             });
 
-            // Fetch backend API
+            // Fetch backend API - only real admin-entered events are ever shown
             fetch("/api/events")
                 .then((res) => res.json())
                 .then((data) => {
-                    if (Array.isArray(data) && data.length > 0) {
-                        allEvents = data;
-                    } else {
-                        allEvents = fallbackEvents;
-                    }
+                    allEvents = Array.isArray(data) ? data : [];
                     renderEvents();
                     renderDiaryMonths();
                 })
                 .catch(() => {
-                    allEvents = fallbackEvents;
+                    allEvents = [];
                     renderEvents();
                     renderDiaryMonths();
                 });
