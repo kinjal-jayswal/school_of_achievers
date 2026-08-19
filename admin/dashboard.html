@@ -214,8 +214,8 @@
                     const isPublished = entry.is_published !== false;
                     const statusBadge = entry.is_published !== undefined
                         ? (isPublished
-                            ? '<span style="color: #059669; font-weight: 700; font-size: 0.8rem; background: #ECFDF5; padding: 2px 8px; border-radius: 9999px; margin-left: 0.4rem;">🟢 Grid & Diary</span>'
-                            : '<span style="color: #4B5563; font-weight: 700; font-size: 0.8rem; background: #F3F4F6; padding: 2px 8px; border-radius: 9999px; margin-left: 0.4rem;">⚪ Hidden from Grid</span>')
+                            ? '<span style="color: #059669; font-weight: 700; font-size: 0.8rem; background: #ECFDF5; padding: 2px 8px; border-radius: 9999px; margin-left: 0.4rem;">🟢 Public</span>'
+                            : '<span style="color: #6B7280; font-weight: 700; font-size: 0.8rem; background: #F3F4F6; padding: 2px 8px; border-radius: 9999px; margin-left: 0.4rem;">⚪ Hidden</span>')
                         : '';
 
                     return `
@@ -227,9 +227,12 @@
                                 <strong>${entry.title}</strong> ${statusBadge}
                                 <span>${formatDate(entry[dateField])}${entry.event_type ? " &middot; " + entry.event_type : ""}${entry.campus ? " &middot; " + entry.campus : ""}</span>
                             </div>
-                            <div class="admin-entry-actions">
+                            <div class="admin-entry-actions" style="align-items: center;">
                                 ${entry.is_published !== undefined
-                                    ? `<button type="button" class="admin-btn secondary" data-action="toggle-pub">${isPublished ? 'Hide' : 'Publish'}</button>`
+                                    ? `<label style="display: inline-flex; align-items: center; gap: 0.35rem; margin: 0; padding: 0.35rem 0.65rem; background: #F1F5F9; border: 1px solid #CBD5E1; border-radius: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #334155;">
+                                        <input type="checkbox" class="admin-pub-checkbox" data-action="toggle-pub" ${isPublished ? 'checked' : ''} style="width: 15px; height: 15px; cursor: pointer;">
+                                        <span>Show Public</span>
+                                       </label>`
                                     : ''}
                                 <button type="button" class="admin-btn secondary" data-action="edit">Edit</button>
                                 <button type="button" class="admin-btn danger" data-action="delete">Delete</button>

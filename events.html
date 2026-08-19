@@ -376,11 +376,12 @@
             const renderEvents = () => {
                 const filtered = allEvents.filter((ev) => {
                     const isPublished = ev.is_published !== false;
+                    const hasPhoto = Boolean(ev.photo_url);
                     const campus = determineCampus(ev);
                     const category = determineCategory(ev);
                     const text = (ev.title + " " + (ev.description || "")).toLowerCase();
 
-                    const matchesPublish = isPublished;
+                    const matchesPublish = isPublished && hasPhoto;
                     const matchesCampus = currentCampus === "all" || campus === currentCampus;
                     const matchesCategory = currentCategory === "all" || category === currentCategory;
                     const matchesSearch = !searchQuery || text.includes(searchQuery.toLowerCase());
