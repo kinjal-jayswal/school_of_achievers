@@ -37,7 +37,10 @@ function makeContentRouter({ table, dateColumn, extraFields = [] }) {
     router.get("/", async (req, res) => {
         const fetchAll = req.query.all === "true" || Boolean(req.session && req.session.adminId);
         const hasPublishCol = extraNames.includes("is_published");
-        const whereClause = !fetchAll && hasPublishCol ? "WHERE COALESCE(is_published, true) = true" : "";
+        let whereClause = "";
+        if (!fetchAll && hasPublishCol) {
+            whereClause = "WHERE COALESCE(is_published, true) = true AND photo IS NOT NULL";
+        }
 
         const result = await pool.query(
             `SELECT ${selectCols}, (photo IS NOT NULL) AS has_photo
