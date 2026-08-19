@@ -3028,8 +3028,10 @@ html[data-theme="dark"] .diary-title {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    width: 92px;
-    background-color: var(--background);
+    width: 104px;
+    background-color: #FFFFFF;
+    border-left: 1px solid rgba(2, 132, 199, 0.25);
+    box-shadow: -4px 0 16px rgba(15, 23, 42, 0.06);
 }
 
 .diary-month-tile {
@@ -3039,22 +3041,21 @@ html[data-theme="dark"] .diary-title {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.3rem;
-    min-height: 44px;
-    padding: 0.5rem 0.5rem;
-    background: var(--surface);
+    gap: 0.25rem;
+    min-height: 46px;
+    padding: 0.6rem 0.4rem;
+    background: #FFFFFF;
     border: none;
-    border-bottom: 1px solid rgba(12, 91, 112, 0.1);
-    border-left: 3px solid transparent;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    border-left: 4px solid transparent;
     cursor: pointer;
-    font-family: 'Playfair Display', serif;
     text-align: center;
     opacity: 0;
     transform: translateX(24px);
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                background-color 0.3s ease,
-                border-color 0.3s ease,
-                opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.25s ease,
+                border-color 0.25s ease,
+                opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .diary-month-tile.revealed {
@@ -3063,38 +3064,63 @@ html[data-theme="dark"] .diary-title {
 }
 
 .diary-month-tile:hover {
-    background: var(--primary-light);
-    border-left-color: var(--accent);
+    background: #F0F9FF;
+    border-left-color: #D97706;
 }
 
 .diary-month-tile.empty {
-    opacity: 0.5;
+    opacity: 1;
 }
 
 .diary-month-tile.empty.revealed {
-    opacity: 0.5;
+    opacity: 1;
 }
 
 .diary-month-tile.empty:hover {
-    opacity: 0.85;
-    background: var(--primary-light);
+    opacity: 1;
+    background: #F0F9FF;
 }
 
 .diary-month-name {
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    font-family: 'Manrope', 'Inter', -apple-system, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--primary);
+    color: #0F172A;
+    transition: color 0.25s ease;
+}
+
+.diary-month-tile:hover .diary-month-name {
+    color: #0284C7;
+}
+
+html[data-theme="dark"] .diary-tabs-column {
+    background-color: #0F172A;
+    border-left-color: rgba(255, 255, 255, 0.12);
+}
+
+html[data-theme="dark"] .diary-month-tile {
+    background: #0F172A;
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="dark"] .diary-month-tile:hover {
+    background: #1E293B;
 }
 
 html[data-theme="dark"] .diary-month-name {
-    color: #FFFFFF;
+    color: #F8FAFC;
+}
+
+html[data-theme="dark"] .diary-month-tile:hover .diary-month-name {
+    color: #38BDF8;
 }
 
 .diary-month-icons {
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    line-height: 1;
 }
 
 @media (max-width: 767px) {
