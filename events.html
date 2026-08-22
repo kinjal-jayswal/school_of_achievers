@@ -239,6 +239,58 @@
         </div>
     </div>
 
+    <!-- Chiloda Primary School Activity Album -->
+    <section class="chiloda-album-container" id="chilodaAlbumSection">
+        <div class="chiloda-album-header">
+            <span class="portal-badge">
+                <i class="fa-solid fa-camera-retro"></i> Primary School Chiloda Activity Gallery
+            </span>
+            <h2 class="chiloda-album-title">
+                Chiloda Primary School <span>Activity Album</span>
+            </h2>
+            <p class="chiloda-album-desc">
+                Explore the vibrant celebrations, sports competitions, art workshops, assembly gatherings, and co-curricular achievements at our Chiloda Primary Campus.
+            </p>
+            <div class="chiloda-album-filters" id="albumCategoryFilters">
+                <button class="album-filter-btn active" data-cat="all">
+                    <i class="fa-solid fa-layer-group"></i> All Activities (39)
+                </button>
+                <button class="album-filter-btn" data-cat="art_craft">
+                    <i class="fa-solid fa-palette"></i> 🎨 Art & Craft
+                </button>
+                <button class="album-filter-btn" data-cat="sports_kabaddi">
+                    <i class="fa-solid fa-trophy"></i> 🤼 Sports & Kabaddi
+                </button>
+                <button class="album-filter-btn" data-cat="assembly_orientation">
+                    <i class="fa-solid fa-users"></i> 🏫 Assembly & Orientation
+                </button>
+                <button class="album-filter-btn" data-cat="chiloda_primary">
+                    <i class="fa-solid fa-school"></i> 🌟 Primary Campus Life
+                </button>
+                <button class="album-filter-btn" data-cat="co_curricular">
+                    <i class="fa-solid fa-star"></i> 🏆 Co-Curricular & Events
+                </button>
+            </div>
+        </div>
+
+        <div class="chiloda-album-grid" id="chilodaAlbumGrid"></div>
+    </section>
+
+    <!-- Chiloda Album Lightbox Modal -->
+    <div class="album-lightbox" id="chilodaAlbumLightbox">
+        <div class="album-lightbox-content">
+            <button class="album-lightbox-close" id="lightboxCloseBtn">&times;</button>
+            <button class="album-lightbox-prev" id="lightboxPrevBtn"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="album-lightbox-next" id="lightboxNextBtn"><i class="fa-solid fa-chevron-right"></i></button>
+            <img src="" alt="" class="album-lightbox-img" id="lightboxImg">
+            <div class="album-lightbox-caption">
+                <div class="album-lightbox-title" id="lightboxTitle"></div>
+                <div class="album-lightbox-meta" id="lightboxMeta"></div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Controls & Filter Bar -->
     <div class="portal-controls-container">
         <div class="portal-controls-card">
@@ -632,7 +684,149 @@
                     renderEvents();
                     renderDiaryMonths();
                 });
+
+            // ---- Primary School Chiloda Activity Album ----
+            const CHILODA_ALBUM_PHOTOS = [
+                // Art & Craft
+                { url: "/assets/chiloda_album/art_craft/art_craft_dsc_6605.jpg", cat: "art_craft", title: "Art & Craft Exhibition", sub: "Vasna Chaudhry - Student Creations" },
+                { url: "/assets/chiloda_album/art_craft/art_craft_dsc_6616.jpg", cat: "art_craft", title: "Creative Craft Workshop", sub: "Vasna Chaudhry - Primary Art Display" },
+
+                // Sports & Kabaddi
+                { url: "/assets/chiloda_album/sports_kabaddi/sports_kabaddi_dsc_6303.jpg", cat: "sports_kabaddi", title: "Kabaddi Tournament - Match Action", sub: "Vasna Chaudhry - Inter-House Sports" },
+                { url: "/assets/chiloda_album/sports_kabaddi/sports_kabaddi_dsc_6433.jpg", cat: "sports_kabaddi", title: "Kabaddi Championship Defense", sub: "Vasna Chaudhry - Team Athletic Meet" },
+                { url: "/assets/chiloda_album/sports_kabaddi/sports_kabaddi_dsc_6449.jpg", cat: "sports_kabaddi", title: "Kabaddi Final Victory", sub: "Vasna Chaudhry - Primary Sports Champions" },
+
+                // Assembly & Orientation
+                { url: "/assets/chiloda_album/assembly_orientation/assembly_orientation_dsc_6103.jpg", cat: "assembly_orientation", title: "Primary Morning Assembly", sub: "Chiloda Campus - Student Orientation" },
+                { url: "/assets/chiloda_album/assembly_orientation/assembly_orientation_dsc_6107.jpg", cat: "assembly_orientation", title: "School Flag & Address Ceremony", sub: "Chiloda Campus - Morning Gathering" },
+
+                // Chiloda Primary
+                { url: "/assets/chiloda_album/chiloda_primary/chiloda_primary_dsc_6686.jpg", cat: "chiloda_primary", title: "Primary Classroom Activity", sub: "Chiloda Primary School" },
+                { url: "/assets/chiloda_album/chiloda_primary/chiloda_primary_dsc_6700.jpg", cat: "chiloda_primary", title: "Interactive Group Learning", sub: "Chiloda Primary School" },
+                { url: "/assets/chiloda_album/chiloda_primary/chiloda_primary_dsc_6709.jpg", cat: "chiloda_primary", title: "Student Collaboration Session", sub: "Chiloda Primary School" },
+                { url: "/assets/chiloda_album/chiloda_primary/chiloda_primary_dsc_6710.jpg", cat: "chiloda_primary", title: "Outdoor Campus Learning", sub: "Chiloda Primary School" },
+
+                // Co-Curricular Highlights
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6002.jpg", cat: "co_curricular", title: "Educational Workshop", sub: "Dahegam Primary Event" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6022.jpg", cat: "co_curricular", title: "Academic Presentation", sub: "Dahegam Activity Meet" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6058.jpg", cat: "co_curricular", title: "Science & Learning Fair", sub: "Dahegam Campus" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6112.jpg", cat: "co_curricular", title: "Primary Student Forum", sub: "Dahegam Regional Meet" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6131.jpg", cat: "co_curricular", title: "Interactive Quiz & Activity", sub: "Dahegam Event" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6247.jpg", cat: "co_curricular", title: "Science Exhibition", sub: "Dabhoda Primary Meet" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6252.jpg", cat: "co_curricular", title: "Student Experiment Showcase", sub: "Dabhoda Event" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6256.jpg", cat: "co_curricular", title: "Learning & Craft Session", sub: "Dabhoda Primary School" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6276.jpg", cat: "co_curricular", title: "Academic Competition", sub: "Dabhoda Regional Meet" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6297.jpg", cat: "co_curricular", title: "Sports & Fitness Activity", sub: "Chala Primary School" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6416.jpg", cat: "co_curricular", title: "Outdoor Athletic Drill", sub: "Chala Event" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6483.jpg", cat: "co_curricular", title: "Group Sports Meet", sub: "Chala Regional Activity" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6147.jpg", cat: "co_curricular", title: "Cultural Music & Dance", sub: "Chandrala Event" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6192.jpg", cat: "co_curricular", title: "Youth Cultural Performance", sub: "Chandrala Regional Meet" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6217.jpg", cat: "co_curricular", title: "Stage Drama & Recitation", sub: "Chandrala Activity" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6534.jpg", cat: "co_curricular", title: "Student Group Achievement", sub: "Dasela Primary Meet" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6549.jpg", cat: "co_curricular", title: "Co-Curricular Honor Ceremony", sub: "Dasela Event" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6570.jpg", cat: "co_curricular", title: "Inter-School Award Function", sub: "Dasela Regional Activity" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6585.jpg", cat: "co_curricular", title: "Primary Talent Competition", sub: "Majra School Meet" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6595.jpg", cat: "co_curricular", title: "Student Exhibition & Showcase", sub: "Majra Primary Event" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6630.jpg", cat: "co_curricular", title: "Cultural Festival & Dance", sub: "Prantij & Tajpur Event" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6635.jpg", cat: "co_curricular", title: "Traditional Costume Showcase", sub: "Prantij & Tajpur Meet" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6636.jpg", cat: "co_curricular", title: "Patriotic Celebration", sub: "Prantij & Tajpur Activity" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6643.jpg", cat: "co_curricular", title: "Annual Day Performance", sub: "Prantij & Tajpur Regional" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6649.jpg", cat: "co_curricular", title: "Co-Curricular Art Showcase", sub: "Talod Primary Meet" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6661.jpg", cat: "co_curricular", title: "Handicraft & Model Display", sub: "Talod Event" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6675.jpg", cat: "co_curricular", title: "Creative Competition", sub: "Talod Activity" },
+                { url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6678.jpg", cat: "co_curricular", title: "Student Prize Distribution", sub: "Talod Regional Showcase" }
+            ];
+
+            const albumGrid = document.getElementById("chilodaAlbumGrid");
+            const albumFilters = document.querySelectorAll(".album-filter-btn");
+            const lightbox = document.getElementById("chilodaAlbumLightbox");
+            const lightboxImg = document.getElementById("lightboxImg");
+            const lightboxTitle = document.getElementById("lightboxTitle");
+            const lightboxMeta = document.getElementById("lightboxMeta");
+            const lightboxCloseBtn = document.getElementById("lightboxCloseBtn");
+            const lightboxPrevBtn = document.getElementById("lightboxPrevBtn");
+            const lightboxNextBtn = document.getElementById("lightboxNextBtn");
+
+            let currentAlbumFilter = "all";
+            let activeAlbumIndex = 0;
+
+            const categoryLabels = {
+                art_craft: "🎨 Art & Craft",
+                sports_kabaddi: "🤼 Sports & Kabaddi",
+                assembly_orientation: "🏫 Assembly & Orientation",
+                chiloda_primary: "🌟 Primary Campus Life",
+                co_curricular: "🏆 Co-Curricular"
+            };
+
+            const getFilteredAlbumPhotos = () => {
+                if (currentAlbumFilter === "all") return CHILODA_ALBUM_PHOTOS;
+                return CHILODA_ALBUM_PHOTOS.filter(p => p.cat === currentAlbumFilter);
+            };
+
+            const renderAlbumGrid = () => {
+                if (!albumGrid) return;
+                const photos = getFilteredAlbumPhotos();
+                albumGrid.innerHTML = photos.map((item, idx) => `
+                    <div class="album-card" data-idx="${idx}">
+                        <img src="${item.url}" alt="${escapeHtml(item.title)}" loading="lazy">
+                        <div class="album-card-overlay">
+                            <span class="album-card-badge">${categoryLabels[item.cat] || item.cat}</span>
+                            <div class="album-card-title">${escapeHtml(item.title)}</div>
+                            <div class="album-card-sub"><i class="fa-solid fa-location-dot"></i> ${escapeHtml(item.sub)}</div>
+                        </div>
+                    </div>
+                `).join("");
+
+                albumGrid.querySelectorAll(".album-card").forEach((card, idx) => {
+                    card.addEventListener("click", () => openLightbox(idx));
+                });
+            };
+
+            const openLightbox = (index) => {
+                const photos = getFilteredAlbumPhotos();
+                if (index < 0 || index >= photos.length) return;
+                activeAlbumIndex = index;
+                const item = photos[activeAlbumIndex];
+                lightboxImg.src = item.url;
+                lightboxTitle.textContent = item.title;
+                lightboxMeta.textContent = `${categoryLabels[item.cat] || item.cat} • ${item.sub}`;
+                lightbox.classList.add("active");
+                document.body.style.overflow = "hidden";
+            };
+
+            const closeLightbox = () => {
+                if (!lightbox) return;
+                lightbox.classList.remove("active");
+                document.body.style.overflow = "";
+            };
+
+            albumFilters.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    albumFilters.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    currentAlbumFilter = btn.dataset.cat;
+                    renderAlbumGrid();
+                });
+            });
+
+            if (lightboxCloseBtn) lightboxCloseBtn.addEventListener("click", closeLightbox);
+            if (lightboxPrevBtn) lightboxPrevBtn.addEventListener("click", () => openLightbox(activeAlbumIndex - 1));
+            if (lightboxNextBtn) lightboxNextBtn.addEventListener("click", () => openLightbox(activeAlbumIndex + 1));
+            if (lightbox) {
+                lightbox.addEventListener("click", (e) => {
+                    if (e.target === lightbox) closeLightbox();
+                });
+            }
+            document.addEventListener("keydown", (e) => {
+                if (!lightbox || !lightbox.classList.contains("active")) return;
+                if (e.key === "Escape") closeLightbox();
+                if (e.key === "ArrowLeft") openLightbox(activeAlbumIndex - 1);
+                if (e.key === "ArrowRight") openLightbox(activeAlbumIndex + 1);
+            });
+
+            renderAlbumGrid();
         });
+
     </script>
 </body>
 </html>
