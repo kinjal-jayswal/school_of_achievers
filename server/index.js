@@ -41,10 +41,14 @@ app.use("/api/results", resultsRouter);
 // Admin panel: served directly as static files, not part of the Vite build.
 app.use("/admin", express.static(path.join(__dirname, "..", "admin")));
 
+// Serve public static assets directly (including Chiloda album)
+app.use("/assets", express.static(path.join(__dirname, "..", "public", "assets")));
+
 // Public site: Vite-built multi-page output. No catch-all fallback here —
 // this is a true multi-page site, and an index.html fallback would silently
 // send unmatched routes back to the home page instead of 404ing.
 app.use(express.static(path.join(__dirname, "..", "dist")));
+
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
