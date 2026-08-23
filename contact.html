@@ -98,6 +98,37 @@
             font-size: 0.95rem;
             line-height: 1.6;
         }
+        .campus-maps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        @media (min-width: 768px) {
+            .campus-maps-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .map-embed-wrapper {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid rgba(12, 91, 112, 0.1);
+            box-shadow: var(--shadow-sm);
+        }
+        .map-embed-wrapper iframe {
+            display: block;
+            width: 100%;
+            height: 300px;
+            border: 0;
+        }
+        .map-embed-label {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -167,6 +198,7 @@
 
         <!-- Campus Contact Directories -->
         <div>
+            <img src="/assets/logo-3d-badge.jpg" alt="Sahjanand School of Achievers Logo" style="display: block; height: 90px; width: auto; margin-bottom: 1.5rem;">
             <h2 style="font-size: 2.25rem; color: var(--primary); margin-bottom: 2rem;">Campus Directories</h2>
             <div class="campus-contact-info">
                 <!-- Chiloda Campus -->
@@ -194,6 +226,36 @@
             </div>
         </div>
     </main>
+
+    <!-- Campus Locations Map -->
+    <section class="academics-container" style="margin-top: 0;">
+        <h2 style="font-size: 2.25rem; color: var(--primary); text-align: center; margin-bottom: 0.5rem;">Find Our Campuses</h2>
+        <p style="text-align: center; color: var(--text-muted); max-width: 640px; margin: 0 auto;">Locate the Chiloda and Sargasan campuses on the map below and plan your visit.</p>
+        <div class="campus-maps-grid">
+            <div>
+                <p class="map-embed-label"><i class="fa-solid fa-graduation-cap"></i> Chiloda Campus</p>
+                <div class="map-embed-wrapper">
+                    <iframe
+                        title="Chiloda Campus Location Map"
+                        src="https://www.google.com/maps?q=B%2Fh+Essar+Petrol+Pump%2C+Chiloda+Himmatnagar+Highway%2C+Shiholi+Moti%2C+Chiloda%2C+Gujarat&output=embed"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+            <div>
+                <p class="map-embed-label"><i class="fa-solid fa-flask"></i> Sargasan Campus</p>
+                <div class="map-embed-wrapper">
+                    <iframe
+                        title="Sargasan Campus Location Map"
+                        src="https://www.google.com/maps?q=Plot+No.+472%2C+Nr.+Kh-0%2C+At+-+Sargasan%2C+Gandhinagar&output=embed"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- General FAQ Section -->
     <section class="academics-container" style="margin-top: 0;">
