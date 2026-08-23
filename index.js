@@ -416,12 +416,12 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             {
                 id: "fb-3",
-                title: "Annual Cultural Fest & Musical Talent Gala",
-                description: "Enchanting evening of classical Indian dances, drama acts, instrumental solos, and traditional attire parades.",
+                title: "Morning Prayer & Yoga Assembly",
+                description: "Young students gather on the lawn for morning prayer followed by guided yoga and stretching exercises.",
                 event_date: "2026-01-10",
                 photo_url: "/assets/campus/yoga-assembly.jpg",
                 campus: "chiloda",
-                category: "cultural"
+                category: "wellness"
             }
         ];
 
