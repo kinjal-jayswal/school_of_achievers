@@ -83,6 +83,15 @@ document.addEventListener("DOMContentLoaded", () => {
             campusHeroChiloda.style.display = "none";
             campusHeroSargasan.style.display = "block";
             campusTitleBadge.innerHTML = '<span></span> Sargasan Campus (11th & 12th Sci.)';
+
+            // Sargasan (11th-12th Science) has no activity photos of its own — the
+            // gallery's "Activities" tab only contains Chiloda primary-age content,
+            // which doesn't belong on a Sargasan visitor's page. Remove that tab and
+            // its items from the DOM entirely (not just hide them) so they can never
+            // resurface via the "All" filter or any other button click.
+            const activitiesBtn = document.querySelector('.gallery-filter-btn[data-filter="activities"]');
+            if (activitiesBtn) activitiesBtn.remove();
+            document.querySelectorAll('.gallery-item[data-category="activities"]').forEach(item => item.remove());
         }
 
         // Fade out portal completely after zoom finishes
@@ -507,6 +516,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 campusHeroChiloda.style.display = "none";
                 campusHeroSargasan.style.display = "block";
                 campusTitleBadge.innerHTML = '<span></span> Sargasan Campus (11th & 12th Sci.)';
+
+                const activitiesBtn = document.querySelector('.gallery-filter-btn[data-filter="activities"]');
+                if (activitiesBtn) activitiesBtn.remove();
+                document.querySelectorAll('.gallery-item[data-category="activities"]').forEach(item => item.remove());
             }
 
             welcomePortal.style.display = "none";
