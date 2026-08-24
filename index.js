@@ -311,7 +311,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (wrappingToClone) {
                     wrappingToClone = false;
                     currentIndex = 0;
-                    trusteeCards[0].scrollIntoView({ behavior: "auto", inline: "start", block: "nearest" });
+                    // Direct scrollLeft assignment is always instant, unlike scrollIntoView /
+                    // scrollTo — those defer to the container's CSS `scroll-behavior: smooth`
+                    // (set on .trustees-grid), which silently turned this "instant" reset into
+                    // a second smooth animation and fought with scroll-snap-type: mandatory,
+                    // stalling the carousel after the first lap.
+                    trusteesCarousel.scrollLeft = trusteeCards[0].offsetLeft;
                 }
                 updateCarouselState();
             }, 100);
