@@ -243,14 +243,15 @@ document.addEventListener("DOMContentLoaded", () => {
             restartAutoplay();
         });
 
-        // Auto-advance every 6s, looping back to the start at the end
+        // Auto-advance every 6s, looping back to the start at the end.
+        // Tracks the current card by index (synced from updateCarouselState) rather than
+        // comparing scrollLeft to scrollWidth - clientWidth, which can be off by a
+        // fractional pixel on some layouts and permanently strand the carousel at the
+        // last card once scrollLeft is clamped there by the browser.
+        let currentIndex = 0;
         const goToNextSlide = () => {
-            const maxScroll = trusteesCarousel.scrollWidth - trusteesCarousel.clientWidth - 2;
-            if (trusteesCarousel.scrollLeft >= maxScroll) {
-                trusteesCarousel.scrollTo({ left: 0, behavior: "smooth" });
-            } else {
-                trusteesCarousel.scrollBy({ left: scrollByCard(), behavior: "smooth" });
-            }
+            currentIndex = (currentIndex + 1) % trusteeCards.length;
+            trusteeCards[currentIndex].scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
         };
 
         let autoplayTimer;
@@ -265,6 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
             carouselWrapper.addEventListener("mouseenter", stopAutoplay);
             carouselWrapper.addEventListener("mouseleave", startAutoplay);
             carouselWrapper.addEventListener("touchstart", stopAutoplay, { passive: true });
+            carouselWrapper.addEventListener("touchend", startAutoplay, { passive: true });
         }
         startAutoplay();
 
@@ -283,6 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
             dotEls.forEach((dot, index) => dot.classList.toggle("active", index === closestIndex));
+            currentIndex = closestIndex;
         };
 
         let scrollDebounce;
