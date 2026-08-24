@@ -216,59 +216,81 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { threshold: 0.2 });
         revealObserver.observe(trusteesCarousel);
 
+        // A hidden clone of the first card sits right after the last real card. Sliding
+        // past the end keeps moving in the same direction onto something pixel-identical
+        // to card one, instead of jumping backward across every card to get there. Once
+        // that slide settles, we snap (no animation) from the clone to the real first
+        // card — imperceptible since they look identical.
+        const firstCardClone = trusteeCards[0].cloneNode(true);
+        firstCardClone.setAttribute("aria-hidden", "true");
+        firstCardClone.classList.add("revealed");
+        trusteesCarousel.appendChild(firstCardClone);
+
         trusteeCards.forEach((_, index) => {
             const dot = document.createElement("button");
             dot.className = "trustees-dot";
             dot.setAttribute("aria-label", `Go to trustee ${index + 1}`);
             dot.addEventListener("click", () => {
-                trusteeCards[index].scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+                goToIndex(index);
                 restartAutoplay();
             });
             trusteesDots.appendChild(dot);
         });
         const dotEls = Array.from(trusteesDots.children);
 
-        const scrollByCard = () => {
-            const card = trusteesCarousel.querySelector(".trustee-card");
-            const gap = 24; // 1.5rem
-            return card ? card.offsetWidth + gap : 300;
+        // Slides the track via a CSS transform rather than native scrolling, so the
+        // "instant jump" used to reset off the clone is never subject to a container's
+        // scroll-behavior/scroll-snap CSS silently turning it into a second animation
+        // (the bug that kept stranding the old scrollLeft-based version after one lap).
+        let currentIndex = 0;
+        const moveTo = (card, animate) => {
+            if (!animate) trusteesCarousel.style.transition = "none";
+            trusteesCarousel.style.transform = `translateX(-${card.offsetLeft}px)`;
+            if (!animate) {
+                void trusteesCarousel.offsetWidth; // force layout so the jump applies with no transition
+                trusteesCarousel.style.transition = "";
+            }
         };
 
+        const updateControls = () => {
+            trusteesPrev.disabled = currentIndex <= 0;
+            dotEls.forEach((dot, index) => dot.classList.toggle("active", index === currentIndex));
+        };
+
+        const goToIndex = (index) => {
+            currentIndex = index;
+            moveTo(trusteeCards[index], true);
+            updateControls();
+        };
+
+        let wrappingToClone = false;
+        const goToNextSlide = () => {
+            if (currentIndex === trusteeCards.length - 1) {
+                wrappingToClone = true;
+                moveTo(firstCardClone, true);
+            } else {
+                currentIndex += 1;
+                moveTo(trusteeCards[currentIndex], true);
+            }
+            updateControls();
+        };
+
+        trusteesCarousel.addEventListener("transitionend", (e) => {
+            if (e.propertyName !== "transform" || !wrappingToClone) return;
+            wrappingToClone = false;
+            currentIndex = 0;
+            moveTo(trusteeCards[0], false);
+            updateControls();
+        });
+
         trusteesPrev.addEventListener("click", () => {
-            trusteesCarousel.scrollBy({ left: -scrollByCard(), behavior: "smooth" });
+            if (currentIndex > 0) goToIndex(currentIndex - 1);
             restartAutoplay();
         });
         trusteesNext.addEventListener("click", () => {
             goToNextSlide();
             restartAutoplay();
         });
-
-        // A hidden clone of the first card sits right after the last real card so that
-        // advancing past the end keeps scrolling forward onto something that looks
-        // identical to card one, instead of visibly rewinding backward across every
-        // card to get there. Once that scroll settles, we snap (no animation) from the
-        // clone to the real first card — imperceptible since they're pixel-identical.
-        const firstCardClone = trusteeCards[0].cloneNode(true);
-        firstCardClone.setAttribute("aria-hidden", "true");
-        firstCardClone.classList.add("revealed");
-        trusteesCarousel.appendChild(firstCardClone);
-
-        // Auto-advance every 6s, looping circularly back to the start at the end.
-        // Tracks the current card by index (synced from updateCarouselState) rather than
-        // comparing scrollLeft to scrollWidth - clientWidth, which can be off by a
-        // fractional pixel on some layouts and permanently strand the carousel at the
-        // last card once scrollLeft is clamped there by the browser.
-        let currentIndex = 0;
-        let wrappingToClone = false;
-        const goToNextSlide = () => {
-            if (currentIndex === trusteeCards.length - 1) {
-                wrappingToClone = true;
-                firstCardClone.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
-            } else {
-                currentIndex += 1;
-                trusteeCards[currentIndex].scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
-            }
-        };
 
         let autoplayTimer;
         const stopAutoplay = () => clearInterval(autoplayTimer);
@@ -281,48 +303,33 @@ document.addEventListener("DOMContentLoaded", () => {
         if (carouselWrapper) {
             carouselWrapper.addEventListener("mouseenter", stopAutoplay);
             carouselWrapper.addEventListener("mouseleave", startAutoplay);
-            carouselWrapper.addEventListener("touchstart", stopAutoplay, { passive: true });
-            carouselWrapper.addEventListener("touchend", startAutoplay, { passive: true });
+
+            // Basic swipe support now that the track no longer uses native touch-scroll
+            // (overflow: hidden, moved by transform instead).
+            let touchStartX = null;
+            carouselWrapper.addEventListener("touchstart", (e) => {
+                touchStartX = e.touches[0].clientX;
+                stopAutoplay();
+            }, { passive: true });
+            carouselWrapper.addEventListener("touchend", (e) => {
+                if (touchStartX !== null) {
+                    const deltaX = e.changedTouches[0].clientX - touchStartX;
+                    if (deltaX < -40) {
+                        goToNextSlide();
+                    } else if (deltaX > 40 && currentIndex > 0) {
+                        goToIndex(currentIndex - 1);
+                    }
+                    touchStartX = null;
+                }
+                startAutoplay();
+            }, { passive: true });
         }
         startAutoplay();
 
-        const updateCarouselState = () => {
-            const maxScroll = trusteesCarousel.scrollWidth - trusteesCarousel.clientWidth - 2;
-            trusteesPrev.disabled = trusteesCarousel.scrollLeft <= 0;
-            trusteesNext.disabled = trusteesCarousel.scrollLeft >= maxScroll;
+        window.addEventListener("resize", () => moveTo(trusteeCards[currentIndex], false));
 
-            let closestIndex = 0;
-            let closestDistance = Infinity;
-            trusteeCards.forEach((card, index) => {
-                const distance = Math.abs(card.offsetLeft - trusteesCarousel.scrollLeft);
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    closestIndex = index;
-                }
-            });
-            dotEls.forEach((dot, index) => dot.classList.toggle("active", index === closestIndex));
-            currentIndex = closestIndex;
-        };
-
-        let scrollDebounce;
-        trusteesCarousel.addEventListener("scroll", () => {
-            clearTimeout(scrollDebounce);
-            scrollDebounce = setTimeout(() => {
-                if (wrappingToClone) {
-                    wrappingToClone = false;
-                    currentIndex = 0;
-                    // Direct scrollLeft assignment is always instant, unlike scrollIntoView /
-                    // scrollTo — those defer to the container's CSS `scroll-behavior: smooth`
-                    // (set on .trustees-grid), which silently turned this "instant" reset into
-                    // a second smooth animation and fought with scroll-snap-type: mandatory,
-                    // stalling the carousel after the first lap.
-                    trusteesCarousel.scrollLeft = trusteeCards[0].offsetLeft;
-                }
-                updateCarouselState();
-            }, 100);
-        });
-        window.addEventListener("resize", updateCarouselState);
-        updateCarouselState();
+        moveTo(trusteeCards[0], false);
+        updateControls();
     }
 
     // Gallery Filter Logic
