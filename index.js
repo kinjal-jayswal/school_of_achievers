@@ -257,13 +257,18 @@ document.addEventListener("DOMContentLoaded", () => {
             dotEls.forEach((dot, index) => dot.classList.toggle("active", index === currentIndex));
         };
 
+        let wrappingToClone = false;
         const goToIndex = (index) => {
+            // Any explicit navigation (Prev, a dot) supersedes a pending clone-wrap:
+            // without this, clicking mid-wrap leaves wrappingToClone stuck true, and the
+            // *next* transitionend (from wherever this navigation actually landed) would
+            // incorrectly fire the "snap back to card 0" reset from the wrong position.
+            wrappingToClone = false;
             currentIndex = index;
             moveTo(trusteeCards[index], true);
             updateControls();
         };
 
-        let wrappingToClone = false;
         const goToNextSlide = () => {
             if (currentIndex === trusteeCards.length - 1) {
                 wrappingToClone = true;
@@ -276,7 +281,10 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         trusteesCarousel.addEventListener("transitionend", (e) => {
-            if (e.propertyName !== "transform" || !wrappingToClone) return;
+            // e.target check matters: .trustee-card itself transitions `transform` for its
+            // own hover lift effect, and transitionend bubbles — without this guard, hovering
+            // any card mid-wrap fires this handler early and cuts the wrap animation short.
+            if (e.target !== trusteesCarousel || e.propertyName !== "transform" || !wrappingToClone) return;
             wrappingToClone = false;
             currentIndex = 0;
             moveTo(trusteeCards[0], false);
@@ -326,7 +334,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         startAutoplay();
 
-        window.addEventListener("resize", () => moveTo(trusteeCards[currentIndex], false));
+        window.addEventListener("resize", () => {
+            // Skip while a wrap is in flight: currentIndex still points at the last real
+            // card until the wrap's transitionend resolves it back to 0, so repositioning
+            // here would jump to a stale spot instead of leaving the in-flight animation alone.
+            if (wrappingToClone) return;
+            moveTo(trusteeCards[currentIndex], false);
+        });
 
         moveTo(trusteeCards[0], false);
         updateControls();
