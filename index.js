@@ -239,19 +239,35 @@ document.addEventListener("DOMContentLoaded", () => {
             restartAutoplay();
         });
         trusteesNext.addEventListener("click", () => {
-            trusteesCarousel.scrollBy({ left: scrollByCard(), behavior: "smooth" });
+            goToNextSlide();
             restartAutoplay();
         });
 
-        // Auto-advance every 6s, looping back to the start at the end.
+        // A hidden clone of the first card sits right after the last real card so that
+        // advancing past the end keeps scrolling forward onto something that looks
+        // identical to card one, instead of visibly rewinding backward across every
+        // card to get there. Once that scroll settles, we snap (no animation) from the
+        // clone to the real first card — imperceptible since they're pixel-identical.
+        const firstCardClone = trusteeCards[0].cloneNode(true);
+        firstCardClone.setAttribute("aria-hidden", "true");
+        firstCardClone.classList.add("revealed");
+        trusteesCarousel.appendChild(firstCardClone);
+
+        // Auto-advance every 6s, looping circularly back to the start at the end.
         // Tracks the current card by index (synced from updateCarouselState) rather than
         // comparing scrollLeft to scrollWidth - clientWidth, which can be off by a
         // fractional pixel on some layouts and permanently strand the carousel at the
         // last card once scrollLeft is clamped there by the browser.
         let currentIndex = 0;
+        let wrappingToClone = false;
         const goToNextSlide = () => {
-            currentIndex = (currentIndex + 1) % trusteeCards.length;
-            trusteeCards[currentIndex].scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+            if (currentIndex === trusteeCards.length - 1) {
+                wrappingToClone = true;
+                firstCardClone.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+            } else {
+                currentIndex += 1;
+                trusteeCards[currentIndex].scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+            }
         };
 
         let autoplayTimer;
@@ -291,7 +307,14 @@ document.addEventListener("DOMContentLoaded", () => {
         let scrollDebounce;
         trusteesCarousel.addEventListener("scroll", () => {
             clearTimeout(scrollDebounce);
-            scrollDebounce = setTimeout(updateCarouselState, 100);
+            scrollDebounce = setTimeout(() => {
+                if (wrappingToClone) {
+                    wrappingToClone = false;
+                    currentIndex = 0;
+                    trusteeCards[0].scrollIntoView({ behavior: "auto", inline: "start", block: "nearest" });
+                }
+                updateCarouselState();
+            }, 100);
         });
         window.addEventListener("resize", updateCarouselState);
         updateCarouselState();
