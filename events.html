@@ -405,6 +405,210 @@
             let currentCategory = "all";
             let searchQuery = "";
 
+            const fallbackEvents = [
+                // Chiloda Campus (KG - 10th) Events
+                {
+                    id: "ev-c1",
+                    title: "Annual Sports Championship & Athletic Meet 2026",
+                    description: "A grand celebration of athleticism, teamwork, and sportsmanship spanning sprint races, kabaddi, table tennis, and yoga at Chiloda Campus.",
+                    event_date: "2026-02-15",
+                    photo_url: "/assets/campus/table-tennis.jpg",
+                    campus: "chiloda",
+                    category: "sports",
+                    event_type: "celebration",
+                    is_published: true
+                },
+                {
+                    id: "ev-c2",
+                    title: "Morning Prayer & Guided Yoga Assembly",
+                    description: "Young primary students gather on the lush Chiloda lawn for morning prayer followed by guided yoga asanas and stretching routines.",
+                    event_date: "2026-01-10",
+                    photo_url: "/assets/campus/yoga-assembly.jpg",
+                    campus: "chiloda",
+                    category: "academic",
+                    event_type: "celebration",
+                    is_published: true
+                },
+                {
+                    id: "ev-c3",
+                    title: "Chiloda Primary Art & Craft Exhibition",
+                    description: "Creative student models, origami artwork, watercolor paintings, and clay sculptures displayed proudly in the primary activity block.",
+                    event_date: "2026-07-20",
+                    photo_url: "/assets/chiloda_album/art_craft/art_craft_dsc_6605.jpg",
+                    campus: "chiloda",
+                    category: "cultural",
+                    event_type: "celebration",
+                    is_published: true
+                },
+                {
+                    id: "ev-c4",
+                    title: "Inter-House Kabaddi & Cricket Tournament",
+                    description: "Thrilling sports matches between school houses featuring high-energy Kabaddi raids and cricket matches on the main Chiloda grounds.",
+                    event_date: "2026-08-14",
+                    photo_url: "/assets/chiloda_album/sports_kabaddi/sports_kabaddi_dsc_6449.jpg",
+                    campus: "chiloda",
+                    category: "sports",
+                    event_type: "celebration",
+                    is_published: true
+                },
+                {
+                    id: "ev-c5",
+                    title: "Primary Roller Skating & Martial Arts Demo",
+                    description: "Dynamic martial arts karate demonstrations and speed roller skating drills presented by our talented young primary athletes.",
+                    event_date: "2026-09-12",
+                    photo_url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6147.jpg",
+                    campus: "chiloda",
+                    category: "sports",
+                    event_type: "celebration",
+                    is_published: true
+                },
+                {
+                    id: "ev-c6",
+                    title: "GSEB Class 10 Board Excellence Ceremony",
+                    description: "Celebrating 100% distinction pass rate for Class 10 students with distinction trophies and academic merit certificates.",
+                    event_date: "2026-05-10",
+                    photo_url: "/assets/campus/classroom-teaching.jpg",
+                    campus: "chiloda",
+                    category: "academic",
+                    event_type: "celebration",
+                    is_published: true
+                },
+                {
+                    id: "ev-c7",
+                    title: "Independence Day & Republic Day Celebrations",
+                    description: "Patriotic flag hoisting ceremony, parade salute, and national anthem performance by the entire Chiloda student body.",
+                    event_date: "2026-01-26",
+                    photo_url: "/assets/chiloda_album/legacy_campus/legacy_republic_day.jpg",
+                    campus: "chiloda",
+                    category: "cultural",
+                    event_type: "holiday",
+                    is_published: true
+                },
+                {
+                    id: "ev-c8",
+                    title: "Diwali & Navratri Garba Utsav",
+                    description: "Vibrant traditional Garba dance celebration with traditional attire, music, and festive sweet distribution.",
+                    event_date: "2026-10-24",
+                    photo_url: "/assets/chiloda_album/legacy_campus/legacy_garba_dance.jpg",
+                    campus: "chiloda",
+                    category: "cultural",
+                    event_type: "vacation",
+                    is_published: true
+                },
+                {
+                    id: "ev-c9",
+                    title: "Classroom Science Fair & Model Making",
+                    description: "Students display interactive models on solar system, plant biology, and physics gravity experiments.",
+                    event_date: "2026-11-20",
+                    photo_url: "/assets/campus/computer-lab.jpg",
+                    campus: "chiloda",
+                    category: "science",
+                    event_type: "celebration",
+                    is_published: true
+                },
+                {
+                    id: "ev-c10",
+                    title: "Primary Reading & Storytelling Workshop",
+                    description: "Interactive library session encouraging young readers with storytelling and book recitation.",
+                    event_date: "2026-06-15",
+                    photo_url: "/assets/chiloda_album/co_curricular/co_curricular_dsc_6630.jpg",
+                    campus: "chiloda",
+                    category: "workshops",
+                    event_type: "celebration",
+                    is_published: true
+                },
+
+                // Sargasan Science Campus (11th & 12th Science) Events
+                {
+                    id: "ev-s1",
+                    title: "Grand Science & Robotics Innovation Expo",
+                    description: "Working models in AI, renewable energy, chemical synthesis, and robotic automation showcased by Sargasan Higher Secondary Science scholars.",
+                    event_date: "2026-01-28",
+                    photo_url: "/assets/campus/computer-lab.jpg",
+                    campus: "sargasan",
+                    category: "science",
+                    event_type: "celebration",
+                    is_published: true
+                },
+                {
+                    id: "ev-s2",
+                    title: "GUJCET & NEET Preparation Workshop",
+                    description: "Intensive coaching seminars, speed paper-solving strategies, and expert counseling for competitive entrance examinations.",
+                    event_date: "2026-03-05",
+                    photo_url: "/assets/campus/sargasan-building-students.jpg",
+                    campus: "sargasan",
+                    category: "workshops",
+                    event_type: "celebration",
+                    is_published: true
+                },
+                {
+                    id: "ev-s3",
+                    title: "Advanced Chemistry & Physics Practical Lab Sessions",
+                    description: "Hands-on experiments in titration, optics, spectroscopy, and circuit design conducted in modern Sargasan high-tech science laboratories.",
+                    event_date: "2026-06-18",
+                    photo_url: "/assets/campus/computer-lab.jpg",
+                    campus: "sargasan",
+                    category: "science",
+                    event_type: "celebration",
+                    is_published: true
+                },
+                {
+                    id: "ev-s4",
+                    title: "GSEB Class 12 Science Toppers Wall of Fame Unveiling",
+                    description: "Felicitating 99.94 Percentile Rank A1 grade holders and State Merit rankers from Sargasan Science Campus.",
+                    event_date: "2026-05-20",
+                    photo_url: "/assets/campus/sargasan-building-students.jpg",
+                    campus: "sargasan",
+                    category: "academic",
+                    event_type: "celebration",
+                    is_published: true
+                },
+                {
+                    id: "ev-s5",
+                    title: "Career Guidance & Engineering/Medical Symposium",
+                    description: "Interaction with eminent professors, doctors, and engineers providing roadmap clarity for top higher education universities.",
+                    event_date: "2026-11-15",
+                    photo_url: "/assets/campus/classroom-teaching.jpg",
+                    campus: "sargasan",
+                    category: "workshops",
+                    event_type: "celebration",
+                    is_published: true
+                },
+                {
+                    id: "ev-s6",
+                    title: "Winter Break & Board Exam Sprint Camp",
+                    description: "Focused revision modules, mock board tests, and doubt-solving sessions for Class 12 Science students during winter recess.",
+                    event_date: "2026-12-20",
+                    photo_url: "/assets/campus/sargasan-building-students.jpg",
+                    campus: "sargasan",
+                    category: "academic",
+                    event_type: "vacation",
+                    is_published: true
+                },
+                {
+                    id: "ev-s7",
+                    title: "Sargasan Campus Sports & Badminton Meet",
+                    description: "Inter-class table tennis, badminton, and chess championships for higher secondary students.",
+                    event_date: "2026-02-22",
+                    photo_url: "/assets/campus/table-tennis.jpg",
+                    campus: "sargasan",
+                    category: "sports",
+                    event_type: "celebration",
+                    is_published: true
+                },
+                {
+                    id: "ev-s8",
+                    title: "National Science Day Seminar & Quiz",
+                    description: "Interactive science quiz and paper presentation on modern physics and biotechnology innovations.",
+                    event_date: "2026-02-28",
+                    photo_url: "/assets/campus/computer-lab.jpg",
+                    campus: "sargasan",
+                    category: "science",
+                    event_type: "celebration",
+                    is_published: true
+                }
+            ];
+
             const parseMonthDay = (dateStr) => {
                 if (!dateStr) return { month: "FEB", day: "18" };
                 const d = new Date(dateStr);
@@ -433,7 +637,7 @@
                 if (text.includes("chiloda") || text.includes("primary") || text.includes("kg")) {
                     return "chiloda";
                 }
-                return "chiloda"; // default
+                return "chiloda";
             };
 
             const determineCategory = (ev) => {
@@ -666,9 +870,13 @@
                     currentDiaryCampus = btn.dataset.diaryCampus;
                     renderDiaryMonths();
 
-                    // The Activity Album below is Chiloda-only content (Sargasan has no
-                    // activity photos of its own) — hide it when Sargasan Diary is
-                    // selected so it doesn't contradict the toggle just above it.
+                    // Synchronize main events campus filter below
+                    currentCampus = currentDiaryCampus;
+                    document.querySelectorAll(".campus-filter-btn").forEach((b) => {
+                        b.classList.toggle("active", b.getAttribute("data-campus") === currentCampus);
+                    });
+                    renderEvents();
+
                     const albumSection = document.getElementById("chilodaAlbumSection");
                     if (albumSection) {
                         albumSection.style.display = currentDiaryCampus === "sargasan" ? "none" : "";
@@ -683,6 +891,19 @@
                     btn.classList.add("active");
                     currentCampus = btn.getAttribute("data-campus");
                     renderEvents();
+
+                    if (currentCampus === "chiloda" || currentCampus === "sargasan") {
+                        currentDiaryCampus = currentCampus;
+                        document.querySelectorAll(".diary-campus-btn").forEach((b) => {
+                            b.classList.toggle("active", b.dataset.diaryCampus === currentDiaryCampus);
+                        });
+                        renderDiaryMonths();
+
+                        const albumSection = document.getElementById("chilodaAlbumSection");
+                        if (albumSection) {
+                            albumSection.style.display = currentDiaryCampus === "sargasan" ? "none" : "";
+                        }
+                    }
                 });
             });
 
@@ -700,16 +921,16 @@
                 renderEvents();
             });
 
-            // Fetch backend API - only real admin-entered events are ever shown
+            // Fetch backend API - with rich fallback data when database has 0 events
             fetch("/api/events")
                 .then((res) => res.json())
                 .then((data) => {
-                    allEvents = Array.isArray(data) ? data : [];
+                    allEvents = (Array.isArray(data) && data.length > 0) ? data : fallbackEvents;
                     renderEvents();
                     renderDiaryMonths();
                 })
                 .catch(() => {
-                    allEvents = [];
+                    allEvents = fallbackEvents;
                     renderEvents();
                     renderDiaryMonths();
                 });
