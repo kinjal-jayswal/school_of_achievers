@@ -665,6 +665,14 @@
                     btn.classList.add("active");
                     currentDiaryCampus = btn.dataset.diaryCampus;
                     renderDiaryMonths();
+
+                    // The Activity Album below is Chiloda-only content (Sargasan has no
+                    // activity photos of its own) — hide it when Sargasan Diary is
+                    // selected so it doesn't contradict the toggle just above it.
+                    const albumSection = document.getElementById("chilodaAlbumSection");
+                    if (albumSection) {
+                        albumSection.style.display = currentDiaryCampus === "sargasan" ? "none" : "";
+                    }
                 });
             });
 
