@@ -1361,8 +1361,8 @@ html[data-theme="dark"] .trustees-carousel-btn {
                 background-color 0.4s ease,
                 opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: var(--shadow-sm);
-    opacity: 0;
-    transform: translateY(36px) scale(0.94);
+    opacity: 1;
+    transform: translateY(0) scale(1);
 }
 
 .trustee-card.revealed {

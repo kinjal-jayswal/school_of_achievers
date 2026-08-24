@@ -217,11 +217,13 @@ document.addEventListener("DOMContentLoaded", () => {
         let itemsPerPage = getItemsPerPage();
 
         // Staggered reveal observer
+        const revealAllCards = () => {
+            trusteesCarousel.querySelectorAll(".trustee-card").forEach((card) => card.classList.add("revealed"));
+        };
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    const allCards = trusteesCarousel.querySelectorAll(".trustee-card");
-                    allCards.forEach((card) => card.classList.add("revealed"));
+                    revealAllCards();
                     observer.disconnect();
                 }
             });
@@ -264,6 +266,27 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         setupClones();
+
+        // Fallback for arriving via a #trustees deep link: the browser animates a native
+        // smooth scroll to the section (scroll-behavior: smooth) that finishes well after
+        // this script runs, and — at least in Chromium — the IntersectionObserver's very
+        // first callback reports "not visible yet" and then never fires again for the rest
+        // of that scroll, leaving every original card stuck at opacity 0 forever. Poll on
+        // scroll instead so cards get revealed the moment the section is actually in view,
+        // however it got there.
+        const checkAndRevealIfVisible = () => {
+            const rect = trusteesCarousel.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                revealAllCards();
+                revealObserver.disconnect();
+                window.removeEventListener("scroll", checkAndRevealIfVisible);
+                return true;
+            }
+            return false;
+        };
+        if (!checkAndRevealIfVisible()) {
+            window.addEventListener("scroll", checkAndRevealIfVisible, { passive: true });
+        }
 
         // Setup dots (one dot per original card)
         trusteesDots.innerHTML = "";
