@@ -396,13 +396,39 @@
                     // Final Submit
                     nextBtn.textContent = "Submitting...";
                     nextBtn.disabled = true;
-                    setTimeout(() => {
-                        alert("Admissions enquiry submitted successfully! Our counselors will contact you within 24 hours.");
+
+                    const studentName = document.getElementById("student-name") ? document.getElementById("student-name").value : "";
+                    const studentGrade = document.getElementById("student-standard") ? document.getElementById("student-standard").value : "";
+                    const fatherName = document.getElementById("parent-father") ? document.getElementById("parent-father").value : "";
+                    const phone = document.getElementById("parent-tel") ? document.getElementById("parent-tel").value : "";
+                    const email = document.getElementById("parent-email") ? document.getElementById("parent-email").value : "";
+                    const campus = document.getElementById("pref-branch") ? document.getElementById("pref-branch").value : "";
+                    const address = document.getElementById("parent-address") ? document.getElementById("parent-address").value : "";
+
+                    fetch("/api/enquiries", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            parent_name: fatherName || studentName,
+                            email: email,
+                            phone: phone,
+                            campus: campus || "chiloda",
+                            message: `[Student: ${studentName}, Grade: ${studentGrade}] Address: ${address}`
+                        })
+                    })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        alert(data.message || "Admissions enquiry submitted successfully! Our counselors will contact you within 24 hours.");
                         form.reset();
                         currentStep = 1;
                         updateFormSteps();
+                    })
+                    .catch(() => {
+                        alert("Network error. Please try submitting again.");
+                    })
+                    .finally(() => {
                         nextBtn.disabled = false;
-                    }, 1500);
+                    });
                 }
             });
 

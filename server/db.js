@@ -38,6 +38,19 @@ async function initSchema() {
         );
     `);
 
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS enquiries (
+            id SERIAL PRIMARY KEY,
+            parent_name TEXT NOT NULL,
+            email TEXT,
+            phone TEXT NOT NULL,
+            campus TEXT NOT NULL,
+            message TEXT,
+            status TEXT DEFAULT 'pending',
+            created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        );
+    `);
+
     // School Diary support: classify events (holiday/vacation/celebration) and
     // allow a date range for multi-day spans like vacations.
     await pool.query(`ALTER TABLE events ADD COLUMN IF NOT EXISTS event_type TEXT DEFAULT 'celebration';`);

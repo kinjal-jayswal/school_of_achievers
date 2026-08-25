@@ -474,22 +474,47 @@ document.addEventListener("DOMContentLoaded", () => {
     // Contact/Admissions Form Interactive Submission
     const contactForm = document.getElementById("admissions-form");
     if (contactForm) {
-        contactForm.addEventListener("submit", (e) => {
+        contactForm.addEventListener("submit", async (e) => {
             e.preventDefault();
             
-            // Simple visual response
             const submitBtn = contactForm.querySelector("button[type='submit']");
             const originalText = submitBtn.textContent;
-            submitBtn.textContent = "Submitting Enquire...";
+            submitBtn.textContent = "Submitting Enquiry...";
             submitBtn.disabled = true;
 
-            setTimeout(() => {
-                // Success feedback pop
-                alert("Thank you for your interest! Our Admissions Office will contact you shortly.");
-                contactForm.reset();
+            const parentNameInput = document.getElementById("enquiry-parent-name");
+            const emailInput = document.getElementById("enquiry-email");
+            const phoneInput = document.getElementById("enquiry-phone");
+            const campusSelect = document.getElementById("enquiry-campus");
+            const messageInput = document.getElementById("enquiry-message");
+
+            const payload = {
+                parent_name: parentNameInput ? parentNameInput.value : "",
+                email: emailInput ? emailInput.value : "",
+                phone: phoneInput ? phoneInput.value : "",
+                campus: campusSelect ? campusSelect.value : "",
+                message: messageInput ? messageInput.value : ""
+            };
+
+            try {
+                const res = await fetch("/api/enquiries", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert(data.message || "Thank you for your enquiry! Our Admissions Office will contact you shortly.");
+                    contactForm.reset();
+                } else {
+                    alert(data.error || "Submission failed. Please check your inputs and try again.");
+                }
+            } catch (err) {
+                alert("Network error. Please try again or call our Admissions Helpline directly.");
+            } finally {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
-            }, 1200);
+            }
         });
     }
 

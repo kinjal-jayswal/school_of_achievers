@@ -9,6 +9,7 @@ const { pool, initSchema } = require("./db");
 const { router: authRouter } = require("./auth");
 const eventsRouter = require("./routes/events");
 const resultsRouter = require("./routes/results");
+const enquiriesRouter = require("./routes/enquiries");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -37,6 +38,7 @@ app.use(
 app.use("/api/admin", authRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/results", resultsRouter);
+app.use("/api/enquiries", enquiriesRouter);
 
 // Admin panel: served directly as static files, not part of the Vite build.
 app.use("/admin", express.static(path.join(__dirname, "..", "admin")));

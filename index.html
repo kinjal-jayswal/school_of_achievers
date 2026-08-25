@@ -573,19 +573,19 @@
                     <form id="admissions-form">
                         <div class="form-grid">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Parent Full Name" required>
+                                <input type="text" class="form-control" id="enquiry-parent-name" placeholder="Parent Full Name" required>
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Email Address" required>
+                                <input type="email" class="form-control" id="enquiry-email" placeholder="Email Address" required>
                             </div>
                         </div>
 
                         <div class="form-grid" style="margin-top: 1.5rem;">
                             <div class="form-group">
-                                <input type="tel" class="form-control" placeholder="Contact Mobile Number" required>
+                                <input type="tel" class="form-control" id="enquiry-phone" placeholder="Contact Mobile Number" required>
                             </div>
                             <div class="form-group">
-                                <select class="form-control" required>
+                                <select class="form-control" id="enquiry-campus" required>
                                     <option value="" disabled selected>Select Campus of Interest</option>
                                     <option value="chiloda">Chiloda Campus (KG - Std 10)</option>
                                     <option value="sargasan">Sargasan Campus (Std 11 & 12 Science)</option>
@@ -594,7 +594,7 @@
                         </div>
 
                         <div class="form-group" style="margin-top: 1.5rem; margin-bottom: 2rem;">
-                            <textarea class="form-control" placeholder="Additional details or questions regarding the student..."></textarea>
+                            <textarea class="form-control" id="enquiry-message" placeholder="Additional details or questions regarding the student..."></textarea>
                         </div>
 
                         <button type="submit" class="cta-btn">Submit Enquiry</button>
@@ -610,18 +610,22 @@
                         </div>
                         <ul class="info-list">
                             <li class="info-item">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <div>
-                                    <strong>Sargasan Branch (11-12 Sci)</strong>
-                                    Plot No. 472, Nr. Kh-0, Sargasan, Gandhinagar, Gujarat.
-                                </div>
+                                <a href="https://maps.google.com/?q=Sahjanand+School+of+Achievers+Sargasan+Gandhinagar+Gujarat" target="_blank" rel="noopener noreferrer" class="location-link" title="Click to view Sargasan Branch on Google Maps">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <div>
+                                        <strong>Sargasan Branch (11-12 Sci) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; margin-left: 0.25rem; opacity: 0.7;"></i></strong>
+                                        Plot No. 472, Nr. Kh-0, Sargasan, Gandhinagar, Gujarat.
+                                    </div>
+                                </a>
                             </li>
                             <li class="info-item">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <div>
-                                    <strong>Chiloda Branch (KG to 10th)</strong>
-                                    B/h Essar Petrol Pump, Chiloda Himmatnagar Highway, Shiholi Moti, Chiloda, Gujarat.
-                                </div>
+                                <a href="https://maps.google.com/?q=Sahjanand+School+of+Achievers+Chiloda+Gandhinagar+Gujarat" target="_blank" rel="noopener noreferrer" class="location-link" title="Click to view Chiloda Branch on Google Maps">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <div>
+                                        <strong>Chiloda Branch (KG to 10th) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; margin-left: 0.25rem; opacity: 0.7;"></i></strong>
+                                        B/h Essar Petrol Pump, Chiloda Himmatnagar Highway, Shiholi Moti, Chiloda, Gujarat.
+                                    </div>
+                                </a>
                             </li>
                             <li class="info-item">
                                 <i class="fa-solid fa-phone"></i>
@@ -635,7 +639,6 @@
 
                     <div>
                         <ul class="footer-links">
-                            <li><a href="https://play.google.com/store/apps/details?id=com.imaker.ssoa" target="_blank"><i class="fa-brands fa-android"></i> Download Android App</a></li>
                             <li><a href="#about"><i class="fa-solid fa-arrow-right"></i> Our Vision & Mission</a></li>
                         </ul>
                     </div>
